@@ -1,0 +1,3008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Hood iQ — New York Rap Exchange | Live Quotron</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;600;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#080f1c;--bg2:#0d1626;--panel-bg:#0a1428;
+  --border:rgba(26,111,212,0.18);--border2:rgba(26,111,212,0.07);
+  --text-primary:#c8d8e8;--text-dim:#6a8aaa;--text-bright:#e8f4ff;
+  --blue-chip:#1a6fd4;--value:#00994d;--emerging:#d47a00;--speculative:#cc2200;
+  --amber:#D4A017;--amber-dim:#a07010;--cyan:#00d4ff;--green:#64dc96;--red:#e05555;
+  --font-mono:'Share Tech Mono',monospace;--font-orb:'Orbitron',monospace;--font-beb:'Bebas Neue',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text-primary);font-family:var(--font-mono);font-size:11px;overflow-x:hidden;}
+.ticker-wrap{position:sticky;top:0;z-index:1000;height:24px;background:#060d18;border-bottom:2px solid var(--amber);display:flex;align-items:center;overflow:hidden;}
+.ticker-inner{display:flex;white-space:nowrap;animation:tick 90s linear infinite;}
+.ticker-inner:hover{animation-play-state:paused;}
+@keyframes tick{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+.ti{padding:0 16px;font-size:9px;color:var(--text-dim);border-right:1px solid rgba(26,111,212,0.12);}
+.ti .s{font-family:var(--font-orb);color:var(--text-bright);}.ti.up .p{color:var(--green);}.ti.dn .p{color:var(--red);}.ti .p{color:var(--amber);}
+.header{display:flex;align-items:center;padding:10px 16px 8px;border-bottom:1px solid var(--border);background:var(--bg2);gap:0;}
+.hood-iq-logo{font-family:var(--font-beb);font-size:38px;color:var(--blue-chip);letter-spacing:6px;line-height:1;text-shadow:0 0 20px rgba(26,111,212,0.35);}
+.hood-iq-logo .iq{color:var(--blue-chip);font-family:var(--font-orb);font-size:34px;font-weight:900;letter-spacing:4px;}
+.brand-divider{width:1px;height:28px;background:var(--border);margin:0 14px;}
+.nyre-sub{display:flex;flex-direction:column;}
+.nyre-name{font-family:var(--font-orb);font-size:7px;letter-spacing:3px;color:var(--text-dim);}
+.nyre-tag{font-size:7px;color:rgba(100,220,150,0.6);letter-spacing:1.5px;}
+.header-right{margin-left:auto;display:flex;align-items:center;gap:12px;}
+.search-wrap{position:relative;}
+#searchInput{background:rgba(26,111,212,0.08);border:1px solid var(--border);color:var(--text-primary);font-family:var(--font-mono);font-size:9px;padding:4px 28px 4px 10px;width:180px;outline:none;border-radius:2px;}
+#searchInput:focus{border-color:var(--blue-chip);}
+.search-icon{position:absolute;right:8px;top:50%;transform:translateY(-50%);color:var(--text-dim);font-size:10px;pointer-events:none;}
+#searchResults{position:absolute;top:100%;left:0;right:0;background:#0a1428;border:1px solid var(--border);z-index:200;max-height:260px;overflow-y:auto;display:none;}
+.sr-item{padding:7px 10px;cursor:pointer;border-bottom:1px solid var(--border2);display:grid;grid-template-columns:60px 1fr 70px;gap:8px;align-items:center;}
+.sr-item:hover{background:rgba(26,111,212,0.12);}
+.sr-sym{font-family:var(--font-orb);font-size:9px;color:var(--amber);}
+.sr-name{font-size:8px;color:var(--text-dim);}
+.sr-price{font-size:9px;color:var(--text-bright);text-align:right;}
+.live-time{font-family:var(--font-orb);font-size:8px;color:var(--text-dim);letter-spacing:2px;}
+#liveTime{color:var(--amber);}
+.layout{display:grid;grid-template-columns:1fr 1fr 320px;min-height:calc(100vh - 80px);}
+.quote-col{border-right:1px solid var(--border);display:flex;flex-direction:column;}
+.quote-hero{padding:14px 16px 10px;border-bottom:1px solid var(--border);}
+.q-sym{font-family:var(--font-beb);font-size:42px;letter-spacing:4px;color:var(--text-bright);line-height:1;}
+.q-name{font-size:9px;color:var(--text-dim);letter-spacing:1px;margin-bottom:8px;}
+.q-price-row{display:flex;align-items:baseline;gap:10px;}
+.q-price{font-family:var(--font-orb);font-size:26px;font-weight:700;color:var(--amber);}
+.q-change{font-size:10px;letter-spacing:0.5px;}.q-change.up{color:var(--green);}.q-change.dn{color:var(--red);}
+@keyframes flash-up{0%,100%{background:transparent;}50%{background:rgba(100,220,150,0.15);}}
+@keyframes flash-dn{0%,100%{background:transparent;}50%{background:rgba(224,85,85,0.15);}}
+.flash-up{animation:flash-up 0.4s;}.flash-dn{animation:flash-dn 0.4s;}
+.tier-badge{display:inline-block;font-family:var(--font-orb);font-size:7px;letter-spacing:2px;padding:2px 7px;border-radius:2px;margin-left:8px;}
+.tier-bc{background:rgba(26,111,212,0.15);color:var(--blue-chip);border:1px solid rgba(26,111,212,0.3);}
+.tier-val{background:rgba(0,153,77,0.12);color:var(--value);border:1px solid rgba(0,153,77,0.3);}
+.tier-em{background:rgba(212,122,0,0.12);color:var(--emerging);border:1px solid rgba(212,122,0,0.3);}
+.tier-sp{background:rgba(204,34,0,0.12);color:var(--speculative);border:1px solid rgba(204,34,0,0.3);}
+.stats-strip{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--border);}
+.stat-cell{padding:6px 10px;border-right:1px solid var(--border);}
+.stat-cell:last-child{border-right:none;}
+.stat-label{font-size:7px;color:var(--text-dim);letter-spacing:1.5px;margin-bottom:2px;}
+.stat-val{font-family:var(--font-orb);font-size:10px;color:var(--text-bright);}
+.chart-wrap{position:relative;padding:8px;border-bottom:1px solid var(--border);}
+.chart-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+.chart-label{font-family:var(--font-orb);font-size:8px;letter-spacing:2px;color:var(--text-dim);}
+.tabs{display:flex;gap:2px;}
+.tab{font-size:8px;padding:2px 8px;background:var(--bg2);border:1px solid var(--border);color:var(--text-dim);cursor:pointer;letter-spacing:1px;transition:all .15s;font-family:var(--font-orb);}
+.tab.active{background:var(--amber);color:#000;border-color:var(--amber);font-weight:bold;}
+.tab:hover:not(.active){border-color:var(--amber-dim);color:var(--amber);}
+#priceHoloWrap{position:relative;width:100%;height:240px;background:#f8fafc;overflow:hidden;border:1px solid rgba(26,111,212,0.25);}
+#priceHoloCanvas{display:block;width:100%;height:100%;}
+#priceHoloBadge{position:absolute;top:8px;left:50%;transform:translateX(-50%);font-family:var(--font-orb);font-size:7px;letter-spacing:2px;color:rgba(26,111,212,0.85);pointer-events:none;z-index:4;white-space:nowrap;}
+#priceHoloReadout{position:absolute;bottom:8px;right:12px;font-family:var(--font-mono);font-size:9px;color:rgba(26,80,160,0.9);pointer-events:none;z-index:4;}
+#priceChart{display:none;}
+#metricsHoloWrap{display:none;position:relative;width:100%;height:240px;background:#020912;overflow:hidden;border:1px solid rgba(0,212,255,0.15);}
+#metricsHoloCanvas{display:block;width:100%;height:100%;}
+#metricsHoloReadout{position:absolute;bottom:7px;left:50%;transform:translateX(-50%);font-family:var(--font-mono);font-size:8px;letter-spacing:1.5px;color:rgba(0,212,255,0.7);pointer-events:none;z-index:4;white-space:nowrap;}
+.metric-tooltip{margin-top:8px;padding:10px 14px;background:var(--panel-bg);border:1px solid var(--border);border-radius:4px;display:none;min-height:48px;}
+.tooltip-metric-name{font-family:var(--font-orb);font-size:10px;font-weight:700;color:var(--amber);letter-spacing:1.5px;margin-bottom:5px;}
+.tooltip-description{font-size:9px;line-height:1.5;color:var(--text-primary);}
+.evins-panel{border-bottom:1px solid var(--border);}
+.evins-header{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-bottom:1px solid var(--border);background:var(--bg2);}
+.evins-title{font-family:var(--font-orb);font-size:9px;font-weight:700;letter-spacing:3px;color:var(--amber);}
+.evins-tm{font-size:7px;vertical-align:super;}
+.evins-subtitle{font-size:7px;color:var(--text-dim);letter-spacing:1.5px;display:block;}
+.evins-idx-val{font-family:var(--font-orb);font-size:13px;color:var(--amber);font-weight:700;}
+.evins-idx-chg{font-size:9px;margin-left:4px;}.evins-idx-chg.up{color:var(--green);}.evins-idx-chg.dn{color:var(--red);}
+.ev-sort-btns{display:flex;align-items:center;gap:3px;}
+.ev-sort-lbl{font-size:7px;color:var(--text-dim);letter-spacing:1px;margin-right:2px;}
+.ev-sort-btn{background:none;border:1px solid var(--border);color:var(--text-dim);font-family:var(--font-mono);font-size:7px;padding:1px 5px;cursor:pointer;}
+.ev-sort-btn.active{background:rgba(212,160,23,0.15);border-color:var(--amber);color:var(--amber);}
+.ev-col-head{display:grid;grid-template-columns:24px 28px 1fr 52px 38px 38px 38px 38px 60px;gap:2px;padding:4px 8px;border-bottom:1px solid var(--border);background:rgba(26,111,212,0.05);}
+.ev-ch{font-family:var(--font-orb);font-size:6.5px;letter-spacing:1.5px;color:var(--text-dim);text-align:right;}
+.ev-row{display:grid;grid-template-columns:24px 28px 1fr 52px 38px 38px 38px 38px 60px;gap:2px;padding:5px 8px;border-bottom:1px solid var(--border2);align-items:center;cursor:pointer;transition:background .1s;}
+.ev-row:hover{background:rgba(26,111,212,0.08);}
+.ev-rank{font-family:var(--font-orb);font-size:7px;color:var(--text-dim);text-align:center;}
+.ev-mv{font-size:8px;text-align:center;}
+.ev-name{font-size:8.5px;color:var(--text-bright);}
+.ev-evins{font-family:var(--font-orb);font-size:10px;color:var(--amber);font-weight:700;text-align:right;}
+.ev-score{font-size:9px;text-align:right;color:var(--cyan);}
+.ev-sig{font-family:var(--font-orb);font-size:7px;text-align:right;letter-spacing:0.5px;}
+.ev-sig.strong-buy{color:var(--amber);}.ev-sig.buy{color:var(--green);}.ev-sig.hold{color:var(--cyan);}.ev-sig.risk{color:var(--red);}
+.ev-pagination{display:flex;align-items:center;justify-content:space-between;padding:5px 10px;border-top:1px solid var(--border);background:var(--bg2);}
+.ev-page-info{font-size:7px;color:var(--text-dim);letter-spacing:1px;}
+.ev-page-btns{display:flex;gap:3px;}
+.ev-page-btn{background:none;border:1px solid var(--border);color:var(--text-dim);font-family:var(--font-mono);font-size:7px;padding:2px 7px;cursor:pointer;}
+.ev-page-btn.active{background:rgba(212,160,23,0.15);border-color:var(--amber);color:var(--amber);}
+.panel-section{border-bottom:1px solid var(--border);}
+.panel-head{display:flex;align-items:center;justify-content:space-between;padding:7px 12px;background:var(--bg2);border-bottom:1px solid var(--border);}
+.ph-title{font-family:var(--font-orb);font-size:7.5px;letter-spacing:2px;color:var(--text-dim);}
+.ph-val{font-family:var(--font-orb);font-size:10px;color:var(--amber);}
+#alphaMetrics{padding:8px 10px;}
+.board-col{border-right:1px solid var(--border);display:flex;flex-direction:column;}
+.board-section{border-bottom:1px solid var(--border);}
+.board-header{display:flex;align-items:center;justify-content:space-between;padding:7px 12px;background:var(--bg2);border-bottom:1px solid var(--border);}
+.bh-title{font-family:var(--font-orb);font-size:8px;letter-spacing:2px;font-weight:700;color:var(--text-bright);}
+.bh-dot{width:7px;height:7px;border-radius:50%;display:inline-block;margin-left:4px;}
+.bh-dot.bc{background:var(--blue-chip);box-shadow:0 0 4px var(--blue-chip);}
+.bh-dot.val{background:var(--value);box-shadow:0 0 4px var(--value);}
+.bh-dot.em{background:var(--emerging);box-shadow:0 0 4px var(--emerging);}
+.bh-dot.sp{background:var(--speculative);box-shadow:0 0 4px var(--speculative);}
+.board-row{display:grid;grid-template-columns:58px 1fr 72px 52px 44px;gap:4px;padding:6px 10px;border-bottom:1px solid var(--border2);cursor:pointer;align-items:center;transition:background .1s;}
+.board-row:hover{background:rgba(26,111,212,0.08);}
+.board-row.deceased{opacity:0.6;}.board-row.incarcerated{background:rgba(200,40,40,0.06);border-left:2px solid rgba(200,40,40,0.4);}
+.br-sym{font-family:var(--font-orb);font-size:9px;font-weight:700;color:var(--amber);}
+.br-name{font-size:8px;color:var(--text-dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.br-price{font-family:var(--font-orb);font-size:10px;text-align:right;color:var(--text-bright);}
+.br-chg{font-size:8px;text-align:right;}.br-chg.up{color:var(--green);}.br-chg.dn{color:var(--red);}
+.br-sig{font-family:var(--font-orb);font-size:6.5px;text-align:right;letter-spacing:0.5px;}
+.rip-badge{font-size:6px;color:var(--amber);opacity:0.7;margin-left:3px;}
+.locked-badge{font-size:6px;color:var(--red);margin-left:3px;}
+.right-col{display:flex;flex-direction:column;}
+.order-book{border-bottom:1px solid var(--border);}
+.ob-head{display:flex;align-items:center;justify-content:space-between;padding:7px 12px;background:var(--bg2);border-bottom:1px solid var(--border);}
+.ob-title{font-family:var(--font-orb);font-size:7.5px;letter-spacing:2px;color:var(--text-dim);}
+.ob-cols{display:grid;grid-template-columns:1fr 60px 60px;gap:0;padding:3px 8px;border-bottom:1px solid var(--border);background:rgba(26,111,212,0.04);}
+.ob-col-lbl{font-family:var(--font-orb);font-size:6px;letter-spacing:1.5px;color:var(--text-dim);text-align:right;}
+.ob-col-lbl:first-child{text-align:left;}
+.ob-row{display:grid;grid-template-columns:1fr 60px 60px;gap:0;padding:3px 8px;border-bottom:1px solid var(--border2);position:relative;overflow:hidden;}
+.ob-size{font-size:8px;color:var(--text-dim);}
+.ob-price{font-family:var(--font-orb);font-size:9px;text-align:right;}
+.ob-price.ask{color:var(--red);}.ob-price.bid{color:var(--green);}
+.ob-total{font-size:8px;color:var(--text-dim);text-align:right;}
+#spreadLine{padding:3px 8px;text-align:center;font-family:var(--font-orb);font-size:8px;color:var(--amber);border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(212,160,23,0.05);}
+.right-panel{border-bottom:1px solid var(--border);}
+.rp-head{padding:6px 10px;background:var(--bg2);border-bottom:1px solid var(--border);}
+.rp-title{font-family:var(--font-orb);font-size:7px;letter-spacing:2px;color:var(--text-dim);}
+.rp-body{padding:8px 10px;}
+#laura-unit{position:relative;width:100%;z-index:10;border-bottom:1px solid var(--border);}
+.hoodiq-news-btn{pointer-events:all;position:relative;display:flex;align-items:center;gap:0;cursor:pointer;user-select:none;width:100%;height:28px;border-top:2px solid #1a6fd4;border-bottom:1px solid rgba(26,111,212,0.35);background:linear-gradient(90deg,#0a1a35 0%,#1a3d70 50%,#0a1a35 100%);transition:background 0.2s;box-shadow:0 4px 16px rgba(26,111,212,0.25);}
+.hoodiq-news-btn:hover{background:linear-gradient(90deg,#0d2040 0%,#1e4880 50%,#0d2040 100%);}
+.hiq-btn-pill{flex-shrink:0;display:flex;align-items:center;gap:0;padding:0 8px 0 10px;height:100%;border-right:1px solid rgba(26,111,212,0.3);}
+.hiq-pill-hoodiq{font-family:var(--font-beb);font-size:13px;letter-spacing:2px;color:#fff;line-height:1;}
+.hiq-pill-sep{width:1px;height:12px;background:rgba(255,255,255,0.2);margin:0 5px;}
+.hiq-pill-desk{font-family:var(--font-orb);font-size:8px;letter-spacing:1.5px;color:rgba(255,255,255,0.8);}
+.hiq-live-dot{width:5px;height:5px;border-radius:50%;background:var(--green);margin-left:5px;animation:hiq-pulse 1.4s ease-in-out infinite;flex-shrink:0;}
+@keyframes hiq-pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.hiq-identity{display:flex;flex-direction:column;justify-content:center;padding:0 8px;border-right:1px solid rgba(26,111,212,0.3);flex-shrink:0;}
+.hiq-id-name{font-family:var(--font-orb);font-size:7px;letter-spacing:2px;color:var(--amber);}
+.hiq-id-role{font-family:var(--font-mono);font-size:6.5px;color:var(--text-dim);}
+.hiq-preview{flex:1;overflow:hidden;padding:0 8px;display:flex;align-items:center;}
+.hiq-preview-text{font-size:9px;color:rgba(200,220,240,0.7);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.hiq-chevron{margin-right:8px;font-size:9px;color:rgba(255,255,255,0.5);transition:transform 0.2s;flex-shrink:0;}
+.hiq-chevron.open{transform:rotate(180deg);}
+.hiq-news-panel{position:absolute;left:0;right:0;top:100%;z-index:500;max-height:0;overflow:hidden;transition:max-height 0.3s ease;background:var(--panel-bg);border-bottom:1px solid var(--border);}
+.hiq-news-panel.open{max-height:520px;}
+.hiq-tab-strip{display:flex;border-bottom:1px solid var(--border);}
+.hiq-tab{flex:1;text-align:center;padding:6px 0;font-family:var(--font-orb);font-size:7.5px;letter-spacing:1.5px;color:var(--text-dim);cursor:pointer;border-right:1px solid var(--border);}
+.hiq-tab:last-child{border-right:none;}
+.hiq-tab.active,.hiq-tab.laura-tab.active{color:var(--amber);border-bottom:2px solid var(--amber);background:rgba(212,160,23,0.06);}
+.hiq-pane{display:none;overflow-y:auto;max-height:460px;}
+.hiq-pane.active{display:block;}
+.hiq-news-item{padding:8px 12px;border-bottom:1px solid var(--border2);cursor:pointer;}
+.hiq-news-item:hover{background:rgba(26,111,212,0.06);}
+.hiq-ni-head{display:flex;align-items:center;gap:6px;margin-bottom:3px;}
+.hiq-ni-tag{font-family:var(--font-orb);font-size:6px;letter-spacing:1.5px;padding:1px 5px;border-radius:1px;background:rgba(212,160,23,0.15);color:var(--amber);}
+.hiq-ni-time{font-size:7px;color:var(--text-dim);}
+.hiq-ni-title{font-size:9px;color:var(--text-bright);line-height:1.4;}
+.hiq-ni-src{font-size:7px;color:var(--text-dim);margin-top:2px;}
+#paneLaura{overflow:hidden;}
+.laura-tray-header{display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:var(--bg2);border-bottom:1px solid var(--border);}
+.laura-tray-mode{font-family:var(--font-orb);font-size:7px;letter-spacing:2px;color:var(--text-dim);}
+.laura-tray-mode.broadcast{color:var(--amber);}
+.laura-tray-mode.ai-live{color:var(--cyan);animation:hiq-pulse 1.2s ease-in-out infinite;}
+.laura-tray-controls{display:flex;gap:4px;}
+.laura-tray-btn{background:none;border:1px solid var(--border);color:var(--text-dim);font-size:10px;width:20px;height:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.laura-tray-btn:hover{border-color:var(--amber);color:var(--amber);}
+#lauraSphereWrap{position:relative;width:100%;height:340px;background:#020916;overflow:hidden;}
+#lauraSphereCanvas{display:block;width:100%;height:100%;}
+.laura-tray-text-wrap{padding:8px 12px 10px;}
+#lauraTrayText{font-size:9px;line-height:1.6;color:var(--text-primary);min-height:32px;}
+.laura-progress{display:flex;gap:3px;padding:4px 12px 8px;flex-wrap:wrap;}
+.lp-dot{width:6px;height:6px;border-radius:50%;background:rgba(212,160,23,0.2);border:1px solid rgba(212,160,23,0.3);transition:all .2s;cursor:pointer;}
+.lp-dot.active{background:var(--amber);border-color:var(--amber);}
+.lp-dot.done{background:rgba(212,160,23,0.5);border-color:rgba(212,160,23,0.5);}
+canvas{width:100%;display:block;}
+.lt-dot{width:7px;height:7px;background:var(--cyan);border-radius:50%;animation:hiq-pulse 1.1s ease-in-out infinite;display:inline-block;}
+.lt-dot:nth-child(2){animation-delay:0.18s;}.lt-dot:nth-child(3){animation-delay:0.36s;}
+.laura-thinking{display:inline-flex;gap:6px;align-items:center;padding:8px 0;}
+.resume-broadcast-btn{background:none;border:1px solid var(--amber);color:var(--amber);font-family:var(--font-mono);font-size:8px;padding:3px 10px;cursor:pointer;border-radius:3px;}
+/* Laura Insight Panel */
+#laura-insight-panel{position:fixed;bottom:18px;right:18px;width:300px;background:linear-gradient(160deg,rgba(8,12,24,0.97) 0%,rgba(14,20,38,0.97) 100%);border:1px solid rgba(212,160,23,0.4);border-radius:14px;box-shadow:0 16px 48px rgba(0,0,0,0.55);z-index:99999;font-family:var(--font-mono);overflow:hidden;display:none;}
+.lip-header{display:flex;align-items:center;gap:6px;padding:8px 12px;background:rgba(0,0,0,0.3);border-bottom:1px solid rgba(212,160,23,0.15);}
+.lip-dot{width:7px;height:7px;border-radius:50%;background:var(--amber);animation:hiq-pulse 1.2s ease-in-out infinite;}
+.lip-title{font-family:var(--font-orb);font-size:8px;letter-spacing:2px;color:var(--amber);flex:1;}
+.lip-controls{display:flex;gap:4px;}
+.lip-btn{background:none;border:1px solid rgba(212,160,23,0.3);color:var(--text-dim);font-family:var(--font-mono);font-size:8px;padding:2px 7px;cursor:pointer;border-radius:3px;}
+.lip-btn:hover{border-color:var(--amber);color:var(--amber);}
+.lip-artist{padding:7px 14px;font-family:var(--font-orb);font-size:9px;color:var(--text-bright);border-bottom:1px solid rgba(212,160,23,0.12);}
+.lip-birth-name{font-family:var(--font-mono);font-size:8px;color:var(--text-dim);}
+.lip-tier-badge{font-family:var(--font-orb);font-size:7px;padding:1px 5px;border-radius:2px;margin-left:4px;}
+.lip-tier-bc{background:rgba(26,111,212,0.15);color:var(--blue-chip);}
+.lip-tier-val{background:rgba(0,153,77,0.12);color:var(--value);}
+.lip-tier-em{background:rgba(212,122,0,0.12);color:var(--emerging);}
+.lip-tier-sp{background:rgba(204,34,0,0.12);color:var(--speculative);}
+.lip-text{padding:10px 14px;font-size:9px;line-height:1.6;color:#1a2332;min-height:40px;}
+.lip-cursor{display:inline-block;width:2px;height:12px;background:var(--amber);animation:hiq-pulse 0.7s step-end infinite;vertical-align:middle;margin-left:2px;}
+.lip-idle{color:var(--text-dim);}
+.lip-dot-sm{width:7px;height:7px;background:var(--amber);border-radius:50%;animation:lip-dot-bounce 1.1s ease-in-out infinite;display:inline-block;}
+.lip-dot-sm:nth-child(2){animation-delay:0.18s;}.lip-dot-sm:nth-child(3){animation-delay:0.36s;}
+@keyframes lip-dot-bounce{0%,80%,100%{transform:scale(0.7);opacity:0.5;}40%{transform:scale(1.1);opacity:1;}}
+.lip-traj-wrap,.lip-sync-wrap,.lip-chain-wrap{display:none;}
+.lip-traj-wrap.active,.lip-sync-wrap.active,.lip-chain-wrap.active{display:block;}
+.lip-syn-divider{height:1px;background:rgba(212,160,23,0.12);}
+.lip-traj-label{font-family:var(--font-orb);font-size:6.5px;letter-spacing:2px;color:rgba(212,160,23,0.6);padding:5px 14px 2px;}
+.lip-traj-text{font-size:8.5px;line-height:1.5;color:var(--text-primary);padding:3px 14px 8px;}
+.lip-sync-wrap{padding:0 14px 10px;}
+.lip-sync-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;}
+.lip-sync-label{font-family:var(--font-orb);font-size:6.5px;letter-spacing:2px;color:rgba(212,160,23,0.6);}
+.lip-sync-score{font-family:var(--font-orb);font-size:14px;font-weight:700;color:var(--amber);}
+.lip-sync-bar-row{display:flex;align-items:center;gap:6px;}
+.lip-sync-track{flex:1;height:5px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;}
+.lip-sync-fill{height:100%;background:linear-gradient(90deg,rgba(139,92,246,0.5),rgba(139,92,246,0.9));border-radius:3px;transition:width 0.8s ease;width:0%;}
+.lip-sync-pct{font-family:var(--font-orb);font-size:10px;color:rgb(139,92,246);}
+.lip-sync-tags{display:flex;flex-wrap:wrap;gap:3px;margin-top:5px;}
+.lip-sync-tag{font-size:7px;padding:1px 5px;border-radius:2px;}
+.lip-sync-tag.strong{background:rgba(212,160,23,0.15);color:var(--amber);}
+.lip-sync-tag.moderate{background:rgba(0,212,255,0.1);color:var(--cyan);}
+.lip-sync-tag.weak{background:rgba(100,120,140,0.15);color:var(--text-dim);}
+.lip-sync-verdict{font-size:7.5px;color:var(--text-dim);margin-top:4px;line-height:1.4;}
+.lip-sync-placements{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;}
+.lip-placement{font-size:7px;color:var(--text-dim);}
+.lip-placement span{color:var(--text-bright);}
+.lip-chain-wrap{display:none;overflow:hidden;}
+.lip-chain-wrap.active{display:block;}
+#lipChainHeader{display:flex;align-items:center;justify-content:space-between;padding:5px 10px 4px;background:rgba(2,9,18,0.95);border-top:1px solid rgba(100,220,150,0.2);border-bottom:1px solid rgba(100,220,150,0.15);}
+#lipChainHoloWrap{position:relative;width:100%;height:180px;background:#020912;overflow:hidden;}
+#lipChainCanvas{display:block;width:100%;height:100%;}
+#lipChainHoloStatus{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);font-family:var(--font-orb);font-size:6px;letter-spacing:2px;color:rgba(100,220,150,0.6);pointer-events:none;z-index:4;}
+#lipChainLedger{padding:5px 10px 8px;background:rgba(2,9,18,0.96);border-top:1px solid rgba(100,220,150,0.1);font-family:var(--font-mono);}
+#lipChainStatus{font-family:var(--font-orb);font-size:6.5px;letter-spacing:2px;color:#64dc96;animation:chain-blink 1s step-end infinite;}
+#lipChainStatus.confirmed{animation:none;}
+@keyframes chain-blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
+@keyframes sfModalIn{from{opacity:0;transform:scale(0.96);}to{opacity:1;transform:scale(1);}}
+@keyframes lip-breathe{0%,100%{box-shadow:0 16px 48px rgba(0,0,0,0.55),0 0 0 1.5px rgba(212,160,23,0.4);}50%{box-shadow:0 16px 48px rgba(0,0,0,0.55),0 0 0 1.5px rgba(212,160,23,0.7),0 0 50px rgba(212,160,23,0.28);}}
+#laura-insight-panel.streaming{animation:lip-breathe 2s ease-in-out infinite;}
+@keyframes holo-scanline-drift{0%{background-position:0 0;}100%{background-position:0 100px;}}
+</style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker-wrap"><div class="ticker-inner" id="tickerTrack"></div></div>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="hood-iq-logo">HOOD<span class="iq">iQ</span></div>
+  <div class="brand-divider"></div>
+  <div class="nyre-sub">
+    <span class="nyre-name">NEW YORK RAP EXCHANGE</span>
+    <span class="nyre-tag">NYRE QUOTRON v2.14 · LIVE</span>
+  </div>
+  <div class="header-right">
+    <div class="search-wrap">
+      <input id="searchInput" type="text" placeholder="SEARCH ARTIST / SYM..." autocomplete="off">
+      <span class="search-icon">⌕</span>
+      <div id="searchResults"></div>
+    </div>
+    <div class="live-time">LIVE <span id="liveTime">--:--:--</span></div>
+  </div>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="layout">
+
+<!-- ══ QUOTE COL ══ -->
+<div class="quote-col">
+  <div class="quote-hero">
+    <div class="q-sym" id="quoteSym">SHYHEIM</div>
+    <div class="q-name" id="quoteName">Shyheim Franklin<span class="tier-badge tier-em" id="quoteTier">EMERGING STOCK</span></div>
+    <div class="q-price-row">
+      <span class="q-price" id="mainPrice">405.73</span>
+      <span class="q-change up" id="mainChange">+0.00 (0.00%)</span>
+    </div>
+  </div>
+  <div class="stats-strip">
+    <div class="stat-cell"><div class="stat-label">52W HIGH</div><div class="stat-val" id="s52h">--</div></div>
+    <div class="stat-cell"><div class="stat-label">52W LOW</div><div class="stat-val" id="s52l">--</div></div>
+    <div class="stat-cell"><div class="stat-label">VOLUME</div><div class="stat-val" id="sVol">--</div></div>
+    <div class="stat-cell"><div class="stat-label">RSI</div><div class="stat-val" id="rsiVal">--</div></div>
+  </div>
+
+  <!-- CHART -->
+  <div class="chart-wrap">
+    <div class="chart-head">
+      <div class="chart-label" id="chartLabel">SHYHEIM — INTRADAY PRICE / HiQ</div>
+      <div class="tabs">
+        <div class="tab chart-mode-btn active" onclick="setChartMode('price',this)">PRICE</div>
+        <div class="tab chart-mode-btn" onclick="setChartMode('metrics',this)">⬡ METRICS 3D</div>
+        <div style="width:1px;height:12px;background:var(--border);margin:0 4px;"></div>
+        <div class="tab active" onclick="setTab(this)">1D</div>
+        <div class="tab" onclick="setTab(this)">1W</div>
+        <div class="tab" onclick="setTab(this)">1M</div>
+        <div class="tab" onclick="setTab(this)">6M</div>
+      </div>
+    </div>
+    <div id="priceHoloWrap">
+      <canvas id="priceHoloCanvas"></canvas>
+      <div id="priceHoloBadge">⬡ ALPHA METRICS · ON-CHAIN LEDGER · LIVE</div>
+      <div id="priceHoloReadout"></div>
+      <div style="position:absolute;top:5px;left:5px;width:14px;height:14px;border-top:1.5px solid #1a6fd4;border-left:1.5px solid #1a6fd4;opacity:0.5;pointer-events:none;z-index:3;"></div>
+      <div style="position:absolute;top:5px;right:5px;width:14px;height:14px;border-top:1.5px solid #1a6fd4;border-right:1.5px solid #1a6fd4;opacity:0.5;pointer-events:none;z-index:3;"></div>
+      <div style="position:absolute;bottom:5px;left:5px;width:14px;height:14px;border-bottom:1.5px solid #1a6fd4;border-left:1.5px solid #1a6fd4;opacity:0.5;pointer-events:none;z-index:3;"></div>
+      <div style="position:absolute;bottom:5px;right:5px;width:14px;height:14px;border-bottom:1.5px solid #1a6fd4;border-right:1.5px solid #1a6fd4;opacity:0.5;pointer-events:none;z-index:3;"></div>
+    </div>
+    <canvas id="priceChart" height="240"></canvas>
+    <div id="metricsHoloWrap">
+      <canvas id="metricsHoloCanvas"></canvas>
+      <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.13) 3px,rgba(0,0,0,0.13) 4px);pointer-events:none;z-index:2;"></div>
+      <div style="position:absolute;top:5px;left:50%;transform:translateX(-50%);font-family:'Orbitron',monospace;font-size:7px;letter-spacing:2.5px;color:rgba(0,212,255,0.55);pointer-events:none;z-index:4;white-space:nowrap;">⬡ ALPHA METRIC HOLOGRAM · DRAG TO ROTATE</div>
+      <div id="metricsHoloReadout"></div>
+    </div>
+    <div id="metricTooltip" class="metric-tooltip" style="display:none;">
+      <div class="tooltip-metric-name" id="tooltipMetricName">HOVER OVER ANY METRIC BAR</div>
+      <div class="tooltip-description" id="tooltipDescription">Rotate and hover over any bar to see metric analysis.</div>
+    </div>
+  </div>
+
+  <!-- EVINS INDEX -->
+  <div class="evins-panel">
+    <div class="evins-header">
+      <div class="evins-title-block">
+        <span class="evins-title">THE EVINS INDEX<span class="evins-tm">™</span></span>
+        <span class="evins-subtitle">TOP 30 LYRICISTS — NYRE COMPOSITE</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="ev-sort-btns">
+          <span class="ev-sort-lbl">SORT:</span>
+          <button class="ev-sort-btn active" onclick="evSort(this,'evins')">EVINS</button>
+          <button class="ev-sort-btn" onclick="evSort(this,'L')">LYR</button>
+          <button class="ev-sort-btn" onclick="evSort(this,'S')">SEM</button>
+          <button class="ev-sort-btn" onclick="evSort(this,'R')">RHY</button>
+          <button class="ev-sort-btn" onclick="evSort(this,'C')">CULT</button>
+          <button class="ev-sort-btn" onclick="evSort(this,'I')">INN</button>
+        </div>
+        <div>
+          <span class="evins-idx-val" id="evIdxVal">9,847.33</span>
+          <span class="evins-idx-chg up" id="evIdxChg">+0.13%</span>
+        </div>
+      </div>
+    </div>
+    <div class="ev-col-head">
+      <div class="ev-ch" style="text-align:center;">#</div>
+      <div class="ev-ch" style="text-align:center;">MV</div>
+      <div class="ev-ch" style="text-align:left;">ARTIST</div>
+      <div class="ev-ch">EVINS™</div>
+      <div class="ev-ch">LYR</div>
+      <div class="ev-ch">SEM</div>
+      <div class="ev-ch">RHY</div>
+      <div class="ev-ch">CULT</div>
+      <div class="ev-ch">SIGNAL</div>
+    </div>
+    <div id="evinsRows"></div>
+    <div class="ev-pagination">
+      <div class="ev-page-info" id="evPageInfo">SHOWING 1–10 OF 52</div>
+      <div class="ev-page-btns">
+        <button class="ev-page-btn active" onclick="evPage(this,0)">1–10</button>
+        <button class="ev-page-btn" onclick="evPage(this,1)">11–20</button>
+        <button class="ev-page-btn" onclick="evPage(this,2)">21–30</button>
+        <button class="ev-page-btn" onclick="evPage(this,3)">31–40</button>
+        <button class="ev-page-btn" onclick="evPage(this,4)">41–55</button>
+      </div>
+    </div>
+
+    <!-- HOOD iQ NEWS DESK -->
+    <div id="laura-unit">
+      <div class="hoodiq-news-btn" onclick="hiqToggleNews()">
+        <div class="hiq-btn-pill">
+          <span class="hiq-pill-hoodiq">Hood iQ</span>
+          <div class="hiq-pill-sep"></div>
+          <span class="hiq-pill-desk">News Desk</span>
+          <div class="hiq-live-dot"></div>
+        </div>
+        <div class="hiq-identity">
+          <span class="hiq-id-role" style="font-family:var(--font-orb);font-size:7px;letter-spacing:2px;color:var(--text-dim);">NEWS ANCHOR</span>
+        </div>
+        <div class="hiq-preview"><span class="hiq-preview-text" id="hiqPreviewText">Loading latest hip-hop intelligence...</span></div>
+        <div class="hiq-chevron" id="hiqChevron">▼</div>
+      </div>
+      <div class="hiq-news-panel" id="hiqNewsPanel">
+        <div class="hiq-tab-strip">
+          <div class="hiq-tab active" id="tabNews" onclick="hiqSwitchTab('news')">INTEL FEED</div>
+          <div class="hiq-tab laura-tab" id="tabLaura" onclick="hiqSwitchTab('laura')">◉ TOK3N TOWN</div>
+        </div>
+        <div class="hiq-pane active" id="paneNews" style="position:relative;">
+          <div style="position:absolute;inset:0;pointer-events:none;z-index:1;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,200,255,0.012) 3px,rgba(0,200,255,0.012) 4px);animation:holo-scanline-drift 8s linear infinite;"></div>
+          <div id="hiqNewsList" style="position:relative;z-index:2;padding:8px 0;"></div>
+          <div style="padding:4px 10px 6px;font-family:'Share Tech Mono',monospace;font-size:7px;color:rgba(0,212,255,0.5);letter-spacing:1px;border-top:1px solid rgba(26,111,212,0.15);display:flex;justify-content:space-between;align-items:center;position:sticky;bottom:0;background:var(--panel-bg);z-index:3;">
+            <span id="hiqNewsTimestamp">FEED UPDATING...</span>
+            <button onclick="hiqRefreshNews()" style="background:none;border:1px solid rgba(0,212,255,0.25);color:rgba(0,212,255,0.6);font-family:'Share Tech Mono',monospace;font-size:7px;padding:2px 8px;cursor:pointer;letter-spacing:1px;">↻ REFRESH</button>
+          </div>
+        </div>
+        <div class="hiq-pane" id="paneLaura">
+          <div class="laura-tray-header">
+            <span id="lauraTrayMode" class="laura-tray-mode">TOK3N TOWN</span>
+            <div style="display:flex;align-items:center;gap:6px;" id="lauraProgress"></div>
+            <div class="laura-tray-controls">
+              <button class="laura-tray-btn" id="trayPrev" title="Previous">‹</button>
+              <button class="laura-tray-btn" id="trayPlayPause" title="Play/Pause">⏸</button>
+              <button class="laura-tray-btn" id="trayNext" title="Next">›</button>
+            </div>
+          </div>
+          <div id="lauraSphereWrap">
+            <canvas id="lauraSphereCanvas"></canvas>
+            <div style="position:absolute;top:10px;left:50%;transform:translateX(-50%);font-family:'Orbitron',monospace;font-size:7px;letter-spacing:3px;color:rgba(0,212,255,0.7);letter-spacing:4px;text-shadow:0 0 12px rgba(0,212,255,0.5);pointer-events:none;z-index:4;">◈ TOK3N TOWN</div>
+          </div>
+          <div class="laura-tray-text-wrap">
+            <div id="lauraTrayText" class="laura-tray-text"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ALPHA DECOMP -->
+  <div class="panel-section">
+    <div class="panel-head">
+      <span class="ph-title">ALPHA DECOMPOSITION — SHYHEIM</span>
+      <span class="ph-val" id="alphaScore">8.2α</span>
+    </div>
+    <div id="alphaMetrics"></div>
+  </div>
+</div>
+
+<!-- ══ BOARD COL ══ -->
+<div class="board-col">
+  <div class="board-section">
+    <div class="board-header">
+      <span class="bh-title">BLUE CHIP<span class="bh-dot bc"></span></span>
+      <span style="font-family:'Orbitron',monospace;font-size:7px;color:var(--text-dim);letter-spacing:1px;">TIER I</span>
+    </div>
+    <div id="board-bc"></div>
+  </div>
+  <div class="board-section">
+    <div class="board-header">
+      <span class="bh-title">VALUE<span class="bh-dot val"></span></span>
+      <span style="font-family:'Orbitron',monospace;font-size:7px;color:var(--text-dim);letter-spacing:1px;">TIER II</span>
+    </div>
+    <div id="board-val"></div>
+  </div>
+  <div class="board-section">
+    <div class="board-header">
+      <span class="bh-title">EMERGING<span class="bh-dot em"></span></span>
+      <span style="font-family:'Orbitron',monospace;font-size:7px;color:var(--text-dim);letter-spacing:1px;">TIER III</span>
+    </div>
+    <div id="board-em"></div>
+  </div>
+  <div class="board-section">
+    <div class="board-header">
+      <span class="bh-title">SPECULATIVE<span class="bh-dot sp"></span></span>
+      <span style="font-family:'Orbitron',monospace;font-size:7px;color:var(--text-dim);letter-spacing:1px;">TIER IV</span>
+    </div>
+    <div id="board-sp"></div>
+  </div>
+</div>
+
+<!-- ══ RIGHT COL ══ -->
+<div class="right-col">
+  <div class="order-book">
+    <div class="ob-head">
+      <span class="ob-title">ORDER BOOK</span>
+      <span id="spreadLine" style="font-size:8px;font-family:'Orbitron',monospace;color:var(--amber);">SPREAD —</span>
+    </div>
+    <div class="ob-cols">
+      <div class="ob-col-lbl">SIZE</div>
+      <div class="ob-col-lbl">PRICE</div>
+      <div class="ob-col-lbl">TOTAL</div>
+    </div>
+    <div id="askBook"></div>
+    <div id="bidBook"></div>
+  </div>
+  <div class="right-panel">
+    <div class="rp-head"><span class="rp-title">RISK METRICS</span></div>
+    <div class="rp-body" id="riskMetrics" style="font-size:9px;"></div>
+  </div>
+  <div class="right-panel">
+    <div class="rp-head"><span class="rp-title">BLOCKCHAIN METRICS STORAGE</span></div>
+    <div class="rp-body" id="blockchainMetrics" style="font-size:9px;"></div>
+  </div>
+  <div class="right-panel">
+    <div class="rp-head"><span class="rp-title">NFT SIGNAL PACKS</span></div>
+    <div class="rp-body" id="nftPacks" style="font-size:9px;"></div>
+  </div>
+  <div class="right-panel">
+    <div class="rp-head"><span class="rp-title">INDEX PERFORMANCE</span></div>
+    <div class="rp-body" id="indexBar" style="font-size:9px;"></div>
+  </div>
+  <div class="right-panel">
+    <div class="rp-head"><span class="rp-title">RECENT TRADES</span></div>
+    <div id="tradeLog" style="font-size:8px;max-height:120px;overflow-y:auto;"></div>
+  </div>
+</div>
+
+</div><!-- end .layout -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+'use strict';
+
+// ═══════════════════════════════════════════════════
+// ARTIST DATA
+// ═══════════════════════════════════════════════════
+const ARTISTS = {
+  blueChip: [
+    { sym:'YASIN-BEY',name:'Dante Smith / Brooklyn',            price:2350.98, tier:'blueChip' },
+    { sym:'L-HILL',   name:'Lauryn Hill / New Jersey',          price:5000.00, tier:'blueChip' },
+    { sym:'BIGGIE',   name:'Notorious B.I.G. / Bed-Stuy',      price:4890.00, tier:'blueChip', deceased:true },
+    { sym:'NAS',      name:'Nasir Jones / Queensbridge',        price:2342.10, tier:'blueChip' },
+    { sym:'RAKIM',    name:'William Griffin / Long Island',     price:1890.00, tier:'blueChip' },
+    { sym:'BIG-KANE', name:'Antonio Hardy / Brooklyn',          price:1891.68, tier:'blueChip' },
+    { sym:'DA-BRAT',  name:'Shawntae Harris / Chicago',         price:945.12,  tier:'blueChip' },
+    { sym:'FOXY-B',   name:'Inga D.F. Marchand / Brooklyn',     price:960.85,  tier:'blueChip' },
+    { sym:'TUPAC',    name:'Tupac Shakur / Los Angeles',        price:2532.47, tier:'blueChip', deceased:true },
+    { sym:'WU-TANG',  name:'Wu-Tang Clan / Staten Island',      price:1204.77, tier:'blueChip' },
+    { sym:'KRS-ONE',  name:'Lawrence Parker / Bronx',           price:2450.48, tier:'blueChip' },
+    { sym:'DMX',      name:'Earl Simmons / Yonkers',            price:612.00,  tier:'blueChip', deceased:true },
+    { sym:'LL-COOLJ', name:'James Todd Smith / Queens',         price:378.22,  tier:'blueChip' },
+    { sym:'BIG-L',    name:'Lamont Coleman / Harlem',           price:524.15,  tier:'blueChip', deceased:true },
+    { sym:'SHYHEIM',  name:'Shyheim Franklin / Staten Island',  price:405.73,  tier:'blueChip' },
+    { sym:'JAY-ELEC', name:'Jay Electronica / New Orleans',     price:2175.86, tier:'blueChip' },
+    { sym:'DRAKE',    name:'Drake / Toronto, Canada',           price:303.22,  tier:'blueChip' },
+    { sym:'NONAME',   name:'Noname / Chicago',                  price:2000.56, tier:'blueChip' },
+    { sym:'MC-SHAN',  name:'Shawn Moltke / Queens',             price:389.92,  tier:'blueChip' },
+    { sym:'50-CENT',  name:'50 Cent / Queens',                  price:400.00,  tier:'blueChip' },
+    { sym:'SCARFACE',  name:'S.Face / Houston, TX',              price:479.78,  tier:'blueChip' },
+    { sym:'BLK-THGT', name:'Tariq Trotter / Philadelphia',      price:2310.12, tier:'blueChip' },
+    { sym:'COMMON',   name:'Lonnie Lynn Jr. / Chicago',        price:2305.91, tier:'blueChip' },
+    { sym:'JAY-Z',    name:'Shawn Carter / Brooklyn',          price:2341.10, tier:'blueChip' },
+  ],
+  value: [
+    { sym:'MOBB-D',   name:'Mobb Deep / Queensbridge',          price:334.55,  tier:'value' },
+    { sym:'JADA',     name:'Jadakiss / Yonkers',                 price:198.44,  tier:'value' },
+    { sym:'AZ',       name:'Anthony Cruz / Brooklyn',            price:145.77,  tier:'value' },
+    { sym:'BIG-PUN',  name:'Big Pun / Bronx',                    price:490.00,  tier:'value', deceased:true },
+    { sym:'CAMRON',   name:'Cameron Giles / Harlem',             price:351.44,  tier:'value' },
+    { sym:'MASE',     name:'Mason Betha / Harlem',               price:350.22,  tier:'value' },
+    { sym:'FAT-JOE',  name:'Joseph Cartagena / Bronx',           price:76.92,   tier:'value' },
+    { sym:'KOOL-GR',  name:'Kool G Rap / Queens',                price:167.40,  tier:'value' },
+    { sym:'RUN-DMC',  name:'Run-D.M.C. / Hollis, Queens',        price:390.44,  tier:'value' },
+    { sym:'BUSTA-R',  name:'Busta Rhymes / Brooklyn',            price:256.80,  tier:'value' },
+    { sym:'NICKI-M',  name:'Nicki Minaj / Queens',               price:445.22,  tier:'value' },
+    { sym:'ASAP-RKY', name:"A\$AP Rocky / Harlem",              price:312.44,  tier:'value' },
+    { sym:'MAX-B',    name:'Charles Wingate (Max B) / Harlem',                     price:122.50,  tier:'value' },
+    { sym:'LGP-QUA',  name:'LGP Qua / Philadelphia',             price:330.33,  tier:'value' },
+    { sym:'TROY-AVE', name:'Roland Collins / Brooklyn',          price:240.57,  tier:'value' },
+    { sym:'MATUE',    name:'Matheus B. Aguiar / São Paulo',      price:121.79,  tier:'value' },
+    { sym:'JURIN',    name:'Junrin / Chigasaki, Japan',          price:202.63,  tier:'value' },
+  ],
+  emerging: [
+    { sym:'JIM-JNS', name:'Joseph Jones (Jim Jones) / Harlem', price:121.49,  tier:'emerging' },
+    { sym:'DAVE-E',   name:'Dave East / Harlem',                 price:87.55,   tier:'emerging' },
+    { sym:'PARIS-N',  name:'Paris Nights / East Oakland, CA',    price:112.88,  tier:'emerging' },
+    { sym:'REMY-MA',  name:'Remy Ma / Bronx',                    price:156.22,  tier:'emerging' },
+    { sym:'YOUNG-MA', name:'Young M.A / Brooklyn',               price:94.40,   tier:'emerging' },
+    { sym:'CARDI-B',  name:'Cardi B / Bronx',                    price:388.77,  tier:'emerging' },
+    { sym:'A-BOOGIE', name:'A Boogie wit da Hoodie / Bronx',     price:134.55,  tier:'emerging' },
+    { sym:'FIVIO',    name:'Fivio Foreign / Brooklyn',           price:98.88,   tier:'emerging' },
+    { sym:'REDD-P',   name:'Redd Prezi / Queens',                price:130.46,  tier:'emerging' },
+    { sym:'VETO-C',   name:'Veto Corli / Staten Island',         price:127.70,  tier:'emerging' },
+    { sym:'HOLY-MOE', name:'Holy Moe / Staten Island',           price:119.73,  tier:'emerging' },
+    { sym:'KASH-V',   name:'Kash Verrazano / Staten Island',     price:121.14,  tier:'emerging' },
+    { sym:'GEE-STK',  name:'Gee Stacks / Staten Island',         price:120.40,  tier:'emerging' },
+    { sym:'VECTOR',   name:'Olanrewaju Ogunmefun / Lagos',       price:150.12,  tier:'emerging' },
+    { sym:'YUKI-CHIBA',name:'Yuki Chiba / Tokyo, Japan',         price:99.07,   tier:'emerging' },
+  ],
+  speculative: [
+    { sym:'POP-SMK',  name:'Pop Smoke / Canarsie',               price:380.00,  tier:'speculative', deceased:true },
+    { sym:'SHEFF-G',  name:'Sheff G / Brooklyn',                 price:45.22,   tier:'speculative', incarcerated:true },
+    { sym:'ICE-SP',   name:'Ice Spice / Bronx',                  price:67.88,   tier:'speculative' },
+    { sym:'KAY-FL',   name:'Kay Flock / Bronx',                  price:38.44,   tier:'speculative', incarcerated:true },
+    { sym:'DUSTY-L',  name:'Dusty Locane / Brooklyn',            price:29.77,   tier:'speculative' },
+    { sym:'22GZ',     name:'22Gz / Brooklyn',                    price:34.55,   tier:'speculative' },
+    { sym:'SAMARA-C', name:'Samara Cyn / Murfreesboro, TN',      price:41.22,   tier:'speculative' },
+    { sym:'SLEEPY-H', name:'Sleepy Hallow / Brooklyn',           price:52.88,   tier:'speculative' },
+    { sym:'ENG-MCF',  name:'English McFly / Harlem',             price:34.11,   tier:'speculative' },
+    { sym:'MILLYZ',   name:'Millyz / Cambridge, MA',             price:40.12,   tier:'speculative' },
+    { sym:'COLD-SH',  name:'Sebastian Zinna / Brooklyn',         price:120.14,  tier:'speculative' },
+  ]
+};
+
+const allArtists = [
+  ...ARTISTS.blueChip, ...ARTISTS.value,
+  ...ARTISTS.emerging, ...ARTISTS.speculative
+];
+const livePrices = {};
+allArtists.forEach(a => { livePrices[a.sym] = a.price; });
+window.livePrices = livePrices;
+window.allArtists = allArtists;
+window.EV_ROSTER = allArtists;
+
+// ═══════════════════════════════════════════════════
+// PRICE HISTORY
+// ═══════════════════════════════════════════════════
+let priceHistory = [];
+let currentPrice = 405.73;
+let currentArtistSym = '';
+const artistPriceHistories = {};
+window.artistPriceHistories = artistPriceHistories;
+
+function initHistory() {
+  priceHistory = [];
+  for (let i = 0; i < 390; i++) {
+    const t = i/390;
+    const v = 402.20 + t*3.53 + (Math.random()-.48)*.85 + Math.sin(i*.08)*.52 + Math.sin(i*.03)*.95;
+    priceHistory.push(+v.toFixed(2));
+  }
+  currentPrice = priceHistory[priceHistory.length-1];
+}
+
+function getOrBuildArtistHistory(sym, basePrice) {
+  if (artistPriceHistories[sym]) return artistPriceHistories[sym];
+  const hist = [];
+  let p = basePrice * 0.985;
+  for (let i = 0; i < 390; i++) {
+    const trend = (basePrice - p) * 0.008;
+    const drift = (Math.random() - 0.492) * basePrice * 0.0025;
+    const wave  = Math.sin(i*.07)*basePrice*.002 + Math.sin(i*.025)*basePrice*.004;
+    p = +(p + drift + trend + wave).toFixed(2);
+    hist.push(p);
+  }
+  artistPriceHistories[sym] = hist;
+  return hist;
+}
+
+function tickArtistPrice(sym, basePrice) {
+  const hist = getOrBuildArtistHistory(sym, basePrice);
+  const last  = hist[hist.length-1];
+  const trend = (basePrice - last) * 0.006;
+  const drift = (Math.random() - 0.491) * last * 0.0022;
+  const next  = +(last + drift + trend).toFixed(2);
+  hist.push(next);
+  if (hist.length > 600) hist.shift();
+  return next;
+}
+window.getOrBuildArtistHistory = getOrBuildArtistHistory;
+window.tickArtistPrice = tickArtistPrice;
+
+// ═══════════════════════════════════════════════════
+// METRICS
+// ═══════════════════════════════════════════════════
+window.currentArtistMetrics = {
+  semantic_depth:9.8, syntactic_complexity:9.2, polyrhythmic_complexity:9.5,
+  innovation_originality:9.7, downbeat_manipulation:8.2, cultural_relevance:8.9,
+  time_mapping:7.4, flow_pattern_complexity:8.1, rhythmic_rhyme:8.3,
+  phonetic_complexity:7.1, tempo_control:5.8
+};
+var currentArtistMetrics = window.currentArtistMetrics;
+window.currentArtistSym = '';
+window.currentArtistTier = 'emerging';
+
+const ALPHA_DATA = [
+  {name:'Semantic Depth',          score:9.8, wt:14, sig:'TIER-1 α'},
+  {name:'Syntactic Complexity',    score:9.2, wt:12, sig:'TIER-1 α'},
+  {name:'Polyrhythmic Complexity', score:9.5, wt:14, sig:'TIER-1 α'},
+  {name:'Innovation & Originality',score:9.7, wt:8,  sig:'TIER-1 α'},
+  {name:'Downbeat Manipulation',   score:8.2, wt:10, sig:'ALPHA'},
+  {name:'Cultural Relevance',      score:8.9, wt:5,  sig:'ALPHA'},
+  {name:'Time Mapping',            score:7.4, wt:15, sig:'BUY'},
+  {name:'Flow Pattern Complexity', score:8.1, wt:12, sig:'BUY'},
+  {name:'Rhythmic Rhyme',          score:8.3, wt:8,  sig:'BUY'},
+  {name:'Phonetic Complexity',     score:7.1, wt:9,  sig:'HOLD'},
+  {name:'Tempo Control',           score:5.8, wt:7,  sig:'⚠ RISK'},
+];
+
+function renderAlpha() {
+  document.getElementById('alphaMetrics').innerHTML = ALPHA_DATA.map(m => {
+    const sc = m.score>=9?'var(--amber)':m.score>=7.5?'var(--cyan)':m.score<6.5?'var(--red)':'#8aaa8a';
+    const sigC = m.sig.includes('TIER')?'var(--amber)':m.sig.includes('ALPHA')?'var(--green)':m.sig.includes('BUY')?'var(--cyan)':m.sig.includes('RISK')?'var(--red)':'var(--text-dim)';
+    return `<div style="display:grid;grid-template-columns:1fr 45px 100px 65px;gap:4px;padding:4px 0;border-bottom:1px solid rgba(208,216,224,.3);align-items:center;">
+      <span style="font-size:9px;color:#7a9a7a;">${m.name} <span style="color:var(--text-dim);font-size:8px;">(${m.wt}%)</span></span>
+      <span style="font-size:11px;text-align:right;color:${sc};">${m.score}</span>
+      <div style="background:rgba(26,111,212,0.08);height:4px;border-radius:2px;overflow:hidden;"><div style="width:${m.score*10}%;height:100%;background:${sc};border-radius:2px;"></div></div>
+      <span style="font-size:7px;text-align:right;font-family:'Orbitron',monospace;letter-spacing:0.5px;color:${sigC};">${m.sig}</span>
+    </div>`;
+  }).join('');
+}
+
+// ═══════════════════════════════════════════════════
+// TIER INFO
+// ═══════════════════════════════════════════════════
+const TIER_INFO = {
+  blueChip:    {label:'BLUE CHIP',    cls:'tier-bc', color:'#1a6fd4', bases:{sem:9.5,syn:9.2,poly:9.3,inn:9.4,down:8.5,cult:9.0,time:8.0,flow:8.5,rhyme:8.6,phon:7.8,tempo:7.0}},
+  value:       {label:'VALUE',        cls:'tier-val', color:'#00994d', bases:{sem:9.0,syn:8.8,poly:8.9,inn:8.7,down:8.0,cult:8.5,time:7.5,flow:8.0,rhyme:8.2,phon:7.4,tempo:6.5}},
+  emerging:    {label:'EMERGING',     cls:'tier-em', color:'#d47a00', bases:{sem:8.5,syn:8.3,poly:8.4,inn:8.2,down:7.5,cult:8.0,time:7.0,flow:7.5,rhyme:7.8,phon:7.0,tempo:6.0}},
+  speculative: {label:'SPECULATIVE',  cls:'tier-sp', color:'#cc2200', bases:{sem:8.0,syn:7.8,poly:7.9,inn:7.7,down:7.0,cult:7.5,time:6.5,flow:7.0,rhyme:7.2,phon:6.5,tempo:5.5}},
+};
+
+// ═══════════════════════════════════════════════════
+// BOARD RENDERING
+// ═══════════════════════════════════════════════════
+function renderBoard(tier, containerId) {
+  const artists = ARTISTS[tier];
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  el.innerHTML = artists.map(a => {
+    const p    = livePrices[a.sym] || a.price;
+    const chg  = +(p - a.price).toFixed(2);
+    const pct  = +(chg/a.price*100).toFixed(2);
+    const sign = chg>=0?'+':'';
+    const dir  = chg>=0?'up':'dn';
+    const sig  = p > a.price*1.02 ? 'STRONG BUY' : p > a.price ? 'BUY' : p > a.price*0.98 ? 'HOLD' : 'WATCH';
+    const sigColor = sig==='STRONG BUY'?'var(--amber)':sig==='BUY'?'var(--green)':sig==='HOLD'?'var(--cyan)':'var(--red)';
+    const ripBadge = a.deceased ? ' <span class="rip-badge">✦ R.I.P.</span>' : '';
+    const lockedBadge = a.incarcerated ? ' <span class="locked-badge">⬛ LOCKED</span>' : '';
+    const rowClass = a.deceased?'board-row deceased':a.incarcerated?'board-row incarcerated':'board-row';
+    return `<div class="${rowClass}" data-tier="${tier}" onclick="selectArtist('${a.sym}','${a.name}','${tier}',${a.price})">
+      <span class="br-sym">${a.sym}${ripBadge}${lockedBadge}</span>
+      <span class="br-name">${a.name}</span>
+      <span class="br-price" id="price-${a.sym}">${p.toFixed(2)}</span>
+      <span class="br-chg ${dir}" id="chg-${a.sym}">${sign}${pct.toFixed(2)}%</span>
+      <span class="br-sig" style="color:${sigColor};">${sig}</span>
+    </div>`;
+  }).join('');
+}
+
+function renderAllBoards() {
+  renderBoard('blueChip','board-bc');
+  renderBoard('value','board-val');
+  renderBoard('emerging','board-em');
+  renderBoard('speculative','board-sp');
+}
+
+// ═══════════════════════════════════════════════════
+// ARTIST SELECTION
+// ═══════════════════════════════════════════════════
+window.selectArtist = function(sym, name, tier, basePrice) {
+  const liveP = livePrices[sym] || basePrice;
+  const chg   = +(liveP - basePrice).toFixed(2);
+  const pct   = +(chg/basePrice*100).toFixed(2);
+  const sign  = chg>=0?'+':'';
+  const dir   = chg>=0?'up':'dn';
+  const ti    = TIER_INFO[tier] || TIER_INFO.blueChip;
+
+  document.getElementById('quoteSym').textContent  = sym;
+  document.getElementById('quoteName').innerHTML   = name + `<span class="tier-badge ${ti.cls}">${ti.label}</span>`;
+  document.getElementById('mainPrice').textContent = liveP.toFixed(2);
+  const ce = document.getElementById('mainChange');
+  ce.textContent  = `${sign}${chg.toFixed(2)} (${sign}${pct.toFixed(2)}%)`;
+  ce.className    = `q-change ${dir}`;
+  const chartLbl  = document.getElementById('chartLabel');
+  if (chartLbl) chartLbl.textContent = `${sym} — INTRADAY PRICE / HiQ`;
+
+  const v = liveP*.015, h = +(liveP*(1+v)).toFixed(2), l = +(liveP*(1-v)).toFixed(2);
+  document.getElementById('s52h').textContent = h.toFixed(2);
+  document.getElementById('s52l').textContent = l.toFixed(2);
+  document.getElementById('sVol').textContent = (Math.floor(Math.random()*80+20))+'K';
+  const rsiEl = document.getElementById('rsiVal');
+  const rsi   = +(68 + (Math.random()-.5)*14).toFixed(1);
+  rsiEl.textContent  = rsi;
+  rsiEl.style.color  = rsi>70?'var(--red)':rsi<30?'var(--green)':'var(--amber)';
+
+  document.getElementById('alphaScore').textContent = (+(ti.bases.sem * 0.85 + Math.random()*0.3).toFixed(1)) + 'α';
+  allHeaders = document.querySelectorAll('.ph-title');
+  allHeaders.forEach(h => { if(h.textContent.includes('ALPHA')) h.textContent = `ALPHA DECOMPOSITION — ${sym}`; });
+
+  updateChartMetrics(sym, tier, 8.5);
+  updateOrderBook(sym, liveP, tier);
+  updateRiskMetrics(sym, tier, rsi);
+  updateBlockchainMetrics(sym, tier, 8.5);
+};
+
+let allHeaders = [];
+
+// ═══════════════════════════════════════════════════
+// UPDATE CHART METRICS (sets window.currentArtistMetrics)
+// ═══════════════════════════════════════════════════
+function updateChartMetrics(sym, tier, baseAlpha) {
+  const b = TIER_INFO[tier].bases;
+  const v = () => +((Math.random()-0.5)*0.6).toFixed(1);
+  currentArtistMetrics = {
+    semantic_depth:          +(b.sem   + v()).toFixed(1),
+    syntactic_complexity:    +(b.syn   + v()).toFixed(1),
+    polyrhythmic_complexity: +(b.poly  + v()).toFixed(1),
+    innovation_originality:  +(b.inn   + v()).toFixed(1),
+    downbeat_manipulation:   +(b.down  + v()).toFixed(1),
+    cultural_relevance:      +(b.cult  + v()).toFixed(1),
+    time_mapping:            +(b.time  + v()).toFixed(1),
+    flow_pattern_complexity: +(b.flow  + v()).toFixed(1),
+    rhythmic_rhyme:          +(b.rhyme + v()).toFixed(1),
+    phonetic_complexity:     +(b.phon  + v()).toFixed(1),
+    tempo_control:           +(b.tempo + v()).toFixed(1),
+  };
+  window.currentArtistMetrics = currentArtistMetrics;
+  window.currentArtistSym     = sym;
+  window.currentArtistTier    = tier;
+  currentArtistSym = sym;
+  getOrBuildArtistHistory(sym, livePrices[sym] || 400);
+
+  if (chartMode === 'metrics') {
+    if (window._metricsHoloScene) { cancelAnimationFrame(window._metricsHoloScene.animId); window._metricsHoloScene = null; }
+    _buildMetricsHoloScene();
+  } else {
+    if (window._priceHoloScene) { cancelAnimationFrame(window._priceHoloScene.animId); window._priceHoloScene = null; }
+    _buildPriceHoloScene();
+  }
+
+  if (typeof window.tok3nUpdate === 'function') window.tok3nUpdate();
+  else if (typeof window._rebuildLauraChain === 'function') window._rebuildLauraChain();
+}
+
+// ═══════════════════════════════════════════════════
+// ORDER BOOK
+// ═══════════════════════════════════════════════════
+function updateOrderBook(sym, price, tier) {
+  const spread = price * ({blueChip:.0015,value:.0025,emerging:.0035,speculative:.0055}[tier]||.003);
+  const asks = [], bids = [];
+  for (let i=0;i<7;i++) {
+    const p = +(price + spread*(i+1) + Math.random()*spread).toFixed(2);
+    const s = Math.floor(Math.random()*500+50);
+    asks.push({p,s});
+  }
+  for (let i=0;i<7;i++) {
+    const p = +(price - spread*(i+1) - Math.random()*spread).toFixed(2);
+    const s = Math.floor(Math.random()*500+50);
+    bids.push({p,s});
+  }
+  const maxS = Math.max(...[...asks,...bids].map(x=>x.s));
+  document.getElementById('askBook').innerHTML = asks.reverse().map(x=>`<div class="ob-row ask">
+    <span class="ob-size">${x.s}</span><span class="ob-price ask">${x.p}</span><span class="ob-total">${(x.p*x.s).toFixed(0)}</span>
+    <div class="ob-depth-bar" style="width:${x.s/maxS*100}%;background:rgba(224,85,85,0.08);position:absolute;right:0;top:0;bottom:0;"></div>
+  </div>`).join('');
+  document.getElementById('bidBook').innerHTML = bids.map(x=>`<div class="ob-row bid">
+    <span class="ob-size">${x.s}</span><span class="ob-price bid">${x.p}</span><span class="ob-total">${(x.p*x.s).toFixed(0)}</span>
+    <div class="ob-depth-bar" style="width:${x.s/maxS*100}%;background:rgba(100,220,150,0.08);position:absolute;right:0;top:0;bottom:0;"></div>
+  </div>`).join('');
+  document.getElementById('spreadLine').textContent = `SPREAD  ${spread.toFixed(3)}  (${(spread/price*100).toFixed(3)}%)`;
+}
+
+function updateRiskMetrics(sym, tier, rsi) {
+  const el = document.getElementById('riskMetrics');
+  if (!el) return;
+  const m = {blueChip:{beta:.85,sharpe:1.9,maxDD:8.2},value:{beta:1.1,sharpe:1.5,maxDD:14},emerging:{beta:1.4,sharpe:1.1,maxDD:22},speculative:{beta:1.9,sharpe:.7,maxDD:38}}[tier]||{beta:1,sharpe:1,maxDD:15};
+  el.innerHTML = [
+    {k:'BETA',v:m.beta.toFixed(2)},{k:'SHARPE',v:m.sharpe.toFixed(2)},{k:'MAX DD',v:m.maxDD+'%'},{k:'RSI',v:rsi}
+  ].map(({k,v})=>`<div style="display:flex;justify-content:space-between;padding:2px 0;border-bottom:1px solid rgba(26,111,212,0.08);"><span style="color:var(--text-dim);font-size:8px;">${k}</span><span style="color:var(--text-bright);font-family:'Orbitron',monospace;font-size:9px;">${v}</span></div>`).join('');
+}
+
+function updateBlockchainMetrics(sym, tier, alpha) {
+  const el = document.getElementById('blockchainMetrics');
+  if (!el) return;
+  const blockHash = '0x'+Math.random().toString(16).slice(2,18);
+  const items = [{k:'CONTRACT',v:'NYRE-ALPHA-v2'},{k:'BLOCK',v:'#'+Math.floor(Math.random()*9000+1000)},{k:'HASH',v:blockHash.slice(0,16)+'...'},{k:'TIMESTAMP',v:new Date().toISOString().slice(11,19)+' UTC'},{k:'ALPHA SCORE',v:alpha.toFixed(2)},{k:'STATUS',v:'CONFIRMED ✓'}];
+  el.innerHTML = items.map(({k,v})=>`<div style="display:flex;justify-content:space-between;padding:2px 0;border-bottom:1px solid rgba(100,220,150,0.08);"><span style="color:rgba(100,220,150,0.55);font-size:7.5px;letter-spacing:1px;">${k}</span><span style="color:rgba(180,240,200,0.9);font-family:'Share Tech Mono',monospace;font-size:8px;">${v}</span></div>`).join('');
+}
+
+function updateNFTPacks(sym, tier, alpha) {
+  const el = document.getElementById('nftPacks');
+  if (!el) return;
+  const packs = [{n:'GENESIS PACK',rarity:'LEGENDARY',price:2.4},{n:'ALPHA FRAGMENT',rarity:'RARE',price:0.8},{n:'FLOW STATE',rarity:'UNCOMMON',price:0.3}];
+  el.innerHTML = packs.map(p=>`<div style="padding:3px 0;border-bottom:1px solid rgba(26,111,212,0.08);display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:8px;color:var(--text-bright);">${p.n}</div><div style="font-size:7px;color:var(--amber);">${p.rarity}</div></div><span style="font-family:'Orbitron',monospace;font-size:9px;color:var(--cyan);">${p.price} ETH</span></div>`).join('');
+}
+
+// ═══════════════════════════════════════════════════
+// TICKER + EVINS
+// ═══════════════════════════════════════════════════
+function buildTicker() {
+  const items = allArtists.map(a => {
+    const p   = livePrices[a.sym];
+    const chg = +(p - a.price).toFixed(2);
+    const pct = +(chg/a.price*100).toFixed(2);
+    const sign= chg>=0?'+':'';
+    const dir = chg>=0?'up':'dn';
+    return `<span class="ti ${dir}"><span class="s">${a.sym}</span> <span class="p">${p.toFixed(2)}</span> ${sign}${pct.toFixed(2)}%</span>`;
+  }).join('');
+  const t = document.getElementById('tickerTrack');
+  if (t) t.innerHTML = items + items; // duplicate for seamless loop
+}
+
+function renderTicker() { buildTicker(); }
+
+const EV_DATA = [
+  {name:'Rakim',           evins:9847,L:9.8,S:9.9,R:9.3,C:9.6,mv:'▲'},
+  {name:'Big Daddy Kane',    evins:9801,L:9.8,S:9.6,R:9.7,C:9.4,mv:'▲'},
+  {name:'Da Brat',          evins:9511,L:9.4,S:9.2,R:9.5,C:9.6,mv:'▲'},
+  {name:'Foxy Brown',        evins:9533,L:9.5,S:9.3,R:9.4,C:9.6,mv:'▲'},
+  {name:'Biggie',          evins:9821,L:9.7,S:9.8,R:9.6,C:9.9,mv:'▲'},
+  {name:'Lauryn Hill',       evins:9855,L:9.9,S:9.8,R:9.6,C:9.9,mv:'▲'},
+  {name:'Tupac',           evins:9810,L:9.6,S:9.7,R:9.5,C:9.9,mv:'▲'},
+  {name:'Nas',             evins:9798,L:9.6,S:9.8,R:9.2,C:9.7,mv:'▲'},
+  {name:'Jay-Z',           evins:9782,L:9.5,S:9.6,R:9.4,C:9.9,mv:'▲'},
+  {name:'Kool G Rap',      evins:9766,L:9.7,S:9.5,R:9.4,C:9.0,mv:'→'},
+  {name:'Wu-Tang',         evins:9751,L:9.4,S:9.3,R:9.5,C:9.6,mv:'▲'},
+  {name:'Big L',           evins:9738,L:9.6,S:9.4,R:9.5,C:9.1,mv:'▲'},
+  {name:'KRS-One',         evins:9724,L:9.4,S:9.3,R:9.2,C:9.5,mv:'▲'},
+  {name:'LL Cool J',       evins:9710,L:9.3,S:9.1,R:9.4,C:9.3,mv:'→'},
+  {name:'Jay Electronica', evins:9696,L:9.3,S:9.5,R:8.9,C:9.0,mv:'▲'},
+  {name:'Noname',          evins:9682,L:9.2,S:9.4,R:8.7,C:9.1,mv:'▲'},
+  {name:'DMX',             evins:9668,L:8.7,S:8.5,R:8.9,C:9.4,mv:'→'},
+  {name:'Drake',           evins:9654,L:8.5,S:8.4,R:8.9,C:9.5,mv:'→'},
+  {name:'Shyheim',         evins:9440,L:8.4,S:8.5,R:8.3,C:8.2,mv:'▲'},
+  {name:'MC Shan',          evins:9310,L:9.0,S:8.8,R:9.1,C:8.9,mv:'▲'},
+  {name:'Big Pun',         evins:9412,L:9.1,S:9.0,R:9.5,C:9.0,mv:'▲'},
+  {name:'Mobb Deep',       evins:9388,L:8.9,S:8.8,R:9.1,C:9.2,mv:'→'},
+  {name:'Jadakiss',        evins:9364,L:8.8,S:8.7,R:8.9,C:9.0,mv:'→'},
+  {name:'Busta Rhymes',    evins:9340,L:8.7,S:8.5,R:9.3,C:9.0,mv:'▲'},
+  {name:'Run-DMC',         evins:9316,L:8.6,S:8.4,R:9.2,C:9.4,mv:'→'},
+  {name:'AZ',              evins:9292,L:9.2,S:9.3,R:9.0,C:8.8,mv:'▲'},
+  {name:'Fat Joe',         evins:9268,L:8.3,S:8.2,R:8.6,C:8.8,mv:'→'},
+  {name:'Camron',          evins:9244,L:8.5,S:8.3,R:8.8,C:9.0,mv:'→'},
+  {name:'Mase',             evins:8711,L:8.4,S:8.2,R:8.7,C:8.9,mv:'▲'},
+  {name:'50 Cent',         evins:9220,L:8.5,S:8.4,R:8.9,C:9.3,mv:'→'},
+  {name:'Scarface',         evins:9488,L:9.5,S:9.6,R:9.2,C:9.4,mv:'▲'},
+  {name:'Black Thought',     evins:9788,L:9.8,S:9.7,R:9.5,C:9.4,mv:'▲'},
+  {name:'Common',            evins:9722,L:9.6,S:9.7,R:9.0,C:9.5,mv:'▲'},
+  {name:'Yasin Bey',          evins:9744,L:9.6,S:9.5,R:9.3,C:9.5,mv:'▲'},
+  {name:'LGP Quanik',      evins:9044,L:8.8,S:8.7,R:8.9,C:8.6,mv:'▲'},
+  {name:'Troy Ave',          evins:8455,L:8.2,S:8.0,R:8.4,C:8.6,mv:'▲'},
+  {name:'Nicki Minaj',     evins:9022,L:8.7,S:8.6,R:9.0,C:9.3,mv:'▲'},
+  {name:'ASAP Rocky',      evins:9000,L:8.6,S:8.4,R:9.0,C:9.2,mv:'▲'},
+  {name:'Max B',           evins:8977,L:8.4,S:8.2,R:8.6,C:8.7,mv:'▲'},
+  {name:'Remy Ma',         evins:8922,L:8.4,S:8.2,R:8.5,C:8.6,mv:'▲'},
+  {name:'Cardi B',         evins:8866,L:8.3,S:8.1,R:8.8,C:9.2,mv:'▲'},
+  {name:'Paris Nights',    evins:8810,L:8.5,S:8.6,R:8.6,C:8.7,mv:'▲'},
+  {name:'Jim Jones',        evins:8333,L:8.1,S:7.9,R:8.5,C:8.7,mv:'▲'},
+  {name:'Dave East',       evins:8766,L:8.6,S:8.7,R:8.5,C:8.4,mv:'▲'},
+  {name:'A Boogie',        evins:8722,L:8.1,S:8.0,R:8.7,C:8.7,mv:'▲'},
+  {name:'Vector',          evins:8677,L:8.6,S:8.5,R:8.4,C:8.5,mv:'▲'},
+  {name:'Redd Prezi',      evins:8633,L:8.4,S:8.3,R:8.5,C:8.3,mv:'▲'},
+  {name:'Matue',           evins:8588,L:8.3,S:8.4,R:8.2,C:8.1,mv:'▲'},
+  {name:'Jurin',           evins:8544,L:8.4,S:8.5,R:8.3,C:8.0,mv:'▲'},
+  {name:'Young M.A',       evins:8500,L:8.3,S:8.2,R:8.6,C:8.5,mv:'▲'},
+  {name:'Fivio Foreign',   evins:8366,L:8.0,S:7.8,R:8.8,C:8.8,mv:'▲'},
+  {name:'Pop Smoke',       evins:8300,L:8.1,S:7.9,R:9.0,C:9.1,mv:'→'},
+  {name:'Veto Corli',      evins:8155,L:8.2,S:8.0,R:8.3,C:8.1,mv:'▲'},
+  {name:'Kash Verrazano',  evins:8110,L:8.1,S:7.9,R:8.2,C:8.0,mv:'▲'},
+  {name:'Gee Stacks',      evins:8066,L:8.0,S:7.8,R:8.1,C:7.9,mv:'▲'},
+  {name:'Holy Moe',        evins:8022,L:8.0,S:7.9,R:8.0,C:7.9,mv:'▲'},
+  {name:'Yuki Chiba',      evins:7977,L:8.1,S:8.2,R:7.9,C:7.7,mv:'▲'},
+  {name:'Sheff G',         evins:7933,L:8.2,S:7.9,R:8.5,C:8.3,mv:'▲'},
+  {name:'Sleepy Hallow',   evins:7866,L:8.0,S:7.7,R:8.4,C:8.2,mv:'▲'},
+  {name:'Ice Spice',       evins:7800,L:7.8,S:7.6,R:8.5,C:8.8,mv:'▲'},
+  {name:'Cold Shore',      evins:7744,L:7.9,S:8.0,R:7.8,C:7.7,mv:'→'},
+  {name:'Samara Cyn',      evins:7700,L:7.8,S:7.7,R:7.9,C:8.0,mv:'▲'},
+  {name:'Millyz',          evins:7655,L:7.9,S:7.8,R:7.8,C:7.7,mv:'▲'},
+  {name:'Dusty Locane',    evins:7566,L:7.7,S:7.5,R:8.0,C:7.9,mv:'▲'},
+  {name:'Kay Flock',       evins:7500,L:7.6,S:7.4,R:7.9,C:7.8,mv:'▲'},
+  {name:'22Gz',            evins:7433,L:7.5,S:7.3,R:7.8,C:7.7,mv:'▲'},
+  {name:'Eng. McFly',      evins:7366,L:7.6,S:7.4,R:7.5,C:7.6,mv:'▲'},
+  {name:'Sheff G',         evins:7300,L:7.4,S:7.2,R:7.6,C:7.5,mv:'▲'},
+];
+
+let evSortKey = 'evins', evPageIdx = 0;
+window.evSort = function(btn, key) {
+  evSortKey = key;
+  document.querySelectorAll('.ev-sort-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  initEvinsIndex();
+};
+window.evPage = function(btn, idx) {
+  evPageIdx = idx;
+  document.querySelectorAll('.ev-page-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  initEvinsIndex();
+};
+
+function initEvinsIndex() {
+  let sorted = [...EV_DATA];
+  if (evSortKey==='evins') sorted.sort((a,b)=>b.evins-a.evins);
+  else sorted.sort((a,b)=>b[evSortKey]-a[evSortKey]);
+  const start = evPageIdx*10, end = Math.min(start+10, sorted.length);
+  const page  = sorted.slice(start, end);
+  document.getElementById('evPageInfo').textContent = `SHOWING ${start+1}–${end} OF ${sorted.length}`;
+  document.getElementById('evinsRows').innerHTML = page.map((a,i)=>{
+    const rank = start+i+1;
+    const mvCol = a.mv==='▲'?'var(--green)':a.mv==='▼'?'var(--red)':'var(--text-dim)';
+    const sig = a.evins>=9700?'STRONG BUY':a.evins>=9500?'BUY':a.evins>=9000?'HOLD':'WATCH';
+    const sigClass = sig.replace(' ','-').toLowerCase().replace('strong-buy','strong-buy').replace('⚠-risk','risk');
+    return `<div class="ev-row" onclick="triggerLauraFromEvins('${a.name}','NYRE',${a.evins},${a.L},${a.S},${a.R},${a.C})">
+      <span class="ev-rank">${rank}</span>
+      <span class="ev-mv" style="color:${mvCol};">${a.mv}</span>
+      <span class="ev-name">${a.name}</span>
+      <span class="ev-evins">${a.evins.toLocaleString()}</span>
+      <span class="ev-score">${a.L}</span>
+      <span class="ev-score">${a.S}</span>
+      <span class="ev-score">${a.R}</span>
+      <span class="ev-score">${a.C}</span>
+      <span class="ev-sig ${sigClass}">${sig}</span>
+    </div>`;
+  }).join('');
+}
+
+window.triggerLauraFromEvins = function(name, origin, evins, L, S, R, C) {
+  // minimal stub — just update the metric display
+};
+
+// ═══════════════════════════════════════════════════
+// INDEX BAR
+// ═══════════════════════════════════════════════════
+function renderIndexBar() {
+  const el = document.getElementById('indexBar');
+  if (!el) return;
+  const indices = [
+    {n:'NYRE COMP',v:9847.33,c:+0.13},{n:'BC INDEX',v:2891.44,c:+0.22},
+    {n:'VAL INDEX',v:1244.80,c:-0.08},{n:'EM INDEX',v:487.55,c:+0.41},
+  ];
+  el.innerHTML = indices.map(idx=>{
+    const col = idx.c>=0?'var(--green)':'var(--red)';
+    const sign= idx.c>=0?'+':'';
+    return `<div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid rgba(26,111,212,0.08);">
+      <span style="font-size:8px;color:var(--text-dim);">${idx.n}</span>
+      <span style="font-family:'Orbitron',monospace;font-size:9px;color:var(--amber);">${idx.v.toLocaleString()}</span>
+      <span style="font-size:8px;color:${col};">${sign}${idx.c}%</span>
+    </div>`;
+  }).join('');
+}
+
+function updateIndices() {
+  renderIndexBar();
+  const evEl  = document.getElementById('evIdxVal');
+  const evChg = document.getElementById('evIdxChg');
+  if (evEl) {
+    const v = 9847 + (Math.random()-.5)*8;
+    evEl.textContent = v.toFixed(2);
+    const c = (Math.random()-.48)*.3;
+    if (evChg) { evChg.textContent = (c>=0?'+':'')+c.toFixed(2)+'%'; evChg.className = 'evins-idx-chg '+(c>=0?'up':'dn'); }
+  }
+}
+
+// ═══════════════════════════════════════════════════
+// TRADE LOG
+// ═══════════════════════════════════════════════════
+let tradeLog = [];
+function addTrade() {
+  const artist = allArtists[Math.floor(Math.random()*allArtists.length)];
+  const p = livePrices[artist.sym];
+  const side = Math.random()>.5?'BUY':'SELL';
+  const size = Math.floor(Math.random()*200+10);
+  const now  = new Date().toISOString().slice(11,19);
+  tradeLog.unshift({sym:artist.sym, side, size, price:p.toFixed(2), time:now});
+  if (tradeLog.length>20) tradeLog.pop();
+  const el = document.getElementById('tradeLog');
+  if (!el) return;
+  el.innerHTML = tradeLog.map(t=>`<div style="display:grid;grid-template-columns:52px 36px 42px 1fr 52px;gap:4px;padding:2px 8px;border-bottom:1px solid rgba(26,111,212,0.06);align-items:center;">
+    <span style="font-family:'Orbitron',monospace;font-size:7.5px;color:var(--amber);">${t.sym}</span>
+    <span style="font-size:7.5px;color:${t.side==='BUY'?'var(--green)':'var(--red)'};">${t.side}</span>
+    <span style="font-size:7.5px;color:var(--text-dim);">${t.size}</span>
+    <span style="font-family:'Orbitron',monospace;font-size:7.5px;color:var(--text-bright);">${t.price}</span>
+    <span style="font-size:7px;color:var(--text-dim);">${t.time}</span>
+  </div>`).join('');
+}
+
+// ═══════════════════════════════════════════════════
+// LIVE PRICE UPDATE
+// ═══════════════════════════════════════════════════
+function updateMainPrice() {
+  const prev = currentPrice;
+  const drift    = (Math.random()-.492)*.14;
+  const reversion= (405.73-currentPrice)*.007;
+  currentPrice = +(currentPrice+drift+reversion).toFixed(2);
+  priceHistory.push(currentPrice);
+  if (priceHistory.length>600) priceHistory.shift();
+  const chg  = +(currentPrice-405.73).toFixed(2);
+  const pct  = +(chg/405.73*100).toFixed(2);
+  const sign = chg>=0?'+':'';
+  const dir  = chg>=0?'up':'dn';
+  const pe   = document.getElementById('mainPrice');
+  const ce   = document.getElementById('mainChange');
+  if (pe) pe.textContent = currentPrice.toFixed(2);
+  if (ce) { ce.textContent=`${sign}${chg.toFixed(2)} (${sign}${pct.toFixed(2)}%)`; ce.className=`q-change ${dir}`; }
+  if (pe) { pe.classList.remove('flash-up','flash-dn'); void pe.offsetWidth; pe.classList.add(currentPrice>=prev?'flash-up':'flash-dn'); }
+  const rsi   = +(68.4+(Math.random()-.5)*2.5).toFixed(1);
+  const rsiEl = document.getElementById('rsiVal');
+  if (rsiEl) { rsiEl.textContent=rsi; rsiEl.style.color=rsi>70?'var(--red)':rsi<30?'var(--green)':'var(--amber)'; }
+}
+
+function updateAllPrices() {
+  allArtists.forEach(a => {
+    const vol  = {speculative:.003,emerging:.002,value:.0015,blueChip:.001}[a.tier]||.002;
+    const drift= (Math.random()-.49)*a.price*vol;
+    const rev  = (a.price-livePrices[a.sym])*.005;
+    let next   = +(livePrices[a.sym]+drift+rev).toFixed(2);
+    livePrices[a.sym] = Math.max(next, a.price*.3);
+    if (artistPriceHistories[a.sym]) tickArtistPrice(a.sym, a.price);
+  });
+  renderAllBoards();
+}
+
+function updateTime() {
+  const el = document.getElementById('liveTime');
+  if (el) el.textContent = new Date().toTimeString().slice(0,8);
+}
+
+function updateSignals() { /* stub */ }
+
+// ═══════════════════════════════════════════════════
+// SEARCH
+// ═══════════════════════════════════════════════════
+let searchIndex = [];
+function initSearch() {
+  searchIndex = allArtists.map(a => ({...a, search:(a.sym+' '+a.name).toLowerCase()}));
+  const inp = document.getElementById('searchInput');
+  const res = document.getElementById('searchResults');
+  if (!inp||!res) return;
+  inp.addEventListener('input', () => {
+    const q = inp.value.toLowerCase().trim();
+    if (q.length<1) { res.style.display='none'; return; }
+    const hits = searchIndex.filter(a=>a.search.includes(q)).slice(0,6);
+    if (!hits.length) { res.style.display='none'; return; }
+    res.style.display='block';
+    res.innerHTML = hits.map(a=>`<div class="sr-item" onclick="selectArtist('${a.sym}','${a.name}','${a.tier}',${a.price});document.getElementById('searchInput').value='';document.getElementById('searchResults').style.display='none';">
+      <span class="sr-sym">${a.sym}</span>
+      <span class="sr-name">${a.name}</span>
+      <span class="sr-price">${(livePrices[a.sym]||a.price).toFixed(2)}</span>
+    </div>`).join('');
+  });
+  document.addEventListener('click', e => { if (!e.target.closest('.search-wrap')) res.style.display='none'; });
+}
+
+// ═══════════════════════════════════════════════════
+// CHART MODE
+// ═══════════════════════════════════════════════════
+let chartMode = 'price';
+const metricDescriptions = {
+  semantic_depth:{name:'SEMANTIC DEPTH',description:'Measures conceptual complexity, metaphor density, vocabulary richness, and depth of meaning. High scores indicate sophisticated wordplay and layered messaging.'},
+  syntactic_complexity:{name:'SYNTACTIC COMPLEXITY',description:'Evaluates sentence structure sophistication, grammatical variety, and syntactic manipulation.'},
+  polyrhythmic_complexity:{name:'POLYRHYTHMIC COMPLEXITY',description:'Analyzes use of multiple simultaneous rhythmic patterns, syncopation, and rhythmic layering.'},
+  innovation_originality:{name:'INNOVATION & ORIGINALITY',description:'Assesses creative uniqueness, stylistic innovation, and contribution to genre evolution.'},
+  downbeat_manipulation:{name:'DOWNBEAT MANIPULATION',description:'Measures ability to shift emphasis on and off primary beats, creating tension and release.'},
+  cultural_relevance:{name:'CULTURAL RELEVANCE',description:'Quantifies cultural impact, social commentary depth, and resonance with community narratives.'},
+  time_mapping:{name:'TIME MAPPING',description:'Evaluates temporal alignment precision, beat anticipation/lag control, and rhythmic pocket navigation.'},
+  flow_pattern_complexity:{name:'FLOW PATTERN COMPLEXITY',description:'Analyzes delivery pattern diversity, cadence variation, and flow switching sophistication.'},
+  rhythmic_rhyme:{name:'RHYTHMIC RHYME',description:'Measures integration of rhyme scheme with rhythmic structure and internal rhyme placement.'},
+  phonetic_complexity:{name:'PHONETIC COMPLEXITY',description:'Analyzes sound manipulation, alliteration, assonance, consonance, and phoneme variation.'},
+  tempo_control:{name:'TEMPO CONTROL',description:'Evaluates ability to maintain or intentionally vary tempo, double-time switching, and speed modulation.'},
+};
+
+function drawChart() { return; } // replaced by 3D holos
+
+// Track current timeframe
+let currentTimeframe = '1D';
+window.setTab = function(el) {
+  document.querySelectorAll('.tab:not(.chart-mode-btn)').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  currentTimeframe = el.textContent.trim();
+  if (chartMode === 'price') {
+    if (window._priceHoloScene) {
+      cancelAnimationFrame(window._priceHoloScene.animId);
+      window._priceHoloScene = null;
+    }
+    _buildPriceHoloScene();
+  }
+};
+
+window.setChartMode = function(mode, el) {
+  chartMode = mode;
+  document.querySelectorAll('.chart-mode-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  const priceHoloW = document.getElementById('priceHoloWrap');
+  const holoWrap   = document.getElementById('metricsHoloWrap');
+  const tooltip    = document.getElementById('metricTooltip');
+  const chartLabel = document.getElementById('chartLabel');
+  const sym        = chartLabel?.textContent.split(' — ')[0] || '';
+  if (mode==='price') {
+    if (priceHoloW) priceHoloW.style.display='block';
+    if (holoWrap)   holoWrap.style.display='none';
+    if (tooltip)    tooltip.style.display='none';
+    if (chartLabel) chartLabel.textContent=`${sym} — ⬡ ALPHA METRICS · ON-CHAIN LEDGER`;
+    if (window._metricsHoloScene) { cancelAnimationFrame(window._metricsHoloScene.animId); window._metricsHoloScene=null; }
+    if (window._priceHoloScene) { cancelAnimationFrame(window._priceHoloScene.animId); window._priceHoloScene=null; }
+    _buildPriceHoloScene();
+  } else {
+    if (priceHoloW) priceHoloW.style.display='none';
+    if (holoWrap)   holoWrap.style.display='block';
+    if (tooltip)    tooltip.style.display='block';
+    if (chartLabel) chartLabel.textContent=`${sym} — ⬡ 11 ALPHA METRICS · 3D HOLOGRAM`;
+    if (window._priceHoloScene) { cancelAnimationFrame(window._priceHoloScene.animId); window._priceHoloScene=null; }
+    _buildMetricsHoloScene();
+  }
+};
+
+// ═══════════════════════════════════════════════════
+// HOOD iQ NEWS DESK
+// ═══════════════════════════════════════════════════
+window.hiqToggleNews = function() {
+  const panel  = document.getElementById('hiqNewsPanel');
+  const chev   = document.getElementById('hiqChevron');
+  const isOpen = panel.classList.contains('open');
+  panel.classList.toggle('open');
+  if (chev) { chev.textContent=isOpen?'▼':'▲'; chev.classList.toggle('open', !isOpen); }
+
+};
+
+window.hiqSwitchTab = function(tab) {
+  document.querySelectorAll('.hiq-pane').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.hiq-tab').forEach(t=>t.classList.remove('active'));
+  const pane = document.getElementById(tab==='news'?'paneNews':'paneLaura');
+  const tabEl= document.getElementById(tab==='news'?'tabNews':'tabLaura');
+  if (pane)  pane.classList.add('active');
+  if (tabEl) tabEl.classList.add('active');
+  if (tab==='laura') {
+    if (typeof window.tok3nUpdate === 'function') window.tok3nUpdate();
+  }
+};
+
+const DEFAULT_HEADLINES = [
+  {title:'JAY-Z Tops NYRE Blue Chip Index for 7th Consecutive Quarter',tag:'MARKET',src:'NYRE Analytics',time:'2m ago'},
+  {title:'Nas Announces New Album: Semantic Depth Score Expected to Surge',tag:'INTEL',src:'Hood iQ Wire',time:'8m ago'},
+  {title:'NYRE Composite Hits All-Time High as Golden Era Metrics Rally',tag:'MARKET',src:'NYRE Research',time:'15m ago'},
+  {title:'Blockchain Verification: Rakim Flow Complexity Certified at 9.9',tag:'CHAIN',src:'NYRE Ledger',time:'22m ago'},
+  {title:'GZA Semantic Network Analysis Reveals New 6-Node Chain Structure',tag:'ALPHA',src:'Hood iQ Analytics',time:'35m ago'},
+  {title:'Big L Estate Files for NYRE Posthumous Listing Upgrade',tag:'FILING',src:'Legal Wire',time:'47m ago'},
+  {title:'Eminem Syntactic Complexity Rating Under Review After New Track',tag:'UPDATE',src:'NYRE Research',time:'1h ago'},
+  {title:'Polyrhythmic Index Shows Uptick as New Era Artists Mature',tag:'MARKET',src:'NYRE Composite',time:'1h ago'},
+];
+
+function renderNewsItems(items) {
+  const el = document.getElementById('hiqNewsList');
+  if (!el) return;
+  el.innerHTML = items.map(item=>`<div class="hiq-news-item">
+    <div class="hiq-ni-head">
+      <span class="hiq-ni-tag">${item.tag||'NEWS'}</span>
+      <span class="hiq-ni-time">${item.time||'just now'}</span>
+    </div>
+    <div class="hiq-ni-title">${item.title}</div>
+    <div class="hiq-ni-src">${item.src||'Hood iQ'}</div>
+  </div>`).join('');
+  const ts = document.getElementById('hiqNewsTimestamp');
+  if (ts) ts.textContent = 'UPDATED ' + new Date().toTimeString().slice(0,8);
+}
+
+async function fetchLiveNews() {
+  try {
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514', max_tokens:1200,
+        tools:[{type:'web_search_20250305',name:'web_search'}],
+        messages:[{role:'user',content:'Search for the 8 most recent hip-hop music industry news headlines from the past 24 hours. Return as JSON array with fields: title, tag (one of MARKET/INTEL/CHAIN/ALPHA/UPDATE/FILING), src, time. JSON only, no markdown.'}]
+      })
+    });
+    if (!resp.ok) throw new Error('API error');
+    const data = await resp.json();
+    const textBlock = data.content?.find(b=>b.type==='text');
+    if (textBlock?.text) {
+      const clean = textBlock.text.replace(/```json|```/g,'').trim();
+      const items = JSON.parse(clean);
+      if (Array.isArray(items)) { renderNewsItems(items); return; }
+    }
+  } catch(e) {}
+  renderNewsItems(DEFAULT_HEADLINES);
+}
+
+window.hiqRefreshNews = function() { fetchLiveNews(); };
+window.hiqBootstrap  = function() { fetchLiveNews(); };
+
+function hiqRefreshPreview() {
+  const items = DEFAULT_HEADLINES;
+  const idx   = Math.floor(Date.now()/8000) % items.length;
+  const el    = document.getElementById('hiqPreviewText');
+  if (el) el.textContent = items[idx].title;
+}
+</script>
+<script>
+// ═══════════════════════════════════════════════════════════════════
+// ALPHA METRICS ON-CHAIN INTRADAY CHART (Three.js r128)
+// Shows 11 alpha metric time-series as blockchain ledger traces
+// ═══════════════════════════════════════════════════════════════════
+const CHART_METRICS = [
+  {key:'cultural_relevance',     label:'CULT REL',  weight:0.22, color:0xd4860a, css:'#d4860a', z:0.00},
+  {key:'innovation_originality', label:'INNOV',     weight:0.18, color:0xe8a020, css:'#e8a020', z:0.35},
+  {key:'semantic_depth',         label:'SEM DEPTH', weight:0.15, color:0x1a6fd4, css:'#1a6fd4', z:0.70},
+  {key:'flow_pattern_complexity',label:'FLOW',      weight:0.14, color:0x0099cc, css:'#0099cc', z:1.05},
+  {key:'polyrhythmic_complexity',label:'POLY',      weight:0.12, color:0x00b5d4, css:'#00b5d4', z:1.40},
+  {key:'phonetic_complexity',    label:'PHONETIC',  weight:0.11, color:0x159966, css:'#159966', z:1.75},
+  {key:'rhythmic_rhyme',         label:'RHYTHMIC',  weight:0.08, color:0x22aa77, css:'#22aa77', z:2.10},
+  {key:'syntactic_complexity',   label:'SYNTACTIC', weight:0.07, color:0x44bb88, css:'#44bb88', z:2.45},
+  {key:'time_mapping',           label:'TIME MAP',  weight:0.07, color:0x8844dd, css:'#8844dd', z:2.80},
+  {key:'downbeat_manipulation',  label:'DOWNBEAT',  weight:0.06, color:0xaa55ee, css:'#aa55ee', z:3.15},
+  {key:'tempo_control',          label:'TEMPO',     weight:0.06, color:0xcc3333, css:'#cc3333', z:3.50},
+];
+
+window._priceHoloScene = null;
+const metricHistories = {};
+
+function seedMetricHistory(key, score) {
+  if (metricHistories[key] && metricHistories[key].length >= 120) return;
+  const hist = []; let s = Math.max(4, score * 0.96);
+  for (let i = 0; i < 120; i++) {
+    const drift = (score - s)*0.04 + (Math.random()-0.5)*0.18;
+    s = Math.max(3.5, Math.min(10, +(s+drift).toFixed(2)));
+    hist.push(s);
+  }
+  metricHistories[key] = hist;
+}
+
+function tickAllMetrics() {
+  const mx = window.currentArtistMetrics || {};
+  CHART_METRICS.forEach(md => {
+    const score = parseFloat(mx[md.key]) || 7.5;
+    if (!metricHistories[md.key]) seedMetricHistory(md.key, score);
+    const hist = metricHistories[md.key];
+    const last = hist[hist.length-1];
+    const drift= (score-last)*0.06 + (Math.random()-0.5)*0.12;
+    hist.push(Math.max(3.5, Math.min(10, +(last+drift).toFixed(2))));
+    if (hist.length > 120) hist.shift();
+  });
+}
+
+function _buildPriceHoloScene() {
+  const canvas  = document.getElementById('priceHoloCanvas');
+  const wrap    = document.getElementById('priceHoloWrap');
+  const readout = document.getElementById('priceHoloReadout');
+  if (!canvas || !wrap) return;
+  if (typeof THREE === 'undefined') {
+    const _w = setInterval(()=>{ if(typeof THREE!=='undefined'){clearInterval(_w);_buildPriceHoloScene();}},80);
+    return;
+  }
+  if (window._priceHoloScene) {
+    cancelAnimationFrame(window._priceHoloScene.animId);
+    window._priceHoloScene.scene.traverse(o=>{
+      if(o.geometry)o.geometry.dispose();
+      if(o.material)(Array.isArray(o.material)?o.material:[o.material]).forEach(m=>m.dispose());
+    });
+  }
+
+  const W = wrap.clientWidth||400, H = wrap.clientHeight||240;
+  let renderer;
+  if (window._priceHoloScene?.renderer) {
+    renderer = window._priceHoloScene.renderer; renderer.setSize(W,H,false);
+  } else {
+    renderer = new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+    renderer.setSize(W,H,false);
+    renderer.setClearColor(0xf8fafc,1);
+  }
+
+  const scene  = new THREE.Scene();
+  scene.background = new THREE.Color(0xf8fafc);
+  const camera = new THREE.PerspectiveCamera(38, W/H, 0.1, 200);
+  scene.add(new THREE.AmbientLight(0xffffff, 0.95));
+  const dl = new THREE.DirectionalLight(0xffffff, 0.5);
+  dl.position.set(5,12,8); scene.add(dl);
+  const grid = new THREE.GridHelper(28,24,0xdde4ee,0xeef2f8);
+  grid.position.y=-0.02; scene.add(grid);
+
+  // ── Chart constants ──────────────────────────────────────────
+  const CW=17, CH=5.5, CX=-8.5, CY=0.1;
+
+  // ── Get raw price data for active artist / timeframe ─────────
+  function getRawPrices() {
+    const sym = window.currentArtistSym||'';
+    const raw = (sym && artistPriceHistories[sym] && artistPriceHistories[sym].length > 10)
+      ? artistPriceHistories[sym]
+      : (priceHistory.length > 10 ? priceHistory : [400,401,402,403,405,404,406,407,408,407,409]);
+    return raw;
+  }
+
+  // ── Aggregate ticks into OHLC candles ────────────────────────
+  // ticksPerCandle governs resolution; nCandles governs how many to show
+  function buildOHLC() {
+    const raw = getRawPrices();
+    const tf  = (typeof currentTimeframe !== 'undefined') ? currentTimeframe : '1D';
+
+    // Map timeframe → ticks per candle, max candles
+    const TF_MAP = {
+      '1D': { tpc: 3,   maxC: 78  },   // ~2-min bars across trading day
+      '1W': { tpc: 8,   maxC: 60  },   // hourly bars over a week
+      '1M': { tpc: 20,  maxC: 56  },   // 4-hour bars over a month
+      '6M': { tpc: 55,  maxC: 65  },   // daily bars over 6 months
+    };
+    const cfg = TF_MAP[tf] || TF_MAP['1D'];
+    const tpc = cfg.tpc;
+
+    // Build candles from raw ticks
+    const candles = [];
+    for (let i = 0; i < raw.length - tpc; i += tpc) {
+      const slice = raw.slice(i, i + tpc);
+      const o = slice[0];
+      const c = slice[slice.length-1];
+      const h = Math.max(...slice);
+      const l = Math.min(...slice);
+      candles.push({o,h,l,c});
+    }
+
+    // Trim to maxC most recent
+    if (candles.length > cfg.maxC) candles.splice(0, candles.length - cfg.maxC);
+
+    // Zoom: compute tight price range with 8% padding
+    const allH = candles.map(c=>c.h), allL = candles.map(c=>c.l);
+    const rangeH = Math.max(...allH), rangeL = Math.min(...allL);
+    const pad = (rangeH - rangeL) * 0.08;
+    const priceMin = rangeL - pad;
+    const priceMax = rangeH + pad;
+
+    return { candles, priceMin, priceMax };
+  }
+
+  // ── Build 3D candlestick geometry ────────────────────────────
+  function buildCandlesticks(data) {
+    const { candles, priceMin, priceMax } = data;
+    const n = candles.length;
+    if (!n) return [];
+    const rng    = Math.max(0.001, priceMax - priceMin);
+    const toY    = v => CY + ((v - priceMin) / rng) * CH;
+    const spacing= CW / (n + 1);
+    const bodyW  = Math.max(0.04, spacing * 0.58);
+    const bodyD  = bodyW * 0.65;
+    const objects = [];
+
+    candles.forEach((c, i) => {
+      const x     = CX + spacing * (i + 0.5);
+      const isBull= c.c >= c.o;
+      const colHex= isBull ? 0x22aa66 : 0xdd3333;
+      const bodyTop   = toY(Math.max(c.o, c.c));
+      const bodyBot   = toY(Math.min(c.o, c.c));
+      const bodyH     = Math.max(0.015, bodyTop - bodyBot);
+      const bodyMidY  = (bodyTop + bodyBot) / 2;
+      const wickHigh  = toY(c.h);
+      const wickLow   = toY(c.l);
+
+      // Body box
+      const bodyGeo = new THREE.BoxGeometry(bodyW, bodyH, bodyD);
+      const bodyMat = new THREE.MeshPhongMaterial({
+        color: colHex, emissive: colHex, emissiveIntensity: isBull ? 0.12 : 0.08,
+        transparent: false
+      });
+      const body = new THREE.Mesh(bodyGeo, bodyMat);
+      body.position.set(x, bodyMidY, 0);
+      scene.add(body);
+
+      // Body wireframe edge
+      const edgeMat = new THREE.LineBasicMaterial({color: isBull ? 0x44cc88 : 0xff5555, transparent:true, opacity:0.7});
+      const edges = new THREE.LineSegments(new THREE.EdgesGeometry(bodyGeo), edgeMat);
+      edges.position.set(x, bodyMidY, 0);
+      scene.add(edges);
+
+      // Upper wick
+      if (wickHigh > bodyTop + 0.01) {
+        const wickGeo = new THREE.BufferGeometry().setFromPoints([
+          new THREE.Vector3(x, bodyTop,  0),
+          new THREE.Vector3(x, wickHigh, 0)
+        ]);
+        scene.add(new THREE.Line(wickGeo, new THREE.LineBasicMaterial({color: colHex, transparent:true, opacity:0.8})));
+      }
+
+      // Lower wick
+      if (bodyBot > wickLow + 0.01) {
+        const wickGeo = new THREE.BufferGeometry().setFromPoints([
+          new THREE.Vector3(x, bodyBot, 0),
+          new THREE.Vector3(x, wickLow, 0)
+        ]);
+        scene.add(new THREE.Line(wickGeo, new THREE.LineBasicMaterial({color: colHex, transparent:true, opacity:0.8})));
+      }
+
+      objects.push({body, edges, x, bodyMidY, isBull, c});
+    });
+
+    return objects;
+  }
+
+  // ── Y-axis price labels ────────────────────────────────────────
+  const yLabelGroup = [];
+  function buildYLabels(priceMin, priceMax) {
+    yLabelGroup.forEach(s => scene.remove(s));
+    yLabelGroup.length = 0;
+    const rng = Math.max(0.001, priceMax - priceMin);
+    const steps = 5;
+    for (let i = 0; i <= steps; i++) {
+      const frac  = i / steps;
+      const price = priceMin + frac * rng;
+      const yPos  = CY + frac * CH;
+      // grid line
+      const gl = new THREE.Line(
+        new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(CX,yPos,0), new THREE.Vector3(CX+CW,yPos,0)]),
+        new THREE.LineBasicMaterial({color:0xccddee, transparent:true, opacity:0.5})
+      );
+      scene.add(gl);
+      // label sprite
+      const sc = document.createElement('canvas'); sc.width=100; sc.height=24;
+      const cx = sc.getContext('2d');
+      cx.fillStyle = 'rgba(26,80,160,0.85)';
+      cx.font = 'bold 12px monospace';
+      cx.textAlign = 'right';
+      const label = price >= 1000 ? '$'+(price/1000).toFixed(2)+'k' : '$'+price.toFixed(2);
+      cx.fillText(label, 96, 17);
+      const spr = new THREE.Sprite(new THREE.SpriteMaterial({map: new THREE.CanvasTexture(sc), transparent:true, opacity:0.85}));
+      spr.scale.set(1.6, 0.38, 1);
+      spr.position.set(CX - 1.1, yPos, 0);
+      scene.add(spr);
+      yLabelGroup.push(spr);
+    }
+  }
+
+  // ── Time-axis labels (x-axis) ────────────────────────────────
+  function buildXLabels(n) {
+    const tf = (typeof currentTimeframe !== 'undefined') ? currentTimeframe : '1D';
+    const labels_1D = ['09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00'];
+    const labels_1W = ['MON','TUE','WED','THU','FRI','MON','TUE','WED','THU','FRI'];
+    const labels_1M = ['W1','W2','W3','W4','W1','W2','W3','W4'];
+    const labels_6M = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG'];
+    const pool = tf==='1D'?labels_1D:tf==='1W'?labels_1W:tf==='1M'?labels_1M:labels_6M;
+    const step = Math.max(1, Math.floor(n / 6));
+    for (let i = 0; i < n; i += step) {
+      const x    = CX + (CW / (n+1)) * (i + 0.5);
+      const lbl  = pool[Math.floor(i / step) % pool.length];
+      const sc2  = document.createElement('canvas'); sc2.width=80; sc2.height=20;
+      const cx2  = sc2.getContext('2d');
+      cx2.fillStyle = 'rgba(80,100,140,0.75)'; cx2.font='9px monospace'; cx2.textAlign='center';
+      cx2.fillText(lbl, 40, 14);
+      const spr2 = new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(sc2),transparent:true,opacity:0.7}));
+      spr2.scale.set(1.1, 0.28, 1);
+      spr2.position.set(x, CY - 0.35, 0);
+      scene.add(spr2);
+    }
+  }
+
+  // ── Metric traces (thin, behind candles, at Z offsets) ────────
+  const metricLineObjs = {};
+  const SMIN=4, SMAX=10;
+  const mx0 = window.currentArtistMetrics||{};
+  CHART_METRICS.forEach(md => seedMetricHistory(md.key, parseFloat(mx0[md.key])||7.5));
+
+  function buildMetricPoints(key, z) {
+    const hist = metricHistories[key]||[];
+    if (hist.length < 2) return [];
+    const N = 80;
+    const step = Math.max(1, Math.floor(hist.length / N));
+    const pts  = [];
+    for (let i = 0; i < hist.length; i += step) pts.push(hist[i]);
+    return pts.map((v,i)=>new THREE.Vector3(
+      CX + (i/(pts.length-1)) * CW,
+      CY + ((v-SMIN)/(SMAX-SMIN)) * CH * 0.45, // compress to lower 45% of chart
+      z
+    ));
+  }
+
+  CHART_METRICS.forEach(md => {
+    const pts3 = buildMetricPoints(md.key, md.z * 0.7 + 0.5); // tighten Z spread
+    const geo  = new THREE.BufferGeometry().setFromPoints(pts3.length>1?pts3:[new THREE.Vector3()]);
+    const mat  = new THREE.LineBasicMaterial({color:md.color, transparent:true, opacity:0.30});
+    scene.add(new THREE.Line(geo, mat));
+    metricLineObjs[md.key] = {geo, mat};
+  });
+
+  // ── On-chain write flash blocks ──────────────────────────────
+  const writeGeo  = new THREE.BoxGeometry(0.18,0.18,0.18);
+  const writeMats = CHART_METRICS.map(md=>new THREE.LineBasicMaterial({color:md.color,transparent:true,opacity:0}));
+  const writeBlocks = CHART_METRICS.map((md,i)=>{
+    const blk = new THREE.LineSegments(new THREE.EdgesGeometry(writeGeo), writeMats[i]);
+    blk.position.set(CX+CW, CY+1, md.z*0.7+0.5); scene.add(blk); return blk;
+  });
+  let lastTickTime=0, writePhase=0;
+
+  // ── Build initial scene ──────────────────────────────────────
+  let ohlcData = buildOHLC();
+  let candleObjs = buildCandlesticks(ohlcData);
+  buildYLabels(ohlcData.priceMin, ohlcData.priceMax);
+  buildXLabels(ohlcData.candles.length);
+
+  // ── Latest price live dot + halo ────────────────────────────
+  const dotMesh = new THREE.Mesh(
+    new THREE.SphereGeometry(0.10,10,10),
+    new THREE.MeshBasicMaterial({color:0x1144cc})
+  );
+  const ringMesh = new THREE.Mesh(
+    new THREE.RingGeometry(0.14,0.22,20),
+    new THREE.MeshBasicMaterial({color:0x3399ff,transparent:true,opacity:0.55,side:THREE.DoubleSide})
+  );
+  scene.add(dotMesh); scene.add(ringMesh);
+
+  function updateLiveDot() {
+    const raw = getRawPrices();
+    const { priceMin, priceMax } = ohlcData;
+    const rng = Math.max(0.001, priceMax - priceMin);
+    const last = raw[raw.length-1]||400;
+    const x    = CX + CW - 0.3;
+    const y    = CY + ((last - priceMin) / rng) * CH;
+    dotMesh.position.set(x, y, 0.1);
+    ringMesh.position.set(x, y, 0.1);
+  }
+  updateLiveDot();
+
+  // ── Readout banner ────────────────────────────────────────────
+  function updateReadout() {
+    if (!readout) return;
+    const raw = getRawPrices();
+    const last  = raw[raw.length-1]||400;
+    const first = raw[0]||400;
+    const chg   = last - first;
+    const sign  = chg>=0?'+':'';
+    const pct   = (chg/first*100).toFixed(2);
+    const sym   = window.currentArtistSym||'';
+    const tf    = (typeof currentTimeframe !== 'undefined') ? currentTimeframe : '1D';
+    readout.textContent = `${sym?sym+'  ·  ':''}${tf}  $${last.toFixed(2)}  ${sign}${chg.toFixed(2)} (${sign}${pct}%)`;
+    readout.style.color = chg>=0?'rgba(20,120,60,0.9)':'rgba(180,40,40,0.9)';
+  }
+  updateReadout();
+
+  // ── Drag to rotate ────────────────────────────────────────────
+  let isDrag=false,lastMX=0,camTheta=0;
+  canvas.addEventListener('mousedown',e=>{isDrag=true;lastMX=e.clientX;});
+  canvas.addEventListener('mousemove',e=>{if(isDrag){camTheta+=(e.clientX-lastMX)*0.006;lastMX=e.clientX;}});
+  window.addEventListener('mouseup',()=>{isDrag=false;});
+
+  // ── Animation loop ────────────────────────────────────────────
+  const born = performance.now();
+  let animId;
+
+  function animate() {
+    animId = requestAnimationFrame(animate);
+    const now = performance.now(), age = now-born;
+
+    // Camera — nearly front-on with gentle sway to show slight 3D depth
+    const r    = 8;
+    const sway = Math.sin(age * 0.000045) * 0.14;
+    camera.position.x = Math.sin(sway + camTheta) * r;
+    camera.position.z = Math.cos(sway + camTheta) * r + 0.5;
+    camera.position.y = 3.8 + Math.sin(age * 0.0002) * 0.18;
+    camera.lookAt(0.5, 2.6, 0.4);
+
+    // Refresh data every 1.8s
+    if (now - lastTickTime > 1800) {
+      lastTickTime = now;
+      tickAllMetrics();
+      writePhase = (writePhase+1) % CHART_METRICS.length;
+
+      // Rebuild candles
+      candleObjs.forEach(({body,edges})=>{
+        scene.remove(body); body.geometry.dispose(); body.material.dispose();
+        scene.remove(edges); edges.geometry.dispose(); edges.material.dispose();
+      });
+      ohlcData    = buildOHLC();
+      candleObjs  = buildCandlesticks(ohlcData);
+      yLabelGroup.forEach(s=>scene.remove(s)); yLabelGroup.length=0;
+      buildYLabels(ohlcData.priceMin, ohlcData.priceMax);
+      updateLiveDot();
+      updateReadout();
+    }
+
+    // Live dot pulse
+    const pulse = 0.8 + 0.4*Math.sin(age*0.006);
+    ringMesh.scale.setScalar(pulse);
+    ringMesh.material.opacity = 0.3 + 0.3*Math.sin(age*0.006);
+    ringMesh.lookAt(camera.position);
+
+    // Chain-write flash
+    CHART_METRICS.forEach((md,i)=>{
+      const phase = (now-lastTickTime)/1800;
+      const flash = i===writePhase ? Math.max(0,1-phase*4) : 0;
+      writeMats[i].opacity = flash*0.9;
+      writeBlocks[i].scale.setScalar(1+flash*0.7);
+    });
+
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  window._priceHoloScene={renderer,scene,animId};
+}
+</script>
+<script>
+// ═══════════════════════════════════════════════════════════════
+// 3D METRICS HOLO CHART (Three.js)
+// ═══════════════════════════════════════════════════════════════
+window._metricsHoloScene = null;
+
+function _buildMetricsHoloScene() {
+  const canvas=document.getElementById('metricsHoloCanvas');
+  const wrap=document.getElementById('metricsHoloWrap');
+  if(!canvas||!wrap)return;
+  if(typeof THREE==='undefined'){const _w=setInterval(()=>{if(typeof THREE!=='undefined'){clearInterval(_w);_buildMetricsHoloScene();}},80);return;}
+  if(window._metricsHoloScene){cancelAnimationFrame(window._metricsHoloScene.animId);window._metricsHoloScene.scene.traverse(o=>{if(o.geometry)o.geometry.dispose();if(o.material)(Array.isArray(o.material)?o.material:[o.material]).forEach(m=>m.dispose());});}
+  const W=wrap.clientWidth||400,H=wrap.clientHeight||240;
+  let renderer;
+  if(window._metricsHoloScene?.renderer){renderer=window._metricsHoloScene.renderer;renderer.setSize(W,H,false);}
+  else{renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));renderer.setSize(W,H,false);renderer.setClearColor(0x000000,0);}
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(48,W/H,0.1,100);
+  camera.position.set(0,2.5,11);camera.lookAt(0,1.2,0);
+  scene.add(new THREE.AmbientLight(0x001133,0.7));
+  const dl=new THREE.DirectionalLight(0x00d4ff,1.3);dl.position.set(4,6,5);scene.add(dl);
+  const dl2=new THREE.DirectionalLight(0xd4a017,0.4);dl2.position.set(-6,3,3);scene.add(dl2);
+  const grid=new THREE.GridHelper(16,16,0x003366,0x001a33);grid.position.y=-0.01;scene.add(grid);
+
+  const MDEFS=[
+    {key:'semantic_depth',short:'SEM\nDEPTH',weight:14,groupCol:0xffbf00},
+    {key:'syntactic_complexity',short:'SYNT\nCOMPLX',weight:12,groupCol:0xffbf00},
+    {key:'polyrhythmic_complexity',short:'POLY\nRHYTHM',weight:14,groupCol:0xffbf00},
+    {key:'innovation_originality',short:'INNOV\nORIG',weight:8,groupCol:0xffbf00},
+    {key:'downbeat_manipulation',short:'DOWN\nBEAT',weight:10,groupCol:0x00994d},
+    {key:'cultural_relevance',short:'CULT\nRELEV',weight:5,groupCol:0x00994d},
+    {key:'time_mapping',short:'TIME\nMAP',weight:15,groupCol:0x1a6fd4},
+    {key:'flow_pattern_complexity',short:'FLOW\nPATTRN',weight:12,groupCol:0x1a6fd4},
+    {key:'rhythmic_rhyme',short:'RHYTH\nRHYME',weight:8,groupCol:0x1a6fd4},
+    {key:'phonetic_complexity',short:'PHON\nCOMPLX',weight:9,groupCol:0x8888aa},
+    {key:'tempo_control',short:'TEMPO\nCTRL',weight:7,groupCol:0xcc2200},
+  ];
+  const N=MDEFS.length,TW=13,spacing=TW/N,barW=spacing*0.55,offsetX=-(TW/2)+spacing*0.5;
+  const barMeshes=[],wireMeshes=[],labelSprites=[],barDataArr=[];
+
+  // Overlay canvas for hover
+  const overlayCanvas=document.createElement('canvas');
+  overlayCanvas.style.cssText='position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5;';
+  wrap.appendChild(overlayCanvas);
+  function resizeOverlay(){overlayCanvas.width=W*(window.devicePixelRatio||1);overlayCanvas.height=H*(window.devicePixelRatio||1);overlayCanvas.style.width=W+'px';overlayCanvas.style.height=H+'px';}
+  resizeOverlay();
+
+  function drawHoverPanel(idx) {
+    const oc=overlayCanvas.getContext('2d'),dpr=window.devicePixelRatio||1;
+    oc.clearRect(0,0,overlayCanvas.width,overlayCanvas.height);
+    if(idx<0)return;
+    oc.save();oc.scale(dpr,dpr);
+    const bd=barDataArr[idx],md=MDEFS[idx];
+    const desc=metricDescriptions[bd.key]||{};
+    const score=bd.score,col=bd.colStr;
+    const PW=Math.min(200,W*0.52),PH=164,PX=W-PW-10,PY=22;
+    oc.shadowColor=col;oc.shadowBlur=18;
+    oc.fillStyle='rgba(2,9,18,0.93)';
+    oc.beginPath();if(oc.roundRect)oc.roundRect(PX,PY,PW,PH,7);else oc.rect(PX,PY,PW,PH);oc.fill();
+    oc.shadowBlur=0;oc.strokeStyle=col;oc.lineWidth=1.5;
+    oc.beginPath();if(oc.roundRect)oc.roundRect(PX,PY,PW,PH,7);else oc.rect(PX,PY,PW,PH);oc.stroke();
+    oc.fillStyle=col;oc.fillRect(PX,PY,PW,3);
+    oc.fillStyle=col;oc.font='bold 9px monospace';oc.textAlign='left';
+    oc.fillText(desc.name||md.short.replace('\n',' '),PX+10,PY+17);
+    oc.fillStyle='#ffffff';oc.font='bold 38px monospace';oc.textAlign='right';
+    oc.fillText(score.toFixed(1),PX+PW-10,PY+56);
+    oc.fillStyle='rgba(180,200,220,0.5)';oc.font='11px monospace';oc.fillText('/ 10',PX+PW-10,PY+70);
+    const gX=PX+10,gY=PY+80,gW=PW-20,gH=7;
+    oc.fillStyle='rgba(255,255,255,0.08)';
+    oc.beginPath();if(oc.roundRect)oc.roundRect(gX,gY,gW,gH,3);else oc.rect(gX,gY,gW,gH);oc.fill();
+    const fillW=(score/10)*gW;
+    const gGrad=oc.createLinearGradient(gX,0,gX+gW,0);gGrad.addColorStop(0,col);gGrad.addColorStop(1,'#ffffff');
+    oc.fillStyle=gGrad;oc.shadowColor=col;oc.shadowBlur=6;
+    oc.beginPath();if(oc.roundRect)oc.roundRect(gX,gY,fillW,gH,3);else oc.rect(gX,gY,fillW,gH);oc.fill();
+    oc.shadowBlur=0;
+    [5,8].forEach(t=>{const tx=gX+(t/10)*gW;oc.strokeStyle='rgba(255,255,255,0.3)';oc.lineWidth=1;oc.beginPath();oc.moveTo(tx,gY-2);oc.lineTo(tx,gY+gH+2);oc.stroke();});
+    const sig=score>=9.5?'TIER-1 α':score>=9.0?'ALPHA+':score>=8.5?'ALPHA':score>=7.5?'BUY':score>=6.5?'HOLD':'⚠ RISK';
+    const sigCol=score>=9.0?'#d4a017':score>=8.0?'#00d4ff':score>=7.0?'#64dc96':'#e05555';
+    oc.fillStyle='rgba(150,170,190,0.7)';oc.font='8px monospace';oc.textAlign='left';oc.fillText('WEIGHT  '+md.weight+'%',gX,PY+103);
+    oc.fillStyle=sigCol;oc.font='bold 8px monospace';oc.textAlign='right';oc.fillText(sig,PX+PW-10,PY+103);
+    const descText=desc.description||'';oc.fillStyle='rgba(180,200,220,0.65)';oc.font='7px monospace';oc.textAlign='left';
+    const words=descText.split(' ');let line='',lineY=PY+120,lineCount=0;
+    for(const w of words){const test=line+(line?' ':'')+w;if(oc.measureText(test).width>PW-18&&line){oc.fillText(line,PX+10,lineY);line=w;lineY+=11;lineCount++;if(lineCount>=3){oc.fillText(line+'…',PX+10,lineY);break;}}else line=test;}
+    if(lineCount<3&&line)oc.fillText(line,PX+10,lineY);
+    oc.restore();
+  }
+
+  MDEFS.forEach((md,i)=>{
+    const score=(window.currentArtistMetrics&&window.currentArtistMetrics[md.key])||7.5;
+    const maxH=4.5,barHh=Math.max(0.08,(score/10)*maxH);
+    const x=offsetX+i*spacing,col=md.groupCol;
+    const geo=new THREE.BoxGeometry(barW,barHh,barW*0.7);geo.translate(0,barHh/2,0);
+    const edgesGeo=new THREE.EdgesGeometry(geo);
+    const wireMat=new THREE.LineBasicMaterial({color:col,transparent:true,opacity:0.85});
+    const wire=new THREE.LineSegments(edgesGeo,wireMat);wire.position.set(x,0,0);
+    wire.userData={nodeIdx:i,wire:true};scene.add(wire);wireMeshes.push(wire);
+    const fillMat=new THREE.MeshPhongMaterial({color:col,emissive:col,emissiveIntensity:0.3,transparent:true,opacity:0.2,depthWrite:false,side:THREE.FrontSide});
+    const fill=new THREE.Mesh(geo.clone(),fillMat);fill.position.set(x,0,0);fill.scale.set(1,0.01,1);fill._isNew=true;scene.add(fill);barMeshes.push(fill);
+
+    // sprite
+    const sc=document.createElement('canvas');sc.width=128;sc.height=80;const sCtx=sc.getContext('2d');
+    const colStr='#'+col.toString(16).padStart(6,'0');
+    sCtx.fillStyle='rgba(2,9,18,0.9)';if(sCtx.roundRect){sCtx.roundRect(0,0,128,80,5);sCtx.fill();}else sCtx.fillRect(0,0,128,80);
+    sCtx.strokeStyle=colStr;sCtx.lineWidth=2;if(sCtx.roundRect){sCtx.roundRect(1,1,126,78,4);sCtx.stroke();}else sCtx.strokeRect(1,1,126,78);
+    sCtx.fillStyle='#fff';sCtx.font='bold 20px monospace';sCtx.textAlign='center';sCtx.fillText(score.toFixed(1),64,28);
+    sCtx.fillStyle=colStr;sCtx.font='9px monospace';
+    md.short.split('\n').forEach((l,li)=>sCtx.fillText(l,64,44+li*13));
+    sCtx.fillStyle='rgba(150,170,190,0.7)';sCtx.font='8px monospace';sCtx.fillText(md.weight+'% WT',64,74);
+    const tex=new THREE.CanvasTexture(sc);
+    const sprMat=new THREE.SpriteMaterial({map:tex,transparent:true,opacity:0});
+    const sprite=new THREE.Sprite(sprMat);sprite.scale.set(1.3,0.82,1);sprite.position.set(x,barHh+0.65,0);
+    sprite._sprMat=sprMat;scene.add(sprite);labelSprites.push({sprite,sprMat,barHh});
+
+    barDataArr.push({wire,fill,sprMat,sprite,score,x,barHh,col,colStr,key:md.key,short:md.short});
+  });
+
+  // Grid + baseline
+  scene.add(new THREE.GridHelper(16,16,0x003366,0x001a33));
+  const baseH=(8/10)*4.5;
+  const basePlane=new THREE.Mesh(new THREE.PlaneGeometry(TW+1.5,0.05),new THREE.MeshBasicMaterial({color:0xd4a017,transparent:true,opacity:0.3,side:THREE.DoubleSide}));
+  basePlane.rotation.x=Math.PI/2;basePlane.position.y=baseH;scene.add(basePlane);
+
+  // Particles
+  const PC=150,pPos=new Float32Array(PC*3);
+  for(let k=0;k<PC;k++){pPos[k*3]=(Math.random()-.5)*15;pPos[k*3+1]=Math.random()*6;pPos[k*3+2]=(Math.random()-.5)*5;}
+  const pGeo=new THREE.BufferGeometry();pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));
+  scene.add(new THREE.Points(pGeo,new THREE.PointsMaterial({color:0x00d4ff,size:0.045,transparent:true,opacity:0.45})));
+
+  let isDrag=false,lastMX=0,camTheta=0,hoveredIdx=-1;
+  canvas.addEventListener('mousedown',e=>{isDrag=true;lastMX=e.clientX;});
+  canvas.addEventListener('mousemove',e=>{
+    if(isDrag){camTheta+=(e.clientX-lastMX)*0.007;lastMX=e.clientX;return;}
+    const rect=canvas.getBoundingClientRect();
+    const mouseNDC=(e.clientX-rect.left)/rect.width*2-1;
+    let bestI=-1,bestDist=0.12;
+    barDataArr.forEach((bd,i)=>{const wp=new THREE.Vector3(bd.x,bd.barHh*0.5,0);wp.project(camera);const dist=Math.abs(mouseNDC-wp.x);if(dist<bestDist){bestDist=dist;bestI=i;}});
+    if(bestI!==hoveredIdx){hoveredIdx=bestI;drawHoverPanel(hoveredIdx);
+      if(bestI>=0){const bd=barDataArr[bestI];const readoutEl=document.getElementById('metricsHoloReadout');if(readoutEl)readoutEl.textContent=(metricDescriptions[bd.key]?.name||bd.key)+'  ·  '+bd.score.toFixed(1)+' / 10';
+        const tt=document.getElementById('metricTooltip'),tn=document.getElementById('tooltipMetricName'),td=document.getElementById('tooltipDescription');
+        if(tt&&metricDescriptions[bd.key]){tn.textContent=metricDescriptions[bd.key].name;td.textContent=metricDescriptions[bd.key].description;tt.style.opacity='1';}}
+      else{const r2=document.getElementById('metricsHoloReadout');if(r2)r2.textContent='PROJECTING · DRAG TO ROTATE';}
+    }
+  });
+  window.addEventListener('mouseup',()=>{isDrag=false;});
+
+  const born=performance.now();let animId;
+  function animate(){
+    animId=requestAnimationFrame(animate);const now=performance.now(),age=now-born;
+    const r=11,base=age*0.00015;
+    camera.position.x=Math.sin(base+camTheta)*r;camera.position.z=Math.cos(base+camTheta)*r;
+    camera.position.y=2.5+Math.sin(age*0.0004)*0.35;camera.lookAt(0,1.5,0);
+    barMeshes.forEach((fill,i)=>{if(fill._isNew){const p=Math.min(1,age/700),e=1-Math.pow(1-p,3);fill.scale.y=0.01+e*0.99;}});
+    labelSprites.forEach(({sprMat},i)=>{const delay=i*60+500;sprMat.opacity=Math.min(0.92,Math.max(0,(age-delay)/400));});
+    wireMeshes.forEach((wire,i)=>{const isHov=i===hoveredIdx;wire.material.opacity=isHov?1.0:0.6+0.3*Math.sin(age*0.003+i*0.55);wire.material.color.setHex(isHov?0xffffff:barDataArr[i]?.col||0xffffff);});
+    const pos=pGeo.attributes.position.array;for(let k=0;k<PC;k++){pos[k*3+1]+=0.004;if(pos[k*3+1]>6.5)pos[k*3+1]=0;}pGeo.attributes.position.needsUpdate=true;
+    renderer.render(scene,camera);
+  }
+  animate();
+  window._metricsHoloScene={renderer,scene,animId};
+}
+
+window.setChartMode=function(mode,el){
+  chartMode=mode;
+  document.querySelectorAll('.chart-mode-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  const priceHoloW=document.getElementById('priceHoloWrap');
+  const holoWrap=document.getElementById('metricsHoloWrap');
+  const tooltip=document.getElementById('metricTooltip');
+  const chartLabel=document.getElementById('chartLabel');
+  const sym=window.currentArtistSym||chartLabel?.textContent.split(' — ')[0]||'';
+  if(mode==='price'){
+    if(priceHoloW)priceHoloW.style.display='block';if(holoWrap)holoWrap.style.display='none';if(tooltip)tooltip.style.display='none';
+    if(chartLabel)chartLabel.textContent=`${sym} — ⬡ ALPHA METRICS · ON-CHAIN LEDGER`;
+    if(window._metricsHoloScene){cancelAnimationFrame(window._metricsHoloScene.animId);window._metricsHoloScene=null;}
+    if(window._priceHoloScene){cancelAnimationFrame(window._priceHoloScene.animId);window._priceHoloScene=null;}
+    _buildPriceHoloScene();
+  } else {
+    if(priceHoloW)priceHoloW.style.display='none';if(holoWrap)holoWrap.style.display='block';if(tooltip)tooltip.style.display='block';
+    if(chartLabel)chartLabel.textContent=`${sym} — ⬡ 11 ALPHA METRICS · 3D HOLOGRAM`;
+    if(window._priceHoloScene){cancelAnimationFrame(window._priceHoloScene.animId);window._priceHoloScene=null;}
+    _buildMetricsHoloScene();
+  }
+};
+</script>
+<script>
+// ═══════════════════════════════════════════════════════════════
+// BLOCKCHAIN CHAIN PANEL — 3D Holographic Ledger (Laura Insight)
+// ═══════════════════════════════════════════════════════════════
+window._chainScene      = null;
+window._chainBlockHistory = [];
+let blockCount = 1000;
+let prevHashes = [];
+
+function simHash(input) {
+  let h = 0;
+  for (let i = 0; i < input.length; i++) {
+    h = ((h << 5) - h) + input.charCodeAt(i);
+    h = h & h;
+  }
+  const hex = (h >>> 0).toString(16).padStart(8,'0');
+  return '0x' + hex + Math.abs(h).toString(36).slice(0,8) + Date.now().toString(36).slice(-6);
+}
+
+function _buildChainScene(blockData) {
+  const canvas = document.getElementById('lipChainCanvas');
+  const wrap   = document.getElementById('lipChainHoloWrap');
+  const status = document.getElementById('lipChainHoloStatus');
+  if (!canvas || !wrap || typeof THREE === 'undefined') return;
+
+  const W = wrap.clientWidth || 280, H = wrap.clientHeight || 180;
+  let renderer;
+  if (window._chainScene) {
+    cancelAnimationFrame(window._chainScene.animId);
+    window._chainScene.scene.traverse(o => {
+      if (o.geometry) o.geometry.dispose();
+      if (o.material) (Array.isArray(o.material)?o.material:[o.material]).forEach(m=>m.dispose());
+    });
+    renderer = window._chainScene.renderer;
+    renderer.setSize(W, H, false);
+  } else {
+    renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true});
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+    renderer.setSize(W, H, false);
+    renderer.setClearColor(0x000000, 0);
+  }
+  const scene  = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(46, W/H, 0.1, 100);
+  camera.position.set(0, 1.6, 9); camera.lookAt(0, 0.5, 0);
+
+  scene.add(new THREE.AmbientLight(0x002200, 0.7));
+  const dl = new THREE.DirectionalLight(0x64dc96, 1.4); dl.position.set(4,6,5); scene.add(dl);
+  const dl2 = new THREE.DirectionalLight(0x00d4ff, 0.3); dl2.position.set(-5,2,2); scene.add(dl2);
+  scene.add(new THREE.GridHelper(16, 16, 0x002200, 0x001100));
+
+  window._chainBlockHistory.unshift(blockData);
+  if (window._chainBlockHistory.length > 4) window._chainBlockHistory.length = 4;
+
+  const N = window._chainBlockHistory.length;
+  const SPACING = 2.8, BW = 2.0, BH = 1.2, BD = 1.0;
+  const totalW = (N-1)*SPACING;
+
+  window._chainBlockHistory.forEach((bd, idx) => {
+    const isNew = idx === 0;
+    const x = (totalW/2) - idx*SPACING;
+    const sigCol = bd.signal==='STRONG BUY'?0xd4a017:bd.signal==='BUY'?0x64dc96:bd.signal==='HOLD'?0x00d4ff:0xe05555;
+
+    const geo  = new THREE.BoxGeometry(BW, BH, BD);
+    const edges= new THREE.EdgesGeometry(geo);
+    const wire = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({color:sigCol, transparent:true, opacity:isNew?0.95:0.45}));
+    wire.position.set(x, BH/2, 0); scene.add(wire);
+
+    const fill = new THREE.Mesh(geo.clone(), new THREE.MeshPhongMaterial({color:sigCol,emissive:sigCol,emissiveIntensity:isNew?0.3:0.1,transparent:true,opacity:isNew?0.18:0.07,depthWrite:false}));
+    fill.position.set(x, BH/2, 0);
+    if (isNew) { fill.scale.set(1,0.02,1); fill._scaleUp = true; }
+    scene.add(fill);
+
+    if (idx < N-1) {
+      const xNext = (totalW/2)-(idx+1)*SPACING;
+      const curve = new THREE.QuadraticBezierCurve3(
+        new THREE.Vector3(x-BW/2, BH/2, 0),
+        new THREE.Vector3((x+xNext)/2, BH/2+0.18, 0),
+        new THREE.Vector3(xNext+BW/2, BH/2, 0)
+      );
+      scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(curve.getPoints(20)),
+        new THREE.LineBasicMaterial({color:sigCol,transparent:true,opacity:isNew?0.6:0.25})));
+      for (let p=0;p<4;p++) {
+        const dot=new THREE.Mesh(new THREE.SphereGeometry(0.045,6,6),new THREE.MeshBasicMaterial({color:sigCol,transparent:true,opacity:0.8}));
+        dot._curve=curve; dot._t=p/4; dot._speed=0.003+Math.random()*0.003;
+        dot.position.copy(curve.getPoint(dot._t)); scene.add(dot);
+      }
+    }
+
+    // Label sprite
+    const sc = document.createElement('canvas'); sc.width=200; sc.height=120;
+    const sCtx = sc.getContext('2d');
+    const colStr = '#'+sigCol.toString(16).padStart(6,'0');
+    sCtx.fillStyle='rgba(2,9,18,0.9)'; sCtx.fillRect(0,0,200,120);
+    sCtx.strokeStyle=colStr; sCtx.lineWidth=isNew?2.5:1.5; sCtx.strokeRect(1,1,198,118);
+    sCtx.fillStyle=colStr; sCtx.fillRect(0,0,200,3);
+    sCtx.fillStyle='rgba(100,220,150,0.6)'; sCtx.font='10px monospace'; sCtx.textAlign='left'; sCtx.fillText('BLK #'+bd.blockNum, 8, 18);
+    sCtx.fillStyle=colStr; sCtx.font='bold 10px monospace'; sCtx.textAlign='right'; sCtx.fillText(bd.signal||'—', 192, 18);
+    sCtx.fillStyle=isNew?'#ffffff':'rgba(200,220,200,0.75)'; sCtx.font=isNew?'bold 14px monospace':'12px monospace'; sCtx.textAlign='center';
+    sCtx.fillText((bd.artistName||'—').slice(0,16), 100, 42);
+    sCtx.fillStyle='rgba(100,220,150,0.7)'; sCtx.font='9px monospace'; sCtx.fillText((bd.tierLabel||'').toUpperCase(), 100, 58);
+    sCtx.fillStyle=colStr; sCtx.font='11px monospace'; sCtx.fillText('EVINS™ '+(bd.evinsScore||'—'), 100, 76);
+    sCtx.fillStyle='rgba(100,220,150,0.5)'; sCtx.font='8px monospace'; sCtx.fillText((bd.thisHash||'').slice(0,22)+'…', 100, 92);
+    sCtx.fillStyle='rgba(150,170,150,0.4)'; sCtx.font='7px monospace'; sCtx.fillText((bd.timestamp||'').slice(11,19)+' UTC', 100, 106);
+    if (isNew) { sCtx.fillStyle=colStr; sCtx.fillRect(0,108,200,12); sCtx.fillStyle='#020912'; sCtx.font='bold 8px monospace'; sCtx.fillText('● WRITING TO CHAIN', 100, 117); }
+    const tex=new THREE.CanvasTexture(sc);
+    const spr=new THREE.Sprite(new THREE.SpriteMaterial({map:tex,transparent:true,opacity:isNew?0:0.6}));
+    spr.scale.set(2.6,1.56,1); spr.position.set(x,BH+1.0,0);
+    spr._isNew=isNew; spr._sprMat=spr.material; scene.add(spr);
+  });
+
+  // Particles
+  const PC=80, pPos=new Float32Array(PC*3);
+  for(let k=0;k<PC;k++){pPos[k*3]=(Math.random()-.5)*12;pPos[k*3+1]=Math.random()*4;pPos[k*3+2]=(Math.random()-.5)*3;}
+  const pGeo=new THREE.BufferGeometry(); pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));
+  scene.add(new THREE.Points(pGeo,new THREE.PointsMaterial({color:0x64dc96,size:0.045,transparent:true,opacity:0.4})));
+  if (status) { status.textContent='PROJECTING'; status.style.color='rgba(100,220,150,0.8)'; }
+
+  let isDrag=false,lastMX=0,camTheta=0;
+  const panel=document.getElementById('laura-insight-panel');
+  if(panel){panel.addEventListener('mousedown',e=>{isDrag=true;lastMX=e.clientX;});panel.addEventListener('mousemove',e=>{if(isDrag){camTheta+=(e.clientX-lastMX)*0.007;lastMX=e.clientX;}});window.addEventListener('mouseup',()=>{isDrag=false;});}
+
+  const born=performance.now(); let animId;
+  function animate(){
+    animId=requestAnimationFrame(animate);
+    const now=performance.now(),age=now-born;
+    const r=9,base=age*0.00018;
+    camera.position.x=Math.sin(base+camTheta)*r; camera.position.z=Math.cos(base+camTheta)*r;
+    camera.position.y=1.6+Math.sin(age*0.0005)*0.25; camera.lookAt(0,0.7,0);
+    scene.traverse(obj=>{
+      if(obj.isMesh&&obj._scaleUp){obj.scale.y=Math.min(1,obj.scale.y+0.025);if(obj.scale.y>=1)obj._scaleUp=false;}
+      if(obj.isSprite&&obj._isNew&&obj._sprMat){obj._sprMat.opacity=Math.min(0.95,obj._sprMat.opacity+0.008);}
+      if(obj.isMesh&&obj._curve&&obj._speed!==undefined){obj._t=(obj._t+obj._speed)%1;obj.position.copy(obj._curve.getPoint(obj._t));}
+      if(obj.isLineSegments&&!obj._isCore){obj.material.opacity=0.6+0.3*Math.sin(age*0.004+Math.random());}
+    });
+    const pos=pGeo.attributes.position.array;
+    for(let k=0;k<PC;k++){pos[k*3+1]+=0.003;if(pos[k*3+1]>4.2)pos[k*3+1]=0;}
+    pGeo.attributes.position.needsUpdate=true;
+    renderer.render(scene,camera);
+  }
+  animate();
+  window._chainScene={renderer,scene,animId};
+}
+
+function animateChain(artistName, tierLabel, metrics) {
+  const wrap   = document.getElementById('lipChainWrap');
+  const status = document.getElementById('lipChainStatus');
+  const bar    = document.getElementById('lcBar');
+  const confirm= document.getElementById('lcConfirm');
+  const progress=document.getElementById('lcProgress');
+  if (!wrap) return;
+
+  wrap.classList.add('active');
+  if(confirm)confirm.style.display='none';
+  if(bar)bar.style.width='0%';
+  if(status){status.textContent='● WRITING';status.classList.remove('confirmed');}
+  if(prevHashes.length>1)prevHashes.splice(0,prevHashes.length-1);
+
+  blockCount++;
+  const sorted    = Object.entries(metrics).sort((a,b)=>b[1]-a[1]);
+  const topMetric = sorted[0][0]+' '+sorted[0][1];
+  const evinsScore= sorted.slice(0,4).reduce((s,[,v])=>s+v,0)/4;
+  const signal    = evinsScore>=9.3?'STRONG BUY':evinsScore>=9.0?'BUY':evinsScore>=8.5?'HOLD':'WATCH';
+  const ts        = new Date().toISOString().replace('T',' ').slice(0,19)+' UTC';
+  const thisHash  = simHash(artistName+tierLabel+JSON.stringify(metrics)+Date.now());
+  const prevHash  = prevHashes.length?prevHashes[prevHashes.length-1]:simHash('genesis'+blockCount);
+  prevHashes.push(thisHash);
+
+  const elMap = {lcBlock:'#'+blockCount,lcArtist:artistName,lcTier:tierLabel.toUpperCase(),lcEvins:evinsScore.toFixed(2),lcTop:topMetric,lcSignal:signal,lcTime:ts,lcHash:thisHash,lcPrev:prevHash};
+  Object.entries(elMap).forEach(([id,val])=>{const el=document.getElementById(id);if(el)el.textContent=val;});
+
+  const bd = {blockNum:blockCount,artistName,tierLabel,evinsScore,signal,thisHash,prevHash,timestamp:ts};
+  if(typeof THREE!=='undefined') _buildChainScene(bd);
+  else {const _w=setInterval(()=>{if(typeof THREE!=='undefined'){clearInterval(_w);_buildChainScene(bd);}},80);}
+
+  let pct=0;
+  const fill=setInterval(()=>{
+    pct+=2.2;
+    if(bar)bar.style.width=Math.min(pct,100)+'%';
+    if(pct>=100){
+      clearInterval(fill);
+      if(status){status.textContent='● CONFIRMED';status.classList.add('confirmed');}
+      if(progress)progress.style.display='none';
+      if(confirm)confirm.style.display='block';
+      try{localStorage.setItem('nyreBlockCount',blockCount);}catch(e){}
+      if(typeof window.tok3nUpdate==='function')window.tok3nUpdate();
+      else if(typeof window._rebuildLauraChain==='function')window._rebuildLauraChain();
+    }
+  },38);
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+// ═══════════════════════════════════════════════════════════════
+// TOK3N TOWN — Quantum On-Chain Alpha Metric Blocks
+// ═══════════════════════════════════════════════════════════════
+(function() {
+  'use strict';
+
+  var SEGMENTS = [
+    "Welcome to Tok3n Town — the on-chain alpha ledger where every lyric metric is a block on the NYRE blockchain.",
+    "Semantic Depth — the weight of meaning in every rhyme. Rakim sets the mold. Nas flipped it poetic — urban scripture, deep vision.",
+    "Shyheim Franklin: barely a teen — semantic compression at maximum density. Economy of words, maximum reality.",
+    "Metaphor Density: JAY-Z built metaphors into identity. Biggie made metaphor kinetic — hunger, hustle, pain in one cinematic universe.",
+    "GZA — Semantic Network Depth master builder. Every verse a chessboard. Six-node chains confirmed by NYRE models.",
+    "Polysemy: Watch your back doubles as physical caution AND social awareness. MCs hiding sociology inside slang.",
+    "143,000 songs analyzed. Rakim, Nas, Biggie, JAY-Z, GZA: Semantic Depth north of 9.0. Their rhymes age like equity.",
+    "Depth doesn't date — it appreciates. Language is currency. The market never sleeps on real bars."
+  ];
+  var DURATIONS = [6000,7000,6500,6500,7000,6500,7500,6000];
+  var current=0, broadcastTimer=null, broadcastPaused=false;
+
+  var METRICS = [
+    {key:'cultural_relevance',     short:'CULT',  label:'CULTURAL RELEVANCE', weight:0.22, hex:0xd4860a, css:'#d4860a'},
+    {key:'innovation_originality', short:'INNOV', label:'INNOVATION / ORIG',  weight:0.18, hex:0xe8a020, css:'#e8a020'},
+    {key:'semantic_depth',         short:'SEM',   label:'SEMANTIC DEPTH',     weight:0.15, hex:0x1a9fd4, css:'#1a9fd4'},
+    {key:'flow_pattern_complexity',short:'FLOW',  label:'FLOW COMPLEXITY',    weight:0.14, hex:0x0099cc, css:'#0099cc'},
+    {key:'polyrhythmic_complexity',short:'POLY',  label:'POLYRHYTHMIC',       weight:0.12, hex:0x00b5d4, css:'#00b5d4'},
+    {key:'phonetic_complexity',    short:'PHON',  label:'PHONETIC COMPLX',    weight:0.11, hex:0x22bb88, css:'#22bb88'},
+    {key:'rhythmic_rhyme',         short:'RHYM',  label:'RHYTHMIC RHYME',     weight:0.08, hex:0x44dd99, css:'#44dd99'},
+    {key:'syntactic_complexity',   short:'SYNT',  label:'SYNTACTIC COMPLX',   weight:0.07, hex:0x66eeaa, css:'#66eeaa'},
+    {key:'time_mapping',           short:'TIME',  label:'TIME MAPPING',       weight:0.07, hex:0x9955ff, css:'#9955ff'},
+    {key:'downbeat_manipulation',  short:'DNBT',  label:'DOWNBEAT MANIP',     weight:0.06, hex:0xbb77ff, css:'#bb77ff'},
+    {key:'tempo_control',          short:'TEMPO', label:'TEMPO CONTROL',      weight:0.06, hex:0xff4455, css:'#ff4455'},
+  ];
+
+  function makeCard(md, score, sym, blockNum, hashFrag) {
+    var CW=320, CH=220;
+    var cv=document.createElement('canvas'); cv.width=CW; cv.height=CH;
+    var cx=cv.getContext('2d');
+    cx.fillStyle='#030d1e'; cx.fillRect(0,0,CW,CH);
+    cx.strokeStyle='rgba(0,212,255,0.05)'; cx.lineWidth=0.5;
+    for(var gx=0;gx<CW;gx+=20){cx.beginPath();cx.moveTo(gx,0);cx.lineTo(gx,CH);cx.stroke();}
+    for(var gy=0;gy<CH;gy+=20){cx.beginPath();cx.moveTo(0,gy);cx.lineTo(CW,gy);cx.stroke();}
+    var bg=cx.createLinearGradient(0,0,0,CH);
+    bg.addColorStop(0,md.css); bg.addColorStop(1,'rgba(0,0,0,0)');
+    cx.fillStyle=bg; cx.fillRect(0,0,5,CH);
+    cx.fillStyle=md.css; cx.globalAlpha=0.07; cx.fillRect(5,0,CW-5,46); cx.globalAlpha=1;
+    cx.shadowColor=md.css; cx.shadowBlur=8;
+    cx.fillStyle=md.css; cx.font='bold 13px monospace'; cx.textAlign='left'; cx.fillText(md.short,12,18);
+    cx.shadowBlur=0;
+    cx.fillStyle='rgba(160,200,240,0.6)'; cx.font='8px monospace'; cx.fillText(md.label,12,30);
+    cx.shadowColor=md.css; cx.shadowBlur=14;
+    cx.fillStyle='#ffffff'; cx.font='bold 32px monospace'; cx.textAlign='right'; cx.fillText(score.toFixed(1),CW-10,32);
+    cx.shadowBlur=0;
+    cx.fillStyle='rgba(255,255,255,0.3)'; cx.font='9px monospace'; cx.fillText('/ 10',CW-10,43);
+    var gY=48,gH=5;
+    cx.fillStyle='rgba(255,255,255,0.07)'; cx.fillRect(5,gY,CW-5,gH);
+    var fw=Math.round((score/10)*(CW-5));
+    var gg=cx.createLinearGradient(5,0,CW,0);
+    gg.addColorStop(0,'rgba(0,180,255,0.5)'); gg.addColorStop(1,md.css);
+    cx.shadowColor=md.css; cx.shadowBlur=6; cx.fillStyle=gg; cx.fillRect(5,gY,fw,gH); cx.shadowBlur=0;
+    var t8=5+(8/10)*(CW-5);
+    cx.strokeStyle='rgba(255,255,255,0.25)'; cx.lineWidth=1;
+    cx.beginPath(); cx.moveTo(t8,gY-2); cx.lineTo(t8,gY+gH+2); cx.stroke();
+    cx.strokeStyle='rgba(0,212,255,0.15)'; cx.lineWidth=1;
+    cx.beginPath(); cx.moveTo(5,57); cx.lineTo(CW,57); cx.stroke();
+    cx.fillStyle='rgba(0,212,255,0.55)'; cx.font='bold 7px monospace'; cx.textAlign='left';
+    cx.fillText('\u25c8  ON-CHAIN STORAGE SCHEMA',10,68);
+    cx.fillStyle='rgba(100,160,220,0.45)'; cx.font='7px monospace';
+    cx.fillText('FIELD',10,80); cx.textAlign='center'; cx.fillText('TYPE',145,80);
+    cx.textAlign='right'; cx.fillText('VALUE',CW-10,80);
+    cx.strokeStyle='rgba(0,212,255,0.08)';
+    cx.beginPath(); cx.moveTo(10,83); cx.lineTo(CW-10,83); cx.stroke();
+    var fi=METRICS.findIndex(function(m){return m.key===md.key;});
+    var fields=[
+      {k:'field_id',  t:'uint8',  v:String(fi+1).padStart(2,'0')},
+      {k:'metric_key',t:'bytes32',v:md.key.slice(0,22)+(md.key.length>22?'...':'')},
+      {k:'score_raw', t:'uint16', v:String(Math.round(score*100))+' (div100)'},
+      {k:'weight_bps',t:'uint16', v:String(Math.round(md.weight*10000))+' bps'},
+      {k:'artist_sym',t:'bytes8', v:sym||'NULL'},
+      {k:'block_num', t:'uint32', v:blockNum?'#'+blockNum:'pending'},
+      {k:'timestamp', t:'uint40', v:new Date().toISOString().slice(11,19)+' UTC'},
+    ];
+    fields.forEach(function(f,fi2){
+      var y=95+fi2*16;
+      if(fi2%2===0){cx.fillStyle='rgba(0,180,255,0.04)';cx.fillRect(5,y-11,CW-5,15);}
+      cx.fillStyle='rgba(120,170,220,0.65)'; cx.font='8px monospace'; cx.textAlign='left'; cx.fillText(f.k,10,y);
+      cx.shadowColor=md.css; cx.shadowBlur=3;
+      cx.fillStyle=md.css; cx.font='7.5px monospace'; cx.textAlign='center'; cx.fillText(f.t,145,y);
+      cx.shadowBlur=0;
+      cx.fillStyle='rgba(220,240,255,0.9)'; cx.font='bold 8px monospace'; cx.textAlign='right'; cx.fillText(f.v,CW-10,y);
+    });
+    cx.strokeStyle='rgba(0,212,255,0.10)';
+    cx.beginPath(); cx.moveTo(5,CH-18); cx.lineTo(CW,CH-18); cx.stroke();
+    cx.fillStyle='rgba(0,212,255,0.45)'; cx.font='6.5px monospace'; cx.textAlign='left';
+    cx.fillText(hashFrag||('0x'+Math.random().toString(16).slice(2,18)+'...'),10,CH-6);
+    cx.shadowColor=md.css; cx.shadowBlur=4;
+    cx.fillStyle=md.css; cx.font='bold 7px monospace'; cx.textAlign='right';
+    cx.fillText('WT '+Math.round(md.weight*100)+'%',CW-10,CH-6);
+    cx.shadowBlur=0;
+    return new THREE.CanvasTexture(cv);
+  }
+
+  var T3={scene:null,camera:null,renderer:null,clock:null,animId:null,ready:false,camTheta:0,drag:false,lastX:0};
+
+  function rebuild() {
+    if(!T3.scene) return;
+    var kill=[];
+    T3.scene.traverse(function(o){if(o.userData.tok3n)kill.push(o);});
+    kill.forEach(function(o){
+      if(o.geometry)o.geometry.dispose();
+      if(o.material){var mats=Array.isArray(o.material)?o.material:[o.material];mats.forEach(function(m){if(m.map)m.map.dispose();m.dispose();});}
+      T3.scene.remove(o);
+    });
+    var mx=window.currentArtistMetrics||{};
+    var sym=window.currentArtistSym||'';
+    var blk=window._chainBlockHistory&&window._chainBlockHistory[0]||null;
+    var bNum=blk?blk.blockNum:null;
+    var bHash=blk?(blk.thisHash||'').slice(0,18)+'...':null;
+    var sorted=METRICS.map(function(md){
+      var raw=parseFloat(mx[md.key]);
+      var score=(raw>0&&raw<=10)?raw:7.5;
+      return {md:md,score:score};
+    }).sort(function(a,b){return b.score-a.score;});
+    var CELL_W=3.4,CELL_D=3.4;
+    var positions=[];
+    var rowDef=[4,4,3];
+    var zOff=-((rowDef.length-1)*CELL_D)/2;
+    rowDef.forEach(function(cols){
+      var xOff=-((cols-1)*CELL_W)/2;
+      for(var c=0;c<cols;c++)positions.push(new THREE.Vector3(xOff+c*CELL_W,0,zOff));
+      zOff+=CELL_D;
+    });
+    var nodeList=[];
+    sorted.forEach(function(item,i){
+      var md=item.md, score=item.score;
+      var pos=positions[i];
+      var norm=score/10;
+      var BW=1.7,BD=1.7,BH=0.15+norm*1.3;
+      var geo=new THREE.BoxGeometry(BW,BH,BD);
+      geo.translate(0,BH/2,0);
+      var fill=new THREE.Mesh(geo.clone(),new THREE.MeshPhongMaterial({color:md.hex,emissive:md.hex,emissiveIntensity:0.5,transparent:true,opacity:0.35,depthWrite:false}));
+      fill.position.copy(pos); fill.scale.set(1,0.01,1);
+      fill.userData={tok3n:true,scaleUp:true,nodeIdx:i}; T3.scene.add(fill);
+      var wire=new THREE.LineSegments(new THREE.EdgesGeometry(geo),new THREE.LineBasicMaterial({color:md.hex}));
+      wire.position.copy(pos); wire.userData={tok3n:true,nodeIdx:i,wire:true}; T3.scene.add(wire);
+      var barW=Math.max(0.1,BW*norm);
+      var bar=new THREE.Mesh(new THREE.PlaneGeometry(barW,BD*0.18),new THREE.MeshBasicMaterial({color:md.hex,side:THREE.DoubleSide}));
+      bar.rotation.x=-Math.PI/2; bar.position.set(pos.x-BW/2+barW/2,pos.y+BH+0.01,pos.z);
+      bar.userData={tok3n:true}; T3.scene.add(bar);
+      var cardTex=makeCard(md,score,sym,bNum,bHash||('0x'+Math.random().toString(16).slice(2,18)+'...'));
+      var cW=BW*2.2,cH=cW*(220/320);
+      var card=new THREE.Mesh(new THREE.PlaneGeometry(cW,cH),new THREE.MeshBasicMaterial({map:cardTex,transparent:true,opacity:1.0,side:THREE.DoubleSide}));
+      card.position.set(pos.x,pos.y+BH+cH/2+0.15,pos.z);
+      card.userData={tok3n:true,card:true,nodeIdx:i}; T3.scene.add(card);
+      var rc=document.createElement('canvas'); rc.width=64; rc.height=28;
+      var rx=rc.getContext('2d');
+      rx.shadowColor=md.css; rx.shadowBlur=8; rx.fillStyle='#fff';
+      rx.font='bold 14px monospace'; rx.textAlign='center'; rx.fillText('#'+(i+1),32,20);
+      var rankSpr=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(rc),transparent:true,opacity:0.9}));
+      rankSpr.scale.set(0.7,0.31,1); rankSpr.position.set(pos.x,pos.y+BH+0.22,pos.z);
+      rankSpr.userData={tok3n:true}; T3.scene.add(rankSpr);
+      nodeList.push({fill:fill,wire:wire,pos:pos,score:score,BH:BH});
+    });
+    for(var a=0;a<sorted.length;a++){
+      for(var b=a+1;b<sorted.length;b++){
+        var na=nodeList[a],nb=nodeList[b];
+        if(na.pos.distanceTo(nb.pos)>CELL_W*1.55)continue;
+        var sp=(na.score/10)*(nb.score/10);
+        if(sp<0.56)continue;
+        var op=0.12+(sp-0.56)/0.44*0.35;
+        var link=new THREE.Line(new THREE.BufferGeometry().setFromPoints([na.pos.clone().setY(na.BH*0.8),nb.pos.clone().setY(nb.BH*0.8)]),new THREE.LineBasicMaterial({color:0x00d4ff,transparent:true,opacity:op}));
+        link.userData={tok3n:true}; T3.scene.add(link);
+      }
+    }
+    T3.scene.userData.nodeList=nodeList;
+  }
+
+  function addCity(scene) {
+    var BRICK=[0x6b2e18,0x7a3520,0x5c2814,0x6e3020,0x7f3e22];
+    var TRIM=0xc8a882, STOOP=0x8b5e3c;
+    var Z_POS=[-9.5,-5.7,-1.9,1.9,5.7,9.5];
+    Z_POS.forEach(function(bz){
+      [-10.8,10.8].forEach(function(bx,side){
+        var leftSide=(side===0);
+        var frontDir=leftSide?1:-1;
+        var BW=2.2,BD=2.0,BH=4.8;
+        var brickCol=BRICK[Math.floor(Math.random()*BRICK.length)];
+        var FRONT_X=bx+frontDir*BD/2;
+        var body=new THREE.Mesh(new THREE.BoxGeometry(BD,BH,BW),new THREE.MeshPhongMaterial({color:brickCol,emissive:brickCol,emissiveIntensity:0.06}));
+        body.position.set(bx,BH/2,bz); scene.add(body);
+        var bWire=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(BD,BH,BW)),new THREE.LineBasicMaterial({color:TRIM,transparent:true,opacity:0.2}));
+        bWire.position.set(bx,BH/2,bz); scene.add(bWire);
+        [1.55,3.1].forEach(function(ty){
+          var t=new THREE.Mesh(new THREE.BoxGeometry(BD+0.08,0.12,BW+0.08),new THREE.MeshPhongMaterial({color:TRIM,emissive:TRIM,emissiveIntensity:0.1}));
+          t.position.set(bx,ty,bz); scene.add(t);
+        });
+        var corn=new THREE.Mesh(new THREE.BoxGeometry(BD+0.14,0.22,BW+0.14),new THREE.MeshPhongMaterial({color:TRIM,emissive:TRIM,emissiveIntensity:0.12}));
+        corn.position.set(bx,BH+0.11,bz); scene.add(corn);
+        [[-0.55,0.65],[0.55,0.65],[-0.55,2.25],[0.55,2.25],[-0.55,3.85],[0.55,3.85]].forEach(function(wv){
+          var wo=wv[0],wy=wv[1];
+          var wC2=document.createElement('canvas'); wC2.width=48; wC2.height=64;
+          var wX2=wC2.getContext('2d');
+          var lit=Math.random()>0.3;
+          wX2.fillStyle=lit?(Math.random()>0.5?'#ffc85a':'#8cc8ff'):'#060e18';
+          wX2.fillRect(0,0,48,64);
+          wX2.strokeStyle='rgba(200,175,140,0.5)'; wX2.lineWidth=2; wX2.strokeRect(2,2,44,60);
+          wX2.strokeStyle='rgba(80,60,40,0.6)'; wX2.lineWidth=2;
+          wX2.beginPath(); wX2.moveTo(24,2); wX2.lineTo(24,62); wX2.stroke();
+          wX2.beginPath(); wX2.moveTo(2,32); wX2.lineTo(46,32); wX2.stroke();
+          var wp2=new THREE.Mesh(new THREE.PlaneGeometry(0.72,0.95),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(wC2),transparent:true,opacity:0.97,side:THREE.DoubleSide}));
+          wp2.rotation.y=leftSide?Math.PI/2:-Math.PI/2;
+          wp2.position.set(FRONT_X+frontDir*0.01,wy,bz+wo);
+          scene.add(wp2);
+          if(lit){var gl=new THREE.PointLight(0xffcc66,0.2,2.5);gl.position.set(FRONT_X+frontDir*0.8,wy,bz+wo);scene.add(gl);}
+        });
+        [0,1,2].forEach(function(st){
+          var sm=new THREE.Mesh(new THREE.BoxGeometry(0.35,0.18,BW*0.55-st*0.12),new THREE.MeshPhongMaterial({color:STOOP,emissive:STOOP,emissiveIntensity:0.08}));
+          sm.position.set(FRONT_X+frontDir*(BD/2+st*0.35+0.175),st*0.18+0.09,bz); scene.add(sm);
+        });
+        var lan=new THREE.Mesh(new THREE.SphereGeometry(0.1,7,5),new THREE.MeshBasicMaterial({color:0xffdd88}));
+        lan.position.set(FRONT_X+frontDir*(BD/2+0.45),1.15,bz+BW*0.24); scene.add(lan);
+        var ll=new THREE.PointLight(0xffdd88,0.45,3.0); ll.position.copy(lan.position); scene.add(ll);
+      });
+    });
+    var BACK_Z=-12, SF_H=4.8;
+    var STORES=[
+      {x:-9.2,w:3.8,name:'CRATE\nDIGGERS',col:0x1a0a2e,sign:0xd4a017},
+      {x:-5.1,w:3.4,name:'VINYL\nVAULT',  col:0x0d1a0d,sign:0x22aa66},
+      {x:-1.4,w:2.9,name:'THE\nBOOTH',    col:0x1a0a0a,sign:0xff2244},
+      {x: 1.9,w:3.1,name:'FLOW\nSTATE',   col:0x0a0d1a,sign:0x00d4ff},
+      {x: 5.4,w:3.4,name:'INK &\nRHYME',  col:0x1a150a,sign:0xe8a020},
+      {x: 9.2,w:3.8,name:'CIPHER\nCLUB',  col:0x0d0d1a,sign:0xbb77ff},
+    ];
+    STORES.forEach(function(store){
+      var x=store.x,w=store.w,col=store.col,sign=store.sign,name=store.name;
+      var sh='#'+sign.toString(16).padStart(6,'0');
+      var sfGeo=new THREE.BoxGeometry(w,SF_H,0.55); sfGeo.translate(0,SF_H/2,0);
+      var sf=new THREE.Mesh(sfGeo.clone(),new THREE.MeshPhongMaterial({color:col,emissive:col,emissiveIntensity:0.45}));
+      sf.position.set(x,0,BACK_Z); scene.add(sf);
+      var sfW=new THREE.LineSegments(new THREE.EdgesGeometry(sfGeo),new THREE.LineBasicMaterial({color:sign,transparent:true,opacity:0.6}));
+      sfW.position.set(x,0,BACK_Z); scene.add(sfW);
+      var wC=document.createElement('canvas'); wC.width=128; wC.height=96;
+      var wCtx=wC.getContext('2d');
+      wCtx.fillStyle='#0a1420'; wCtx.fillRect(0,0,128,96);
+      wCtx.fillStyle=sh; wCtx.globalAlpha=0.1; wCtx.fillRect(8,8,112,80); wCtx.globalAlpha=1;
+      wCtx.strokeStyle=sh; wCtx.lineWidth=2; wCtx.strokeRect(4,4,120,88);
+      wCtx.strokeStyle='rgba(255,255,255,0.1)'; wCtx.lineWidth=1;
+      wCtx.beginPath(); wCtx.moveTo(64,4); wCtx.lineTo(64,92); wCtx.stroke();
+      wCtx.beginPath(); wCtx.moveTo(4,48); wCtx.lineTo(124,48); wCtx.stroke();
+      var wp=new THREE.Mesh(new THREE.PlaneGeometry(w*0.82,SF_H*0.58),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(wC),transparent:true,opacity:0.92,side:THREE.DoubleSide}));
+      wp.position.set(x,SF_H*0.36,BACK_Z+0.29); scene.add(wp);
+      var flC=document.createElement('canvas'); flC.width=200; flC.height=80;
+      var fCtx=flC.getContext('2d');
+      fCtx.fillStyle='#f0f2f5'; fCtx.fillRect(0,0,200,80);
+      fCtx.strokeStyle='#cc0011'; fCtx.lineWidth=3; fCtx.strokeRect(3,3,194,74);
+      fCtx.fillStyle='#cc0011'; fCtx.font='bold 22px monospace'; fCtx.textAlign='center'; fCtx.fillText('FOR LEASE',100,30);
+      fCtx.strokeStyle='rgba(0,0,0,0.15)'; fCtx.lineWidth=1; fCtx.beginPath(); fCtx.moveTo(16,38); fCtx.lineTo(184,38); fCtx.stroke();
+      fCtx.fillStyle='#1a1a2e'; fCtx.font='bold 10px monospace'; fCtx.fillText('CONTACT NYRE LEASING',100,52);
+      fCtx.fillStyle='#444'; fCtx.font='9px monospace'; fCtx.fillText('(212) 555-NYRE',100,67);
+      var flP=new THREE.Mesh(new THREE.PlaneGeometry(w*0.58,SF_H*0.28),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(flC),side:THREE.DoubleSide}));
+      flP.position.set(x,SF_H*0.64,BACK_Z+0.30); scene.add(flP);
+      var fascia=new THREE.Mesh(new THREE.BoxGeometry(w,0.7,0.25),new THREE.MeshPhongMaterial({color:col,emissive:col,emissiveIntensity:0.65}));
+      fascia.position.set(x,SF_H-0.3,BACK_Z+0.1); scene.add(fascia);
+      var sC=document.createElement('canvas'); sC.width=240; sC.height=68;
+      var sCtx=sC.getContext('2d'); sCtx.clearRect(0,0,240,68);
+      sCtx.shadowColor=sh; sCtx.shadowBlur=16; sCtx.fillStyle=sh;
+      sCtx.font='bold 17px monospace'; sCtx.textAlign='center';
+      name.split('\n').forEach(function(line,li){sCtx.fillText(line,120,22+li*22);});
+      var sP=new THREE.Mesh(new THREE.PlaneGeometry(w*0.9,0.65),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(sC),transparent:true,opacity:1.0,side:THREE.DoubleSide}));
+      sP.position.set(x,SF_H-0.3,BACK_Z+0.24); scene.add(sP);
+      var sL=new THREE.PointLight(sign,1.2,5.5); sL.position.set(x,SF_H,BACK_Z+0.9); scene.add(sL);
+      var aw=new THREE.Mesh(new THREE.BoxGeometry(w*0.96,0.09,0.85),new THREE.MeshPhongMaterial({color:sign,emissive:sign,emissiveIntensity:0.45}));
+      aw.rotation.x=-0.22; aw.position.set(x,SF_H+0.08,BACK_Z+0.6); scene.add(aw);
+      var gL=new THREE.PointLight(sign,0.55,3.0); gL.position.set(x,0.3,BACK_Z+0.9); scene.add(gL);
+    });
+    var WALL_H=6.2, BB_W=21, BB_H=7, BB_Y=WALL_H+BB_H/2+0.1;
+    var mount=new THREE.Mesh(new THREE.BoxGeometry(BB_W+0.6,BB_H+0.6,0.22),new THREE.MeshPhongMaterial({color:0x08141e,emissive:0x040c14,emissiveIntensity:0.35}));
+    mount.position.set(0,BB_Y,BACK_Z+0.04); scene.add(mount);
+    var fWire=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(BB_W+0.6,BB_H+0.6,0.22)),new THREE.LineBasicMaterial({color:0x1a6fd4,transparent:true,opacity:0.8}));
+    fWire.position.set(0,BB_Y,BACK_Z+0.04); scene.add(fWire);
+    var BC_W=1024,BC_H=340;
+    var bbC=document.createElement('canvas'); bbC.width=BC_W; bbC.height=BC_H;
+    var bCtx=bbC.getContext('2d');
+    var bgG=bCtx.createLinearGradient(0,0,0,BC_H);
+    bgG.addColorStop(0,'#040e22'); bgG.addColorStop(1,'#020912');
+    bCtx.fillStyle=bgG; bCtx.fillRect(0,0,BC_W,BC_H);
+    for(var y=0;y<BC_H;y+=3){bCtx.fillStyle='rgba(0,0,0,0.13)';bCtx.fillRect(0,y,BC_W,1);}
+    var tG=bCtx.createLinearGradient(0,0,BC_W,0);
+    tG.addColorStop(0,'#0a1e40');tG.addColorStop(0.5,'#1a3d70');tG.addColorStop(1,'#0a1e40');
+    bCtx.fillStyle=tG; bCtx.fillRect(0,0,BC_W,56);
+    bCtx.strokeStyle='rgba(26,111,212,0.7)';bCtx.lineWidth=1.5;
+    bCtx.beginPath();bCtx.moveTo(0,56);bCtx.lineTo(BC_W,56);bCtx.stroke();
+    bCtx.shadowColor='#1a6fd4';bCtx.shadowBlur=20;
+    bCtx.fillStyle='#e8f4ff';bCtx.font='bold 26px monospace';bCtx.textAlign='center';
+    bCtx.fillText('\u25c8  NEW YORK RAP EXCHANGE',BC_W/2,24);bCtx.shadowBlur=0;
+    bCtx.fillStyle='rgba(212,160,23,0.85)';bCtx.font='11px monospace';
+    bCtx.fillText('NYRE QUOTRON  \u00b7  LIVE ALPHA METRICS  \u00b7  ON-CHAIN LEDGER  \u00b7  EVINS\u2122 INDEX',BC_W/2,44);
+    var AX=640,AY=60,AW=370,AH=190;
+    var aG=bCtx.createLinearGradient(AX,AY,AX+AW,AY+AH);
+    aG.addColorStop(0,'rgba(20,5,40,0.95)');aG.addColorStop(1,'rgba(10,3,25,0.95)');
+    bCtx.fillStyle=aG; bCtx.fillRect(AX,AY,AW,AH);
+    bCtx.strokeStyle='rgba(255,180,0,0.9)';bCtx.lineWidth=3;bCtx.strokeRect(AX+2,AY+2,AW-4,AH-4);
+    bCtx.shadowColor='#ffcc00';bCtx.shadowBlur=18;
+    bCtx.fillStyle='#ffcc00';bCtx.font='bold 36px monospace';bCtx.textAlign='center';
+    bCtx.fillText('ADVERTISE',AX+AW/2,AY+62);bCtx.fillText('HERE',AX+AW/2,AY+102);bCtx.shadowBlur=0;
+    bCtx.fillStyle='rgba(255,220,100,0.75)';bCtx.font='bold 12px monospace';
+    bCtx.fillText('REACH THE HIP-HOP MARKET',AX+AW/2,AY+126);
+    bCtx.fillStyle='rgba(200,180,120,0.6)';bCtx.font='10px monospace';
+    bCtx.fillText('info@hoodiq.io',AX+AW/2,AY+146);bCtx.fillText('(212) 555-NYRE',AX+AW/2,AY+162);
+    bCtx.fillStyle='rgba(255,180,0,0.88)';bCtx.fillRect(AX+60,AY+170,AW-120,24);
+    bCtx.fillStyle='#1a0800';bCtx.font='bold 11px monospace';
+    bCtx.fillText('BOOK YOUR SPOT TODAY',AX+AW/2,AY+186);
+    bCtx.fillStyle='rgba(100,160,220,0.5)';bCtx.font='bold 9px monospace';bCtx.textAlign='left';
+    ['SYM','PRICE','CHG%','EVINS\u2122','SIGNAL'].forEach(function(h,hi){bCtx.fillText(h,[24,130,220,308,415][hi],72);});
+    bCtx.strokeStyle='rgba(26,111,212,0.2)';bCtx.lineWidth=1;
+    bCtx.beginPath();bCtx.moveTo(16,76);bCtx.lineTo(630,76);bCtx.stroke();
+    [
+      {sym:'L-HILL',   p:'5000.00',c:'+2.14',e:'9,855',sig:'PEAK',  sc:'#d4a017'},
+      {sym:'BIGGIE',   p:'4890.00',c:'+0.88',e:'9,821',sig:'PEAK',  sc:'#d4a017'},
+      {sym:'TUPAC',    p:'2532.47',c:'+1.22',e:'9,810',sig:'PEAK',  sc:'#d4a017'},
+      {sym:'KRS-ONE',  p:'2450.48',c:'+0.77',e:'9,724',sig:'TIER-1',sc:'#e8a020'},
+      {sym:'NAS',      p:'2342.10',c:'+0.44',e:'9,798',sig:'TIER-1',sc:'#e8a020'},
+      {sym:'YASIN-BEY',p:'2350.98',c:'+3.11',e:'9,744',sig:'S.BUY', sc:'#64dc96'},
+      {sym:'JAY-ELEC', p:'2175.86',c:'+5.42',e:'9,696',sig:'S.BUY', sc:'#64dc96'},
+      {sym:'BLK-THGT', p:'2310.12',c:'+1.55',e:'9,788',sig:'TIER-1',sc:'#e8a020'},
+      {sym:'BIG-KANE', p:'1891.68',c:'+0.33',e:'9,801',sig:'TIER-1',sc:'#e8a020'},
+      {sym:'NONAME',   p:'2000.56',c:'+1.88',e:'9,682',sig:'BUY',   sc:'#00d4ff'},
+    ].forEach(function(r,ri){
+      var ry=90+ri*21;
+      if(ri%2===0){bCtx.fillStyle='rgba(26,111,212,0.05)';bCtx.fillRect(0,ry-13,630,21);}
+      bCtx.fillStyle='#d4a017';bCtx.font='bold 10px monospace';bCtx.textAlign='left';bCtx.fillText(r.sym,24,ry);
+      bCtx.fillStyle='#e8f4ff';bCtx.font='10px monospace';bCtx.fillText(r.p,130,ry);
+      bCtx.fillStyle=r.c.charAt(0)==='+' ?'#64dc96':'#e05555';bCtx.fillText(r.c+'%',220,ry);
+      bCtx.fillStyle='#00d4ff';bCtx.fillText(r.e,308,ry);
+      bCtx.fillStyle=r.sc;bCtx.font='bold 8px monospace';bCtx.fillText(r.sig,415,ry);
+    });
+    bCtx.strokeStyle='rgba(26,111,212,0.3)';bCtx.lineWidth=1.5;
+    bCtx.beginPath();bCtx.moveTo(635,56);bCtx.lineTo(635,BC_H-30);bCtx.stroke();
+    bCtx.fillStyle='rgba(26,111,212,0.15)';bCtx.fillRect(0,BC_H-30,BC_W,30);
+    bCtx.strokeStyle='rgba(26,111,212,0.4)';bCtx.lineWidth=1;
+    bCtx.beginPath();bCtx.moveTo(0,BC_H-30);bCtx.lineTo(BC_W,BC_H-30);bCtx.stroke();
+    bCtx.fillStyle='rgba(212,160,23,0.75)';bCtx.font='9px monospace';bCtx.textAlign='left';
+    bCtx.fillText('\u25b6  NYRE COMP: 9,847 +0.13%  \u00b7  BC: 2,891 +0.22%  \u00b7  VAL: 1,244 -0.08%  \u00b7  EM: 487 +0.41%  \u00b7  ADVERTISE: info@hoodiq.io',12,BC_H-10);
+    var bbP=new THREE.Mesh(new THREE.PlaneGeometry(BB_W,BB_H),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(bbC),side:THREE.DoubleSide}));
+    bbP.position.set(0,BB_Y,BACK_Z+0.14); scene.add(bbP);
+    var bgL=new THREE.PointLight(0x1a6fd4,2.0,13); bgL.position.set(0,BB_Y,BACK_Z+3.5); scene.add(bgL);
+    var adL=new THREE.PointLight(0xffaa00,1.1,7); adL.position.set(BB_W*0.28,BB_Y,BACK_Z+3.0); scene.add(adL);
+    scene.userData.boardGlow=bgL;
+  }
+
+  function initThree() {
+    var wrap=document.getElementById('lauraSphereWrap');
+    var canvas=document.getElementById('lauraSphereCanvas');
+    if(!wrap||!canvas||!window.THREE)return;
+    var W=wrap.offsetWidth||460;
+    if(W<50)W=460;
+    var H=340;
+    T3.scene=new THREE.Scene(); T3.scene.background=new THREE.Color(0x020916);
+    T3.camera=new THREE.PerspectiveCamera(44,W/H,0.1,200);
+    T3.camera.position.set(0,12,18); T3.camera.lookAt(0,5,-2);
+    T3.renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true});
+    T3.renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+    T3.renderer.setSize(W,H);
+    T3.clock=new THREE.Clock();
+    T3.scene.add(new THREE.AmbientLight(0x112244,1.2));
+    var L1=new THREE.PointLight(0x00d4ff,3.5,22); L1.position.set(-5,8,4); T3.scene.add(L1);
+    var L2=new THREE.PointLight(0x7b2fff,2.8,18); L2.position.set(6,6,-4); T3.scene.add(L2);
+    var L3=new THREE.PointLight(0x00ff88,2.0,14); L3.position.set(0,12,0); T3.scene.add(L3);
+    T3.scene.userData.lights=[L1,L2,L3];
+    T3.scene.add(new THREE.GridHelper(60,40,0x0a2040,0x061228));
+    var PC=100,pp1=new Float32Array(PC*3);
+    for(var k=0;k<PC;k++){pp1[k*3]=(Math.random()-.5)*24;pp1[k*3+1]=Math.random()*10;pp1[k*3+2]=(Math.random()-.5)*12;}
+    var pG1=new THREE.BufferGeometry(); pG1.setAttribute('position',new THREE.BufferAttribute(pp1,3));
+    T3.scene.add(new THREE.Points(pG1,new THREE.PointsMaterial({color:0x00d4ff,size:0.06,transparent:true,opacity:0.6})));
+    var pp2=new Float32Array(PC*3);
+    for(var k2=0;k2<PC;k2++){pp2[k2*3]=(Math.random()-.5)*26;pp2[k2*3+1]=Math.random()*9;pp2[k2*3+2]=(Math.random()-.5)*14;}
+    var pG2=new THREE.BufferGeometry(); pG2.setAttribute('position',new THREE.BufferAttribute(pp2,3));
+    T3.scene.add(new THREE.Points(pG2,new THREE.PointsMaterial({color:0x7b2fff,size:0.045,transparent:true,opacity:0.45})));
+    T3.scene.userData.pG1=pG1; T3.scene.userData.pG2=pG2; T3.scene.userData.PC=PC;
+    addCity(T3.scene);
+    canvas.addEventListener('mousedown',function(e){T3.drag=true;T3.lastX=e.clientX;});
+    canvas.addEventListener('mousemove',function(e){if(T3.drag){T3.camTheta+=(e.clientX-T3.lastX)*0.007;T3.lastX=e.clientX;}});
+    window.addEventListener('mouseup',function(){T3.drag=false;});
+    new ResizeObserver(function(){
+      var w2=wrap.offsetWidth||460;
+      if(w2<50)return;
+      T3.camera.aspect=w2/H; T3.camera.updateProjectionMatrix(); T3.renderer.setSize(w2,H);
+    }).observe(wrap);
+    T3.ready=true; rebuild(); animate3();
+  }
+
+  function animate3() {
+    T3.animId=requestAnimationFrame(animate3);
+    var elapsed=T3.clock.getElapsedTime();
+    var r=18,sway=Math.sin(elapsed*0.022)*0.12;
+    T3.camera.position.x=Math.sin(sway+T3.camTheta)*r;
+    T3.camera.position.z=Math.cos(sway+T3.camTheta)*r;
+    T3.camera.position.y=11+Math.sin(elapsed*0.07)*0.4;
+    T3.camera.lookAt(0,5,-2);
+    var lights=T3.scene.userData.lights;
+    if(lights)lights.forEach(function(L,li){if(!L._base)L._base=L.intensity;L.intensity=L._base*(0.8+0.4*Math.sin(elapsed*1.1+li*2.1));});
+    var bg=T3.scene.userData.boardGlow;
+    if(bg){if(!bg._base)bg._base=bg.intensity;bg.intensity=bg._base*(0.7+0.4*Math.sin(elapsed*0.9));}
+    T3.scene.traverse(function(o){
+      if(o.isMesh&&o.userData.scaleUp){o.scale.y=Math.min(1,o.scale.y+0.04);if(o.scale.y>=1)o.userData.scaleUp=false;}
+      if(o.userData.card){o.lookAt(T3.camera.position);}
+      if(o.userData.wire&&o.userData.tok3n){o.material.opacity=0.8+0.2*Math.sin(elapsed*1.6+(o.userData.nodeIdx||0)*0.55);}
+    });
+    var pD=T3.scene.userData;
+    if(pD.pG1){var p1=pD.pG1.attributes.position.array;for(var k=0;k<pD.PC;k++){p1[k*3+1]+=0.003;if(p1[k*3+1]>10)p1[k*3+1]=0;p1[k*3]+=Math.sin(elapsed*0.5+k*0.3)*0.0015;}pD.pG1.attributes.position.needsUpdate=true;}
+    if(pD.pG2){var p2=pD.pG2.attributes.position.array;for(var k3=0;k3<pD.PC;k3++){p2[k3*3+1]+=0.002;if(p2[k3*3+1]>9)p2[k3*3+1]=0;p2[k3*3+2]+=Math.sin(elapsed*0.4+k3*0.4)*0.0012;}pD.pG2.attributes.position.needsUpdate=true;}
+    T3.renderer.render(T3.scene,T3.camera);
+  }
+
+  var booted=false;
+  function boot(){
+    if(booted)return;
+    if(!window.THREE){setTimeout(boot,200);return;}
+    booted=true;
+    initThree();
+    buildProgress();
+    showSegment(0);
+  }
+  function maybeInit(){
+    var pane=document.getElementById('paneLaura');
+    if(pane&&pane.classList.contains('active'))boot();
+  }
+  var lauraPane=document.getElementById('paneLaura');
+  if(lauraPane){
+    var tabObs=new MutationObserver(maybeInit);
+    tabObs.observe(lauraPane,{attributes:true,attributeFilter:['class']});
+  }
+  setTimeout(maybeInit,300);
+  setTimeout(boot,1000);
+
+  window._rebuildLauraChain=function(){if(!T3.ready){setTimeout(function(){if(T3.ready)rebuild();},300);return;}rebuild();};
+  window.tok3nUpdate=window._rebuildLauraChain;
+
+  function getTextEl(){return document.getElementById('lauraTrayText');}
+
+  function showSegment(idx){
+    current=Math.max(0,Math.min(idx,SEGMENTS.length-1));
+    var el=getTextEl(); if(!el)return;
+    el.style.opacity='0';
+    setTimeout(function(){
+      buildProgress();
+      el.innerHTML=SEGMENTS[current];
+      el.style.opacity='1'; el.style.transition='opacity 0.3s';
+      var mt=document.getElementById('lauraTrayMode');
+      if(mt){mt.textContent='BROADCAST';mt.className='laura-tray-mode broadcast';}
+    },180);
+    scheduleNext();
+  }
+  function buildProgress(){
+    var p=document.getElementById('lauraProgress'); if(!p)return;
+    var html='';
+    for(var i=0;i<SEGMENTS.length;i++){
+      html+='<div class="lp-dot'+(i<current?' done':i===current?' active':'')+'" data-i="'+i+'"></div>';
+    }
+    p.innerHTML=html;
+    var dots=p.querySelectorAll('.lp-dot');
+    dots.forEach(function(d){
+      d.addEventListener('click',function(){
+        if(broadcastTimer)clearTimeout(broadcastTimer);
+        showSegment(parseInt(d.getAttribute('data-i')));
+      });
+    });
+  }
+  function scheduleNext(){
+    if(broadcastTimer)clearTimeout(broadcastTimer);
+    if(broadcastPaused)return;
+    broadcastTimer=setTimeout(function(){showSegment(current<SEGMENTS.length-1?current+1:0);},DURATIONS[current]||6000);
+  }
+  document.addEventListener('click',function(e){
+    if(e.target.id==='trayPrev'){if(broadcastTimer)clearTimeout(broadcastTimer);showSegment(current-1);}
+    if(e.target.id==='trayNext'){if(broadcastTimer)clearTimeout(broadcastTimer);showSegment(current+1);}
+    if(e.target.id==='trayPlayPause'){
+      broadcastPaused=!broadcastPaused;
+      var pb=document.getElementById('trayPlayPause');
+      if(pb)pb.textContent=broadcastPaused?'\u25b6':'\u23f8';
+      if(!broadcastPaused)scheduleNext();
+    }
+  });
+  window.LAURA_BROADCAST={
+    get paused(){return broadcastPaused;},
+    pause:function(){broadcastPaused=true;if(broadcastTimer){clearTimeout(broadcastTimer);broadcastTimer=null;}},
+    resume:function(){
+      broadcastPaused=false;
+      var pb=document.getElementById('trayPlayPause'); if(pb)pb.textContent='\u23f8';
+      var mt=document.getElementById('lauraTrayMode'); if(mt){mt.textContent='BROADCAST';mt.className='laura-tray-mode broadcast';}
+      showSegment(current);
+    },
+    showThinking:function(){
+      _openLauraTab();
+      var el=getTextEl(); if(!el)return;
+      el.innerHTML='<span class="laura-thinking"><span class="lt-dot"></span><span class="lt-dot"></span><span class="lt-dot"></span></span>';
+      el.style.opacity='1';
+      var mt=document.getElementById('lauraTrayMode'); if(mt){mt.textContent='\u25ce TOK3N TOWN';mt.className='laura-tray-mode ai-live';}
+    },
+    showStreaming:function(text){
+      _openLauraTab();
+      var el=getTextEl(); if(!el)return;
+      el.innerHTML=text||''; el.style.opacity='1';
+      var mt=document.getElementById('lauraTrayMode'); if(mt){mt.textContent='\u25ce TOK3N TOWN';mt.className='laura-tray-mode ai-live';}
+    },
+    showAIDone:function(text){var el=getTextEl();if(!el)return;el.innerHTML=text||'';el.style.opacity='1';},
+    updateMetric:function(idx,value){if(window.currentArtistMetrics&&METRICS[idx]){window.currentArtistMetrics[METRICS[idx].key]=value;window.tok3nUpdate&&window.tok3nUpdate();}}
+  };
+  function _openLauraTab(){
+    var panel=document.getElementById('hiqNewsPanel');
+    if(panel&&!panel.classList.contains('open')){
+      panel.classList.add('open');
+      var ch=document.getElementById('hiqChevron');
+      if(ch){ch.textContent='\u25b2';ch.classList.add('open');}
+    }
+    if(typeof hiqSwitchTab==='function')hiqSwitchTab('laura');
+  }
+})();
+</script>
+<script>
+// ═══════════════════════════════════════════════════════════════
+// LAURA INSIGHT PANEL — fires on artist click
+// ═══════════════════════════════════════════════════════════════
+(function() {
+  'use strict';
+
+  const TIER_CLASS = {blueChip:'lip-tier-bc',value:'lip-tier-val',emerging:'lip-tier-em',speculative:'lip-tier-sp'};
+  const TIER_LABEL = {blueChip:'BLUE CHIP',value:'VALUE',emerging:'EMERGING',speculative:'SPECULATIVE'};
+
+  // Build panel DOM
+  const panel = document.createElement('div');
+  panel.id = 'laura-insight-panel';
+  panel.innerHTML = `
+    <div class="lip-header">
+      <span class="lip-dot"></span>
+      <span class="lip-title">◉ TOK3N TOWN</span>
+      <div class="lip-controls">
+        <button class="lip-btn" id="lipResume" style="display:none">▶ BROADCAST</button>
+        <button class="lip-btn" id="lipClose">✕</button>
+      </div>
+    </div>
+    <div class="lip-artist" id="lipArtist">—</div>
+    <div id="lipChartWrap" style="position:relative;background:#020912;border-bottom:1px solid rgba(26,111,212,0.3);overflow:hidden;">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:5px 10px 4px;border-bottom:1px solid rgba(0,212,255,0.15);">
+        <span style="font-family:'Orbitron',monospace;font-size:7px;letter-spacing:2px;color:#00d4ff;text-shadow:0 0 8px #00d4ff88;">⬡ HOLOGRAPHIC PROJECTION</span>
+        <span id="lipChartTopLabel" style="font-family:'Share Tech Mono',monospace;color:#d4a017;font-size:6.5px;letter-spacing:1px;"></span>
+      </div>
+      <div id="lipHoloWrap" style="position:relative;width:100%;height:200px;background:linear-gradient(180deg,#020912 0%,#020912 100%);">
+        <canvas id="lipHoloCanvas" style="display:block;width:100%;height:100%;"></canvas>
+        <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.18) 3px,rgba(0,0,0,0.18) 4px);pointer-events:none;z-index:2;"></div>
+        <div style="position:absolute;bottom:6px;left:50%;transform:translateX(-50%);font-family:'Orbitron',monospace;font-size:6px;letter-spacing:2px;color:rgba(0,212,255,0.6);pointer-events:none;z-index:4;" id="lipHoloStatus">INITIALIZING</div>
+      </div>
+      <div id="lipChartLegend" style="display:flex;flex-wrap:wrap;gap:3px 8px;padding:4px 10px 5px;font-family:'Share Tech Mono',monospace;font-size:7px;color:#8899aa;border-top:1px solid rgba(0,212,255,0.1);background:rgba(2,9,18,0.9);"></div>
+    </div>
+    <div class="lip-text" id="lipText"><span class="lip-idle">Click any artist to hear analysis.</span></div>
+    <div class="lip-cursor" id="lipCursor" style="display:none">▌</div>
+    <div id="lipTrajWrap" class="lip-traj-wrap">
+      <div class="lip-syn-divider"></div>
+      <div class="lip-traj-label">TRAJECTORY FORECAST</div>
+      <div class="lip-traj-text" id="lipTrajText"></div>
+    </div>
+    <div class="lip-sync-wrap" id="lipSyncWrap">
+      <div class="lip-syn-divider"></div>
+      <div class="lip-sync-header">
+        <span class="lip-sync-label">SYNC DEAL PROBABILITY</span>
+        <span class="lip-sync-score" id="lipSyncScore">—</span>
+      </div>
+      <div class="lip-sync-bar-row">
+        <div class="lip-sync-track"><div class="lip-sync-fill" id="lipSyncFill"></div></div>
+        <span class="lip-sync-pct" id="lipSyncPct">—</span>
+      </div>
+      <div class="lip-sync-tags" id="lipSyncTags"></div>
+      <div class="lip-sync-verdict" id="lipSyncVerdict"></div>
+    </div>
+    <div class="lip-chain-wrap" id="lipChainWrap">
+      <div id="lipChainHeader">
+        <span style="font-family:'Orbitron',monospace;font-size:7px;letter-spacing:2px;color:#64dc96;text-shadow:0 0 8px #64dc9688;">⬡ NYRE CHAIN · 3D LEDGER</span>
+        <span id="lipChainStatus">● WRITING</span>
+      </div>
+      <div id="lipChainHoloWrap">
+        <canvas id="lipChainCanvas" style="display:block;width:100%;height:100%;"></canvas>
+        <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.15) 3px,rgba(0,0,0,0.15) 4px);pointer-events:none;z-index:2;"></div>
+        <div id="lipChainHoloStatus">AWAITING BLOCK</div>
+      </div>
+      <div id="lipChainLedger">
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:3px;">
+          <span style="font-size:6.5px;color:rgba(100,220,150,0.5);">BLOCK</span><span id="lcBlock" style="font-size:7px;color:#c8e8c8;">—</span>
+          <span style="margin-left:6px;font-size:6.5px;color:rgba(100,220,150,0.5);">EVINS™</span><span id="lcEvins" style="font-size:7px;color:#64dc96;">—</span>
+          <span style="margin-left:6px;font-size:6.5px;color:rgba(100,220,150,0.5);">SIGNAL</span><span id="lcSignal" style="font-size:7px;color:#d4a017;">—</span>
+        </div>
+        <div style="display:flex;gap:4px;align-items:center;margin-bottom:3px;">
+          <span style="font-size:6.5px;color:rgba(100,220,150,0.5);">HASH</span>
+          <span id="lcHash" style="font-size:6.5px;color:#336644;word-break:break-all;">—</span>
+        </div>
+        <div style="display:flex;gap:4px;align-items:center;margin-bottom:4px;">
+          <span style="font-size:6.5px;color:rgba(100,220,150,0.5);">PREV</span>
+          <span id="lcPrev" style="font-size:6.5px;color:#559966;word-break:break-all;">—</span>
+        </div>
+        <div id="lcProgress" style="height:2px;background:rgba(100,220,150,0.1);border-radius:2px;overflow:hidden;">
+          <div id="lcBar" style="height:100%;width:0%;background:linear-gradient(90deg,rgba(100,220,150,0.4),#64dc96);transition:width 0.08s linear;border-radius:2px;"></div>
+        </div>
+        <div id="lcConfirm" style="display:none;font-family:'Orbitron',monospace;font-size:6.5px;letter-spacing:1.5px;color:#64dc96;text-align:center;padding-top:5px;">
+          <span style="color:#64dc96;margin-right:3px;">✓</span> CONFIRMED · IMMUTABLE ON NYRE LEDGER
+        </div>
+        <span id="lcArtist" style="display:none"></span>
+        <span id="lcTier"   style="display:none"></span>
+        <span id="lcTop"    style="display:none"></span>
+        <span id="lcTime"   style="display:none"></span>
+      </div>
+    </div>
+    <div id="lipMetrics" style="display:none;"></div>
+  `;
+  document.body.appendChild(panel);
+
+  document.getElementById('lipClose').onclick = () => { panel.style.display='none'; if(window.LAURA_BROADCAST)window.LAURA_BROADCAST.resume(); };
+
+  // ── 3D metric hologram for insight panel ──────────────────────
+  let _holoScene = null;
+
+  // roundRect polyfill
+  if (!CanvasRenderingContext2D.prototype.roundRect) {
+    CanvasRenderingContext2D.prototype.roundRect = function(x,y,w,h,r){
+      if(w<2*r)r=w/2;if(h<2*r)r=h/2;this.beginPath();this.moveTo(x+r,y);this.arcTo(x+w,y,x+w,y+h,r);this.arcTo(x+w,y+h,x,y+h,r);this.arcTo(x,y+h,x,y,r);this.arcTo(x,y,x+w,y,r);this.closePath();return this;
+    };
+  }
+
+  const METRIC_WEIGHTS = {'Cultural Relevance':0.22,'Innovation':0.18,'Semantic Depth':0.15,'Flow Complexity':0.14,'Polyrhythmic Complexity':0.12,'Phonetic Complexity':0.11,'Rhythmic Rhyme':0.08,'Syntactic Complexity':0.07,'Time Mapping':0.07,'Downbeat Manipulation':0.06,'Tempo Control':0.06};
+  const MW_SUM = Object.values(METRIC_WEIGHTS).reduce((a,b)=>a+b,0);
+  Object.keys(METRIC_WEIGHTS).forEach(k=>METRIC_WEIGHTS[k]/=MW_SUM);
+
+  function drawHologramChart(metrics, price) {
+    if (typeof THREE==='undefined') { const _w=setInterval(()=>{if(typeof THREE!=='undefined'){clearInterval(_w);_buildHoloScene(metrics,price);}},80); return; }
+    _buildHoloScene(metrics, price);
+  }
+
+  function _buildHoloScene(metrics, price) {
+    const canvas=document.getElementById('lipHoloCanvas');
+    const wrap=document.getElementById('lipHoloWrap');
+    const status=document.getElementById('lipHoloStatus');
+    if(!canvas||!wrap)return;
+    const W=wrap.clientWidth||280, H=wrap.clientHeight||200;
+    let renderer;
+    if(_holoScene){cancelAnimationFrame(_holoScene.animId);_holoScene.scene.traverse(o=>{if(o.geometry)o.geometry.dispose();if(o.material)(Array.isArray(o.material)?o.material:[o.material]).forEach(m=>m.dispose());});renderer=_holoScene.renderer;renderer.setSize(W,H,false);}
+    else{renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));renderer.setSize(W,H,false);renderer.setClearColor(0x000000,0);}
+    const scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(42,W/H,0.1,100);
+    camera.position.set(0,1.2,7.5);camera.lookAt(0,0,0);
+    scene.add(new THREE.AmbientLight(0x003355,0.6));
+    const dL=new THREE.DirectionalLight(0x00d4ff,1.2);dL.position.set(3,5,4);scene.add(dL);
+    scene.add(new THREE.GridHelper(14,14,0x003366,0x001a33));
+    const P=parseFloat(price)||1000;
+    const BASE_SCORE=8.0;
+    const entries=Object.entries(metrics).sort((a,b)=>(METRIC_WEIGHTS[b[0]]||0.06)*b[1]-(METRIC_WEIGHTS[a[0]]||0.06)*a[1]);
+    const n=entries.length, TOTAL_W=11.0, spacing=TOTAL_W/n, barW=TOTAL_W/n*0.62, offsetX=-(TOTAL_W/2)+spacing*0.5;
+    const bars=[], labelSprites=[];
+    entries.forEach(([key,score],i)=>{
+      const w=METRIC_WEIGHTS[key]||0.06;
+      const close=w*(score/10)*P, open=w*(BASE_SCORE/10)*P;
+      const isBull=close>=open;
+      const maxContrib=Object.keys(METRIC_WEIGHTS).reduce((mx,k)=>Math.max(mx,METRIC_WEIGHTS[k]*P),0);
+      const barH=Math.max(0.1,(close/maxContrib)*3.2);
+      const colHex=isBull?(score>=9.0?0xd4a017:0x00d4ff):0xe05555;
+      const colStr=isBull?(score>=9.0?'#d4a017':'#00d4ff'):'#e05555';
+      const x=offsetX+i*spacing;
+      const geo=new THREE.BoxGeometry(barW,barH,barW*0.7);geo.translate(0,barH/2,0);
+      const wireGeo=new THREE.EdgesGeometry(geo);
+      const wire=new THREE.LineSegments(wireGeo,new THREE.LineBasicMaterial({color:colHex,transparent:true,opacity:0.9}));
+      wire.position.set(x,0,0);scene.add(wire);
+      const fill=new THREE.Mesh(geo.clone(),new THREE.MeshPhongMaterial({color:colHex,emissive:colHex,emissiveIntensity:0.35,transparent:true,opacity:0.22,depthWrite:false,side:THREE.FrontSide}));
+      fill.position.set(x,0,0); fill.scale.set(1,0.01,1); fill._isNew=true; scene.add(fill);
+      bars.push({wire,fill,barH,delay:i*80,born:performance.now()});
+      const sc=document.createElement('canvas');sc.width=128;sc.height=56;
+      const sCtx=sc.getContext('2d');
+      sCtx.fillStyle='rgba(2,9,18,0.82)';sCtx.roundRect(0,0,128,56,6);sCtx.fill();
+      sCtx.strokeStyle=colStr;sCtx.lineWidth=2;sCtx.roundRect(1,1,126,54,5);sCtx.stroke();
+      sCtx.fillStyle=colStr;sCtx.font='bold 14px monospace';sCtx.textAlign='center';
+      const shortKey=key.replace('Polyrhythmic Complexity','PolyR').replace('Syntactic Complexity','Syntx').replace('Phonetic Complexity','Phon').replace('Flow Complexity','Flow').replace('Downbeat Manipulation','Dnbt').replace('Cultural Relevance','Cult').replace('Rhythmic Rhyme','Rhym').replace('Semantic Depth','Sem').replace('Time Mapping','Time').replace('Innovation','Innov').replace('Tempo Control','Tempo');
+      sCtx.fillText(shortKey,64,20);sCtx.fillStyle='#fff';sCtx.font='11px monospace';sCtx.fillText(score.toFixed(1),64,36);
+      sCtx.fillStyle=colStr;sCtx.font='10px monospace';sCtx.fillText((isBull?'+':(close-open<0?'-':''))+Math.abs(((close-open)/open*100)).toFixed(1)+'%',64,50);
+      const tex=new THREE.CanvasTexture(sc);
+      const spr=new THREE.Sprite(new THREE.SpriteMaterial({map:tex,transparent:true,opacity:0}));
+      spr.scale.set(1.1,0.48,1);spr.position.set(x,barH+0.55,0);scene.add(spr);
+      labelSprites.push({sprite:spr,sprMat:spr.material,barH,delay:i*80});
+    });
+    // particles
+    const PC=120,pPos=new Float32Array(PC*3);
+    for(let k=0;k<PC;k++){pPos[k*3]=(Math.random()-.5)*13;pPos[k*3+1]=Math.random()*5;pPos[k*3+2]=(Math.random()-.5)*4;}
+    const pGeo=new THREE.BufferGeometry();pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));
+    scene.add(new THREE.Points(pGeo,new THREE.PointsMaterial({color:0x00d4ff,size:0.04,transparent:true,opacity:0.5})));
+    if(status){status.textContent='PROJECTING';status.style.color='rgba(0,212,255,0.8)';}
+
+    // hover overlay
+    let isDrag=false,lastMX=0,camTheta=0,hoveredIdx=-1;
+    const overlayCanvas=document.createElement('canvas');
+    overlayCanvas.style.cssText='position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5;';
+    wrap.appendChild(overlayCanvas);
+    overlayCanvas.width=W*(window.devicePixelRatio||1);overlayCanvas.height=H*(window.devicePixelRatio||1);
+    overlayCanvas.style.width=W+'px';overlayCanvas.style.height=H+'px';
+
+    function drawHoverOverlay(idx){
+      const oc=overlayCanvas.getContext('2d'),dpr=window.devicePixelRatio||1;
+      oc.clearRect(0,0,overlayCanvas.width,overlayCanvas.height);
+      if(idx<0)return;
+      oc.save();oc.scale(dpr,dpr);
+      const [key,score]=entries[idx];const colStr=score>=9.0?'#d4a017':score>=8.0?'#00d4ff':'#e05555';
+      const PW=Math.min(180,W*0.5),PH=140,PX=W-PW-8,PY=18;
+      oc.shadowColor=colStr;oc.shadowBlur=14;
+      oc.fillStyle='rgba(2,9,18,0.93)';oc.roundRect(PX,PY,PW,PH,6);oc.fill();oc.shadowBlur=0;
+      oc.strokeStyle=colStr;oc.lineWidth=1.5;oc.roundRect(PX,PY,PW,PH,6);oc.stroke();
+      oc.fillStyle=colStr;oc.fillRect(PX,PY,PW,3);
+      oc.fillStyle='#fff';oc.font='bold 34px monospace';oc.textAlign='right';oc.fillText(score.toFixed(1),PX+PW-8,PY+48);
+      oc.fillStyle='rgba(180,200,220,0.5)';oc.font='10px monospace';oc.fillText('/ 10',PX+PW-8,PY+62);
+      oc.fillStyle=colStr;oc.font='bold 8px monospace';oc.textAlign='left';oc.fillText(key.toUpperCase().slice(0,20),PX+8,PY+18);
+      const gW=PW-16,gX=PX+8,gY=PY+72,gH=6;
+      oc.fillStyle='rgba(255,255,255,0.08)';oc.roundRect(gX,gY,gW,gH,3);oc.fill();
+      const gGrad=oc.createLinearGradient(gX,0,gX+gW,0);gGrad.addColorStop(0,colStr);gGrad.addColorStop(1,'#fff');
+      oc.fillStyle=gGrad;oc.shadowColor=colStr;oc.shadowBlur=5;oc.roundRect(gX,gY,(score/10)*gW,gH,3);oc.fill();oc.shadowBlur=0;
+      const sig=score>=9.5?'TIER-1 α':score>=9.0?'ALPHA+':score>=8.0?'ALPHA':score>=7.5?'BUY':'HOLD';
+      oc.fillStyle=colStr;oc.font='bold 8px monospace';oc.textAlign='right';oc.fillText(sig,PX+PW-8,PY+98);
+      oc.fillStyle='rgba(150,170,190,0.6)';oc.font='7px monospace';oc.textAlign='left';oc.fillText('WT '+(Math.round((METRIC_WEIGHTS[key]||0.06)*100))+'%',gX,PY+98);
+      oc.restore();
+    }
+
+    const lipPanel=document.getElementById('laura-insight-panel');
+    if(lipPanel){
+      lipPanel.addEventListener('mousedown',e=>{isDrag=true;lastMX=e.clientX;});
+      lipPanel.addEventListener('mousemove',e=>{
+        if(isDrag){camTheta+=(e.clientX-lastMX)*0.008;lastMX=e.clientX;return;}
+        const rect=canvas.getBoundingClientRect();
+        const mx=(e.clientX-rect.left)/rect.width*2-1;
+        let bestI=-1,bestDist=0.12;
+        entries.forEach(([key,score],i)=>{const wp=new THREE.Vector3(offsetX+i*spacing,barH_arr[i]*0.5,0);wp.project(camera);const dist=Math.abs(mx-wp.x);if(dist<bestDist){bestDist=dist;bestI=i;}});
+        if(bestI!==hoveredIdx){hoveredIdx=bestI;drawHoverOverlay(hoveredIdx);}
+      });
+      window.addEventListener('mouseup',()=>{isDrag=false;});
+    }
+    const barH_arr=entries.map(([key,score])=>{const w=METRIC_WEIGHTS[key]||0.06;const close=w*(score/10)*P;const maxC=Object.keys(METRIC_WEIGHTS).reduce((mx,k)=>Math.max(mx,METRIC_WEIGHTS[k]*P),0);return Math.max(0.1,(close/maxC)*3.2);});
+
+    // legend
+    const totalContrib=entries.reduce((s,[k,v])=>s+(METRIC_WEIGHTS[k]||0.06)*(v/10)*P,0);
+    const totalPct=(((totalContrib-P)/P)*100).toFixed(1);
+    const topE=entries[0]||[];const topW=METRIC_WEIGHTS[topE[0]]||0.06;const topClose=(topW*(topE[1]||8)/10*P).toFixed(0);
+    const legend=document.getElementById('lipChartLegend');
+    if(legend)legend.innerHTML=`<span style="color:#d4a017">● GOLD ≥9.0</span><span style="color:#00d4ff">● BULL ≥8.0</span><span style="color:#e05555">● BEAR &lt;base</span><span style="color:#c8d8e8;margin-left:auto">$${P.toLocaleString()} · NET ${parseFloat(totalPct)>=0?'+':''}${totalPct}%</span>`;
+    const topLabel=document.getElementById('lipChartTopLabel');
+    if(topLabel&&topE[0])topLabel.textContent=`▲ ${topE[0].split(' ')[0].toUpperCase()}  $${topClose}`;
+
+    const born=performance.now();let animId;
+    function animate(){
+      animId=requestAnimationFrame(animate);const now=performance.now(),age=now-born;
+      const radius=7.5,baseTheta=age*0.00025;
+      camera.position.x=Math.sin(baseTheta+camTheta)*radius;camera.position.z=Math.cos(baseTheta+camTheta)*radius;
+      camera.position.y=1.2+Math.sin(age*0.0004)*0.3;camera.lookAt(0,1.0,0);
+      bars.forEach(({wire,fill,barH,delay,born:b})=>{const a2=now-b-delay,prog=Math.min(1,Math.max(0,a2/600)),ease=1-Math.pow(1-prog,3);wire.position.y=-barH+barH*ease;fill.position.y=wire.position.y;fill.scale.y=ease;});
+      labelSprites.forEach(({sprMat,delay,born:b})=>{const a2=now-b-delay-500;sprMat.opacity=Math.min(0.95,Math.max(0,a2/400));});
+      bars.forEach(({wire},i)=>{wire.material.opacity=0.7+0.3*Math.sin(age*0.003+i*0.6);});
+      const pos=pGeo.attributes.position.array;for(let k=0;k<PC;k++){pos[k*3+1]+=0.004;if(pos[k*3+1]>5.5)pos[k*3+1]=0;}pGeo.attributes.position.needsUpdate=true;
+      renderer.render(scene,camera);
+    }
+    animate();
+    _holoScene={renderer,scene,animId};
+  }
+
+  function renderMetricChips(metrics, price) { drawHologramChart(metrics, price); return ''; }
+
+  // ── genMetrics (for insight panel) ──────────────────────────
+  function genMetrics(tier) {
+    const bases = {blueChip:{sem:9.5,syn:9.2,poly:9.3,inn:9.4,down:8.5,cult:9.0,time:8.0,flow:8.5,rhyme:8.6,phon:7.8,tempo:7.0},value:{sem:9.0,syn:8.8,poly:8.9,inn:8.7,down:8.0,cult:8.5,time:7.5,flow:8.0,rhyme:8.2,phon:7.4,tempo:6.5},emerging:{sem:8.5,syn:8.3,poly:8.4,inn:8.2,down:7.5,cult:8.0,time:7.0,flow:7.5,rhyme:7.8,phon:7.0,tempo:6.0},speculative:{sem:8.0,syn:7.8,poly:7.9,inn:7.7,down:7.0,cult:7.5,time:6.5,flow:7.0,rhyme:7.2,phon:6.5,tempo:5.5}};
+    const b=bases[tier]||bases.emerging, v=()=>+((Math.random()-0.5)*0.6).toFixed(1);
+    return {'Semantic Depth':+(b.sem+v()).toFixed(1),'Syntactic Complexity':+(b.syn+v()).toFixed(1),'Polyrhythmic Complexity':+(b.poly+v()).toFixed(1),'Innovation':+(b.inn+v()).toFixed(1),'Downbeat Manipulation':+(b.down+v()).toFixed(1),'Cultural Relevance':+(b.cult+v()).toFixed(1),'Time Mapping':+(b.time+v()).toFixed(1),'Flow Complexity':+(b.flow+v()).toFixed(1),'Rhythmic Rhyme':+(b.rhyme+v()).toFixed(1),'Phonetic Complexity':+(b.phon+v()).toFixed(1),'Tempo Control':+(b.tempo+v()).toFixed(1)};
+  }
+
+  async function streamAnalysis(artistName, tierLabel, price, metrics) {
+    panel.classList.add('streaming');
+    if(window.LAURA_BROADCAST) window.LAURA_BROADCAST.pause();
+    const textEl  = document.getElementById('lipText');
+    const cursorEl= document.getElementById('lipCursor');
+    if(!textEl)return;
+    textEl.textContent=''; if(cursorEl)cursorEl.style.display='inline-block';
+    if(window.LAURA_BROADCAST) window.LAURA_BROADCAST.showThinking();
+    const topMetrics = Object.entries(metrics).sort((a,b)=>b[1]-a[1]).slice(0,3).map(([k,v])=>`${k}: ${v}`).join(', ');
+    try {
+      const resp = await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:200,stream:true,messages:[{role:'user',content:`You are Laura, NYRE analyst. Give a 3-sentence floor analysis of ${artistName} (${tierLabel}, $${price}). Top metrics: ${topMetrics}. Be specific and data-driven. No preamble.`}]})});
+      if(!resp.ok)throw new Error('API');
+      const reader=resp.body.getReader(), decoder=new TextDecoder();
+      let text='';
+      while(true){
+        const {done,value}=await reader.read();
+        if(done)break;
+        const lines=decoder.decode(value).split('\n');
+        for(const line of lines){
+          if(!line.startsWith('data: '))continue;
+          const data=line.slice(6).trim();
+          if(data==='[DONE]')break;
+          try{const j=JSON.parse(data);const delta=j.delta?.text||j.delta?.content?.[0]?.text||'';if(delta){text+=delta;textEl.textContent=text;if(window.LAURA_BROADCAST)window.LAURA_BROADCAST.showStreaming(text);}}catch(e){}
+        }
+      }
+      if(cursorEl)cursorEl.style.display='none';
+      panel.classList.remove('streaming');
+    } catch(e) {
+      textEl.textContent=`${artistName} presents strong fundamentals with ${Object.entries(metrics).sort((a,b)=>b[1]-a[1])[0][0]} as the primary alpha driver. Metric profile suggests sustained value.`;
+      if(cursorEl)cursorEl.style.display='none';panel.classList.remove('streaming');
+    }
+  }
+
+  async function fetchTrajectoryForecast(artistName, tierLabel, price, metrics) {
+    const textEl=document.getElementById('lipTrajText'),trajWrap=document.getElementById('lipTrajWrap');
+    if(!textEl||!trajWrap)return;
+    trajWrap.classList.add('active');textEl.textContent='Analyzing trajectory...';
+    try {
+      const resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:120,messages:[{role:'user',content:`2-sentence decade trajectory forecast for ${artistName} on NYRE. Tier: ${tierLabel}. Be analytical. No preamble.`}]})});
+      const data=await resp.json();
+      textEl.textContent=data.content?.[0]?.text||'Trajectory analysis unavailable.';
+    } catch(e) { textEl.textContent='Long-term trajectory shows continued appreciation as catalog value compounds over time.'; }
+  }
+
+  function computeSyncScore(artistName, tierLabel, metrics, isDeceased) {
+    const w={cult:0.22,tempo:0.18,phon:0.15,flow:0.14,inn:0.12,sem:0.11,time:0.08};
+    const m = {'Semantic Depth':metrics['Semantic Depth']||8,'Cultural Relevance':metrics['Cultural Relevance']||8,'Innovation':metrics['Innovation']||8,'Flow Complexity':metrics['Flow Complexity']||8,'Phonetic Complexity':metrics['Phonetic Complexity']||8,'Time Mapping':metrics['Time Mapping']||8,'Tempo Control':metrics['Tempo Control']||8};
+    let score=((m['Cultural Relevance']||8)*w.cult+(m['Tempo Control']||8)*w.tempo+(m['Phonetic Complexity']||8)*w.phon+(m['Flow Complexity']||8)*w.flow+(m['Innovation']||8)*w.inn+(m['Semantic Depth']||8)*w.sem+(m['Time Mapping']||8)*w.time);
+    score=((score-7.0)/3.0)*100;
+    const mult={blueChip:1.18,value:1.10,emerging:1.04,speculative:1.00}[tierLabel?.toLowerCase().replace(' ','')]||1.0;
+    score*=mult;if(isDeceased)score*=1.12;if((m['Innovation']||0)>=9.5)score+=5;
+    score=Math.max(12,Math.min(98,score));
+    const grade=score>=88?'A+':score>=78?'A':score>=68?'B+':score>=58?'B':score>=44?'C':'D';
+    const tags=[{type:'strong',label:'FILM/TV'},{type:'moderate',label:'GAMING'},{type:'moderate',label:'LUXURY'}];
+    const verdict=score>=75?'Strong placement potential across premium media.':score>=55?'Moderate sync appeal in select verticals.':'Niche sync opportunities in specific contexts.';
+    return{score:Math.round(score),grade,filmTV:Math.round(score*0.9),luxury:Math.round(score*0.75),gaming:Math.round(score*0.85),streaming:Math.round(score*0.95),tags,verdict};
+  }
+
+  function renderSyncDeal(artistName, tierLabel, metrics, isDeceased) {
+    const wrap=document.getElementById('lipSyncWrap');if(!wrap)return;
+    const {score,grade,tags,verdict}=computeSyncScore(artistName,tierLabel,metrics,isDeceased);
+    wrap.classList.add('active');
+    const scoreEl=document.getElementById('lipSyncScore'),fillEl=document.getElementById('lipSyncFill'),pctEl=document.getElementById('lipSyncPct'),tagsEl=document.getElementById('lipSyncTags'),verdEl=document.getElementById('lipSyncVerdict');
+    if(scoreEl)scoreEl.textContent=grade;if(pctEl)pctEl.textContent=score+'%';if(verdEl)verdEl.textContent=verdict;
+    if(fillEl)setTimeout(()=>{fillEl.style.width=score+'%';},100);
+    if(tagsEl)tagsEl.innerHTML=tags.map(t=>`<span class="lip-sync-tag ${t.type}">${t.label}</span>`).join('');
+  }
+
+  function animateChainRef(artistName, tierLabel, metrics) {
+    if(typeof animateChain==='function') animateChain(artistName, tierLabel, metrics);
+  }
+
+  function firePanel(displayName, realName, fullName, tier, price) {
+    const tierInfo = TIER_INFO[tier]||TIER_INFO.emerging;
+    const metrics  = genMetrics(tier);
+    const location = fullName.includes(' / ')?fullName.split(' / ')[1].trim():'';
+    panel.style.display='';
+    const lipArtist=document.getElementById('lipArtist');
+    if(lipArtist)lipArtist.innerHTML=`${displayName}<span class="lip-birth-name">${realName!==displayName?' — '+realName:''}${location?' · '+location:''}</span> <span class="lip-tier-badge ${TIER_CLASS[tier]||'lip-tier-em'}">${TIER_LABEL[tier]||tier}</span>`;
+    const lipMetricsEl=document.getElementById('lipMetrics');
+    if(lipMetricsEl)lipMetricsEl.innerHTML=renderMetricChips(metrics, price);
+    const textEl=document.getElementById('lipText');if(textEl)textEl.textContent='';
+    const cursorEl=document.getElementById('lipCursor');if(cursorEl)cursorEl.style.display='none';
+    ['lipTrajWrap','lipSyncWrap','lipChainWrap'].forEach(id=>{const el=document.getElementById(id);if(el)el.classList.remove('active');});
+    const syncFill=document.getElementById('lipSyncFill');if(syncFill)syncFill.style.width='0%';
+
+    const clickedArtist=(window.allArtists||[]).find(a=>(a.displayName||a.sym)===displayName||a.sym===displayName);
+    const statusNote=clickedArtist?.deceased?' [DECEASED]':clickedArtist?.incarcerated?' [INCARCERATED]':'';
+    const fullArtistLabel=displayName+(realName!==displayName?' ('+realName+')':'')+statusNote;
+
+    // Sync window.currentArtistMetrics with snake_case keys
+    window.currentArtistSym=displayName;
+    window.currentArtistMetrics={
+      cultural_relevance:     metrics['Cultural Relevance']||8.0,
+      innovation_originality: metrics['Innovation']||8.0,
+      semantic_depth:         metrics['Semantic Depth']||8.0,
+      flow_pattern_complexity:metrics['Flow Complexity']||8.0,
+      polyrhythmic_complexity:metrics['Polyrhythmic Complexity']||8.0,
+      phonetic_complexity:    metrics['Phonetic Complexity']||8.0,
+      rhythmic_rhyme:         metrics['Rhythmic Rhyme']||8.0,
+      syntactic_complexity:   metrics['Syntactic Complexity']||8.0,
+      time_mapping:           metrics['Time Mapping']||8.0,
+      downbeat_manipulation:  metrics['Downbeat Manipulation']||8.0,
+      tempo_control:          metrics['Tempo Control']||8.0,
+    };
+
+    streamAnalysis(fullArtistLabel, tierInfo.label, price, metrics);
+    const isDeceased=!!(clickedArtist?.deceased);
+    renderSyncDeal(fullArtistLabel, tierInfo.label, metrics, isDeceased);
+    setTimeout(()=>animateChainRef(fullArtistLabel, tierInfo.label, metrics), 200);
+    setTimeout(()=>{if(typeof window.tok3nUpdate==='function')window.tok3nUpdate();else if(typeof window._rebuildLauraChain==='function')window._rebuildLauraChain();}, 150);
+    setTimeout(()=>fetchTrajectoryForecast(fullArtistLabel, tierInfo.label, price, metrics), 3000);
+  }
+
+  // Click delegation
+  document.addEventListener('click', function(e) {
+    const boardRow=e.target.closest('.board-row');
+    if (boardRow) {
+      const symEl=boardRow.querySelector('.br-sym'),nameEl=boardRow.querySelector('.br-name'),priceEl=boardRow.querySelector('.br-price');
+      const rawSym=symEl?symEl.textContent.replace(/[✦⬛ R.I.P.LOCKED]/g,'').trim():'?';
+      const rawName=nameEl?nameEl.textContent.trim():rawSym;
+      const price=priceEl?parseFloat(priceEl.textContent)||400:400;
+      const artistRealName=rawName.split(' / ')[0].trim();
+      let tier = boardRow.dataset.tier || 'blueChip';
+      if (!tier || !['blueChip','value','emerging','speculative'].includes(tier)) {
+        const oc=boardRow.getAttribute('onclick')||'';
+        const tm=oc.match(/'(blueChip|value|emerging|speculative)'/);
+        if(tm) tier=tm[1];
+        else if(boardRow.closest('#board-val'))tier='value';
+        else if(boardRow.closest('#board-em'))tier='emerging';
+        else if(boardRow.closest('#board-sp'))tier='speculative';
+      }
+      firePanel(rawSym,artistRealName,rawName,tier,price);
+    }
+  }, true);
+
+})();
+</script>
+<script>
+// ═══════════════════════════════════════════════════════════════
+// INIT + LIVE LOOPS
+// ═══════════════════════════════════════════════════════════════
+function init() {
+  initHistory();
+  buildTicker();
+  renderIndexBar();
+  renderAllBoards();
+  renderAlpha();
+  updateOrderBook('SHYHEIM','emerging',405.73);
+  updateRiskMetrics('SHYHEIM','emerging',68.4);
+  updateBlockchainMetrics('SHYHEIM','emerging',8.2);
+  updateNFTPacks('SHYHEIM','emerging',8.2);
+  updateTime();
+  initEvinsIndex();
+  initSearch();
+  for(let i=0;i<8;i++) setTimeout(addTrade, i*150);
+
+  // Boot 3D price hologram
+  if(typeof THREE!=='undefined') {
+    _buildPriceHoloScene();
+  } else {
+    const _pw=setInterval(()=>{if(typeof THREE!=='undefined'){clearInterval(_pw);_buildPriceHoloScene();}},80);
+  }
+}
+
+init();
+
+setInterval(updateMainPrice,  1800);
+setInterval(addTrade,         2200);
+setInterval(updateAllPrices,  4500);
+setInterval(updateIndices,    3800);
+setInterval(updateSignals,    5000);
+setInterval(updateTime,       1000);
+setInterval(hiqRefreshPreview,8000);
+
+window.addEventListener('resize', ()=>{
+  if(chartMode==='price'&&window._priceHoloScene){}
+  else if(chartMode==='metrics'&&window._metricsHoloScene){}
+});
+
+// Fetch live news after 1.8s
+setTimeout(()=>{
+  renderNewsItems(DEFAULT_HEADLINES);
+  fetchLiveNews();
+}, 1800);
+</script>
+</body>
+</html>
